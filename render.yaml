@@ -1,6 +1,8 @@
 services:
-  - type: static
+  - type: web
     name: proc-app
-    env: static
+    env: node
     buildCommand: npm install && npm run build
-    staticPublishPath: build
+    startCommand: npm start
+    plan: free
+    autoDeploy: true
