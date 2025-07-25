@@ -1,7 +1,1 @@
 
-services:
-  - type: static
-    name: proc-frontend
-    env: static
-    buildCommand: ""
-    staticPublishPath: public
