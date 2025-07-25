@@ -1,8 +1,7 @@
+
 services:
-  - type: web
+  - type: static
     name: proc-frontend
     env: static
+    buildCommand: ""
     staticPublishPath: public
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    autoDeploy: true
