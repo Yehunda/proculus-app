@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proculus Signal Panel</title>
+  <link rel="stylesheet" href="panel.css" />
+  <script defer src="panel.js"></script>
+</head>
+<body>
+  <header>
+    <h1>📡 Proculus Panel</h1>
+    <p class="subtitle">Signal. Track. Conquer.</p>
+  </header>
+
+  <section id="signal-area">
+    <h2>🔥 Live Signals</h2>
+    <ul id="signal-list">
+      <!-- Sinyaller buraya dinamik olarak eklenecek -->
+    </ul>
+  </section>
+
+  <section id="user-controls">
+    <h3>🔍 Takip Ettiğin Coin’ler</h3>
+    <input type="text" id="coin-input" placeholder="Örnek: ARB, TIA, ETH...">
+    <button onclick="addCoin()">Ekle</button>
+    <ul id="user-coin-list"></ul>
+  </section>
+
+  <footer>
+    <p>© 2025 Proculus Systems. All rights reserved.</p>
+  </footer>
+</body>
+</html>
