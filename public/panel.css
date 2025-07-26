@@ -100,3 +100,11 @@ body {
   margin-bottom: 8px;
   color: #333;
 }
+.sidebar .logo img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  display: block;
+  margin-bottom: 30px;
+  filter: brightness(0.9) sepia(1) hue-rotate(35deg); /* optional haki ton */
+}
