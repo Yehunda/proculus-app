@@ -1,4 +1,4 @@
-// Fetch live BTC price and update the DOM
+// BTC live price
 async function fetchBTCPrice() {
   try {
     const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
@@ -12,6 +12,38 @@ async function fetchBTCPrice() {
   }
 }
 
-// Initial fetch and refresh every 60 seconds
 fetchBTCPrice();
 setInterval(fetchBTCPrice, 60000);
+
+// Load trading signals from signals.json
+async function loadSignals() {
+  try {
+    const response = await fetch("signals.json");
+    const signals = await response.json();
+
+    const container = document.querySelector(".panel-content");
+
+    signals.forEach(signal => {
+      const box = document.createElement("div");
+      box.className = "signal-box";
+
+      const html = `
+        <h3>${signal.pair} — ${signal.type}</h3>
+        <p>Entry: $${signal.entry}</p>
+        <p>Target: $${signal.target}</p>
+        <p>Stop Loss: $${signal.stop}</p>
+        <div class="signal-comment">
+          Reason: ${signal.comment}
+        </div>
+      `;
+
+      box.innerHTML = html;
+      container.appendChild(box);
+    });
+
+  } catch (error) {
+    console.error("Failed to load signals:", error);
+  }
+}
+
+loadSignals();
