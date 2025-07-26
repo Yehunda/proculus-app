@@ -108,3 +108,12 @@ body {
   margin-bottom: 30px;
   filter: brightness(0.9) sepia(1) hue-rotate(35deg); /* optional haki ton */
 }
+.signal-box.long {
+  border-left: 5px solid #2ebd59; /* green */
+  background-color: #e9f7ef;
+}
+
+.signal-box.short {
+  border-left: 5px solid #d9534f; /* red */
+  background-color: #fcebea;
+}
