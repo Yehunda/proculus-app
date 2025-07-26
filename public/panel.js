@@ -10,7 +10,6 @@ async function fetchBTCPrice() {
     document.getElementById("btc-price").textContent = "Unable to load price";
   }
 }
-
 fetchBTCPrice();
 setInterval(fetchBTCPrice, 60000);
 
@@ -80,25 +79,9 @@ window.onclick = (event) => {
 };
 
 // === MOBILE MENU TOGGLE ===
-function toggleMenu() {
-  const menu = document.getElementById("mobileMenu");
-  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-}
-function toggleMenu() {
-  const menu = document.getElementById("mobileMenu");
-  if (menu.style.display === "flex") {
-    menu.style.display = "none";
-  } else {
-    menu.style.display = "flex";
-  }
-}
 const hamburger = document.getElementById("hamburger-menu");
 const mobileMenu = document.getElementById("mobile-menu");
 
 hamburger.addEventListener("click", () => {
-  if (mobileMenu.style.display === "flex" || mobileMenu.style.display === "block") {
-    mobileMenu.style.display = "none";
-  } else {
-    mobileMenu.style.display = "block";
-  }
+  mobileMenu.classList.toggle("show");
 });
