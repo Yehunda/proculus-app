@@ -86,3 +86,33 @@ window.onclick = (event) => {
     document.getElementById('modal').style.display = 'none';
   }
 };
+// === MODAL KONTROL ===
+const modal = document.getElementById("modal");
+const modalText = document.getElementById("modal-text");
+const confirmBtn = document.getElementById("confirm-btn");
+const closeModal = document.getElementById("closeModal");
+
+const subscribeButtons = document.querySelectorAll(".subscribe-btn");
+
+subscribeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const plan = button.parentElement.querySelector("h3").innerText;
+    modalText.innerText = `Do you want to activate the ${plan} plan?`;
+    modal.style.display = "block";
+
+    confirmBtn.onclick = () => {
+      alert(`You have selected the ${plan} plan.`);
+      modal.style.display = "none";
+    };
+  });
+});
+
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target == modal) {
+    modal.style.display = "none";
+  }
+});
