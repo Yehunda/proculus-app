@@ -1,42 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const user = {
-    name: "Yehunda",
-    role: "Founder & Admin",
-    maxSignals: "Unlimited"
-  };
+// Wait for DOM to fully load
+document.addEventListener("DOMContentLoaded", function () {
+  const menuLinks = document.querySelectorAll(".sidebar nav a");
+  const contentArea = document.querySelector(".content");
 
-  document.getElementById("user-name").textContent = user.name;
-  document.getElementById("user-role").textContent = user.role;
-  document.getElementById("user-signals").textContent = user.maxSignals;
-
-  const now = new Date();
-  document.getElementById("last-update").textContent = now.toLocaleString();
-
-  // Simulated signal example
-  const signalBox = document.getElementById("signal-box");
-  const signals = [
-    {
-      pair: "TIAUSDT",
-      direction: "LONG",
-      reason: "RSI oversold + On-chain whale accumulation",
-      confidence: "High"
-    },
-    {
-      pair: "ARBUSDT",
-      direction: "SHORT",
-      reason: "Volume drop + Bearish divergence",
-      confidence: "Medium"
-    }
-  ];
-
-  signals.forEach(signal => {
-    const div = document.createElement("div");
-    div.classList.add("signal");
-    div.innerHTML = `
-      <h3>${signal.pair} → ${signal.direction}</h3>
-      <p><strong>Reason:</strong> ${signal.reason}</p>
-      <p><strong>Confidence:</strong> ${signal.confidence}</p>
-    `;
-    signalBox.appendChild(div);
+  // Basic navigation simulation
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const page = this.getAttribute("data-page");
+      loadContent(page);
+    });
   });
+
+  function loadContent(page) {
+    contentArea.innerHTML = `<h2>Loading ${page}...</h2>`;
+    
+    // Simulate async loading
+    setTimeout(() => {
+      contentArea.innerHTML = `<h2>${page}</h2><p>This section will display the ${page.toLowerCase()} data.</p>`;
+    }, 500);
+  }
+
+  // Optional: load default page
+  loadContent("Dashboard");
 });
