@@ -47,3 +47,14 @@ async function loadSignals() {
 }
 
 loadSignals();
+function filterSignals(type) {
+  const boxes = document.querySelectorAll(".signal-box");
+
+  boxes.forEach(box => {
+    if (type === "all") {
+      box.style.display = "block";
+    } else {
+      box.style.display = box.classList.contains(type) ? "block" : "none";
+    }
+  });
+}
