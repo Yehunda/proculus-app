@@ -1,15 +1,12 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* Global styles */
 body {
-  display: flex;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 100vh;
   background-color: #0d0d0d;
   color: #f0f0f0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Sidebar */
@@ -22,53 +19,55 @@ body {
   align-items: center;
 }
 
-.sidebar img.logo {
-  width: 80px;
-  height: auto;
+.sidebar img {
+  width: 100px;
   margin-bottom: 30px;
 }
 
 .sidebar nav a {
-  color: #f0f0f0;
+  color: #ccc;
   text-decoration: none;
-  margin: 10px 0;
+  margin: 12px 0;
   display: block;
-  font-size: 16px;
-  transition: color 0.3s;
+  font-size: 15px;
+  transition: color 0.2s ease;
 }
 
 .sidebar nav a:hover {
-  color: #00c2ff;
+  color: #fff;
 }
 
-/* Main content */
+/* Main Panel */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 30px;
+  overflow-y: auto;
 }
 
+/* Header */
 .header {
   text-align: center;
   margin-bottom: 30px;
 }
 
 .header h1 {
-  font-size: 36px;
-  margin-bottom: 8px;
+  font-size: 28px;
+  margin: 0;
 }
 
 .header p {
-  font-size: 16px;
+  font-size: 14px;
   opacity: 0.6;
+  margin-top: 5px;
 }
 
-/* Content area */
+/* Content */
 .content {
-  flex: 1;
-  background-color: #141414;
+  background-color: #191919;
+  padding: 25px;
   border-radius: 10px;
-  padding: 20px;
-  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  flex-grow: 1;
 }
