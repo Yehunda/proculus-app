@@ -68,25 +68,25 @@ body {
 }
 .mobile-menu {
   display: none;
-  flex-direction: column;
-  background-color: #2d2d2d;
-  padding: 10px 20px;
   position: absolute;
+  right: 20px;
   top: 60px;
-  right: 10px;
-  width: 200px;
+  background-color: #2d2d2d;
+  padding: 15px;
+  border-radius: 6px;
   z-index: 999;
-  border-radius: 8px;
 }
+
 .mobile-menu a,
 .mobile-menu button {
   color: white;
-  text-decoration: none;
-  margin: 5px 0;
-  font-weight: bold;
+  display: block;
+  padding: 8px 0;
+  font-size: 16px;
   background: none;
   border: none;
   text-align: left;
+  cursor: pointer;
 }
 .filter-buttons {
   margin: 20px auto;
