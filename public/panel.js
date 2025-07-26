@@ -85,3 +85,8 @@ const mobileMenu = document.getElementById("mobile-menu");
 hamburger.addEventListener("click", () => {
   mobileMenu.classList.toggle("show");
 });
+window.addEventListener("click", function(event) {
+  if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+    mobileMenu.classList.remove("show");
+  }
+});
