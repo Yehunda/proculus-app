@@ -135,3 +135,53 @@ body {
 .filter-buttons button:hover {
   background-color: #bbb;
 }
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .sidebar .logo img {
+    max-width: 100px;
+    margin-bottom: 0;
+  }
+
+  .content {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .subscription-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filter-buttons button {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+}
