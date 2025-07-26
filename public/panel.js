@@ -1,26 +1,16 @@
-// Wait for DOM to fully load
-document.addEventListener("DOMContentLoaded", function () {
-  const menuLinks = document.querySelectorAll(".sidebar nav a");
-  const contentArea = document.querySelector(".content");
+document.addEventListener("DOMContentLoaded", () => {
+  const menuItems = document.querySelectorAll(".menu-item");
+  const content = document.getElementById("content-panel");
 
-  // Basic navigation simulation
-  menuLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const page = this.getAttribute("data-page");
-      loadContent(page);
+  menuItems.forEach(item => {
+    item.addEventListener("click", () => {
+      // Aktif sınıfı güncelle
+      menuItems.forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+
+      // İçeriği güncelle
+      const section = item.getAttribute("data-section");
+      content.innerHTML = `<h2>${section}</h2><p>Welcome to the ${section} section of Proculus.</p>`;
     });
   });
-
-  function loadContent(page) {
-    contentArea.innerHTML = `<h2>Loading ${page}...</h2>`;
-    
-    // Simulate async loading
-    setTimeout(() => {
-      contentArea.innerHTML = `<h2>${page}</h2><p>This section will display the ${page.toLowerCase()} data.</p>`;
-    }, 500);
-  }
-
-  // Optional: load default page
-  loadContent("Dashboard");
 });
