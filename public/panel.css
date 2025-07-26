@@ -117,3 +117,21 @@ body {
   border-left: 5px solid #d9534f; /* red */
   background-color: #fcebea;
 }
+.filter-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #ddd;
+}
+
+.filter-buttons button:hover {
+  background-color: #bbb;
+}
