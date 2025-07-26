@@ -12,8 +12,6 @@ async function fetchBTCPrice() {
     document.getElementById("btc-price").textContent = "Unable to load price";
   }
 }
-fetchBTCPrice();
-setInterval(fetchBTCPrice, 60000);
 
 // === LOAD SIGNALS ===
 async function loadSignals() {
@@ -94,4 +92,10 @@ window.addEventListener("click", function(event) {
   if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
     mobileMenu.classList.remove("show");
   }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded and parsed");
+  fetchBTCPrice();
+  setInterval(fetchBTCPrice, 60000);
+  loadSignals();
 });
