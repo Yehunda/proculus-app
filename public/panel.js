@@ -1,3 +1,5 @@
+console.log("JS file loaded");
+
 // === BTC LIVE PRICE ===
 async function fetchBTCPrice() {
   try {
