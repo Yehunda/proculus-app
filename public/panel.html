@@ -3,32 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Proculus Signal Panel</title>
+  <title>Proculus Panel</title>
   <link rel="stylesheet" href="panel.css" />
-  <script defer src="panel.js"></script>
 </head>
 <body>
-  <header>
-    <h1>📡 Proculus Panel</h1>
-    <p class="subtitle">Signal. Track. Conquer.</p>
-  </header>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="proculus-logo.png" alt="Proculus Logo" class="logo" />
+      <nav>
+        <ul>
+          <li><a href="signals.html">Signals</a></li>
+          <li><a href="nfts.html">NFT Radar</a></li>
+          <li><a href="calendar.html">Token Calendar</a></li>
+          <li><a href="announcements.html">Announcements</a></li>
+          <li><a href="settings.html">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <section id="signal-area">
-    <h2>🔥 Live Signals</h2>
-    <ul id="signal-list">
-      <!-- Sinyaller buraya dinamik olarak eklenecek -->
-    </ul>
-  </section>
+    <!-- Main Content -->
+    <main class="main">
+      <header class="header">
+        <h1>PROCULUS</h1>
+        <p>Eyes Beyond the Chain</p>
+      </header>
+      <section class="content">
+        <p>Welcome to your Proculus dashboard. Select a section from the left menu.</p>
+      </section>
+    </main>
+  </div>
 
-  <section id="user-controls">
-    <h3>🔍 Takip Ettiğin Coin’ler</h3>
-    <input type="text" id="coin-input" placeholder="Örnek: ARB, TIA, ETH...">
-    <button onclick="addCoin()">Ekle</button>
-    <ul id="user-coin-list"></ul>
-  </section>
-
-  <footer>
-    <p>© 2025 Proculus Systems. All rights reserved.</p>
-  </footer>
+  <script src="panel.js"></script>
 </body>
 </html>
