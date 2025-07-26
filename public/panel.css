@@ -275,4 +275,6 @@ body {
   .mobile-menu.show {
     display: flex;
   }
+.show {
+  display: flex !important;
 }
