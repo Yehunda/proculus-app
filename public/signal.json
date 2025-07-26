@@ -1,0 +1,18 @@
+[
+  {
+    "pair": "BTCUSDT",
+    "type": "LONG",
+    "entry": "102500",
+    "target": "112000",
+    "stop": "98500",
+    "comment": "Breakout above resistance with strong volume."
+  },
+  {
+    "pair": "ETHUSDT",
+    "type": "SHORT",
+    "entry": "5800",
+    "target": "5150",
+    "stop": "6000",
+    "comment": "Rejection at key Fibonacci resistance zone."
+  }
+]
