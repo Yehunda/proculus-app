@@ -25,7 +25,7 @@ async function loadSignals() {
 
     signals.forEach(signal => {
       const box = document.createElement("div");
-      box.className = "signal-box";
+      box.className = `signal-box ${signal.type.toLowerCase()}`; // e.g. "signal-box long"
 
       const html = `
         <h3>${signal.pair} — ${signal.type}</h3>
