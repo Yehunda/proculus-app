@@ -184,4 +184,27 @@ body {
     width: 80%;
     margin-bottom: 10px;
   }
+.subscribe-btn {
+  margin-top: 15px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2d89ef;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.subscribe-btn:hover {
+  background-color: #1b6edc;
+}
+
+.subscribe-btn.trial {
+  background-color: #28a745;
+}
+
+.subscribe-btn.trial:hover {
+  background-color: #1e8e3e;
 }
