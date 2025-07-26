@@ -71,6 +71,12 @@ body {
   flex-direction: column;
   background-color: #2d2d2d;
   padding: 10px 20px;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 200px;
+  z-index: 999;
+  border-radius: 8px;
 }
 .mobile-menu a,
 .mobile-menu button {
