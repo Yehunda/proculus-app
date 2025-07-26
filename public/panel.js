@@ -15,9 +15,12 @@ setInterval(fetchBTCPrice, 60000);
 
 // === LOAD SIGNALS ===
 async function loadSignals() {
+  console.log("Trying to fetch signals...");
   try {
     const response = await fetch("signals.json");
     const signals = await response.json();
+    console.log("Signals received:", signals);
+    
     const container = document.getElementById("signals-container");
 
     signals.forEach(signal => {
