@@ -21,7 +21,7 @@ async function loadSignals() {
     const response = await fetch("signals.json");
     const signals = await response.json();
 
-    const container = document.querySelector(".panel-content");
+    const container = document.getElementById("signals-container");
 
     signals.forEach(signal => {
       const box = document.createElement("div");
@@ -94,7 +94,6 @@ const closeModal = document.getElementById("closeModal");
 
 const subscribeButtons = document.querySelectorAll(".subscribe-btn");
 
-subscribeButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const plan = button.parentElement.querySelector("h3").innerText;
     modalText.innerText = `Do you want to activate the ${plan} plan?`;
