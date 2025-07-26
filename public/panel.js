@@ -58,3 +58,31 @@ function filterSignals(type) {
     }
   });
 }
+document.querySelectorAll('.subscribe-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const plan = button.closest('.card').querySelector('h3').innerText;
+    document.getElementById('modal-text').innerText = `Do you want to activate the ${plan} plan?`;
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('confirm-btn').setAttribute('data-plan', plan.toLowerCase());
+  });
+});
+
+document.getElementById('closeModal').onclick = () => {
+  document.getElementById('modal').style.display = 'none';
+};
+
+document.getElementById('confirm-btn').onclick = () => {
+  const selectedPlan = document.getElementById('confirm-btn').getAttribute('data-plan');
+  localStorage.setItem('selectedPlan', selectedPlan);
+  alert(`"${selectedPlan}" plan activated!`);
+  document.getElementById('modal').style.display = 'none';
+
+  // Optional: redirect user
+  // window.location.href = "checkout.html";
+};
+
+window.onclick = (event) => {
+  if (event.target.classList.contains('modal')) {
+    document.getElementById('modal').style.display = 'none';
+  }
+};
