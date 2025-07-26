@@ -1,16 +1,17 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const menuItems = document.querySelectorAll(".menu-item");
-  const content = document.getElementById("content-panel");
+// Fetch live BTC price and update the DOM
+async function fetchBTCPrice() {
+  try {
+    const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+    const data = await response.json();
+    const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 
-  menuItems.forEach(item => {
-    item.addEventListener("click", () => {
-      // Aktif sınıfı güncelle
-      menuItems.forEach(i => i.classList.remove("active"));
-      item.classList.add("active");
+    document.getElementById("btc-price").textContent = price;
+  } catch (error) {
+    console.error("Error fetching BTC price:", error);
+    document.getElementById("btc-price").textContent = "Unable to load price";
+  }
+}
 
-      // İçeriği güncelle
-      const section = item.getAttribute("data-section");
-      content.innerHTML = `<h2>${section}</h2><p>Welcome to the ${section} section of Proculus.</p>`;
-    });
-  });
-});
+// Initial fetch and refresh every 60 seconds
+fetchBTCPrice();
+setInterval(fetchBTCPrice, 60000);
