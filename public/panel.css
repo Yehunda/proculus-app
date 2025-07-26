@@ -258,9 +258,21 @@ body {
     display: block;
   }
   .mobile-menu {
-    display: flex;
+    display: none;
+    flex-direction: column;
+    background-color: #2d2d2d;
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    padding: 10px;
+    border-radius: 6px;
+    z-index: 999;
   }
   .auth-buttons {
     display: none;
+  }
+
+  .mobile-menu.show {
+    display: flex;
   }
 }
