@@ -194,3 +194,60 @@ body {
   color: #ddd;
   margin-bottom: 6px;
 }
+/* TOPBAR ALIGNMENT */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-link {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+.top-link:hover {
+  color: #fff;
+}
+
+.top-btn {
+  background-color: #2d2d2d;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.top-btn:hover {
+  background-color: #444;
+}
+
+/* LIGHT MODE SUPPORT */
+body.light-mode {
+  background-color: #f4f4f4;
+  color: #111;
+}
+body.light-mode .panel-content,
+body.light-mode .card,
+body.light-mode .signal-history,
+body.light-mode .highlighted-signal,
+body.light-mode .modal-content {
+  background-color: #fff;
+  color: #111;
+}
+body.light-mode .subscribe-btn,
+body.light-mode .top-btn {
+  background-color: #444;
+  color: white;
+}
