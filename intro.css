@@ -1,0 +1,130 @@
+/* === intro.css === */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2d2d2d;
+  color: white;
+  padding: 10px 20px;
+}
+.top-left {
+  display: flex;
+  align-items: center;
+}
+.top-logo {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+.title-slogan {
+  display: flex;
+  flex-direction: column;
+}
+.title-slogan .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.title-slogan .slogan {
+  font-size: 12px;
+  color: #bbb;
+}
+.panel-content {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #111;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+.subscription-section {
+  margin-top: 30px;
+}
+.subscription-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.card {
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 2px 6px rgba(255,255,255,0.05);
+}
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.card .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+.card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 15px;
+}
+.card ul li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #ccc;
+}
+.subscribe-btn {
+  background-color: #2d89ef;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+.subscribe-btn:hover {
+  opacity: 0.9;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background-color: #1a1a1a;
+  color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.close {
+  color: #bbb;
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #fff;
+}
