@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Proculus – Entry Page</title>
   <link rel="stylesheet" href="intro.css" />
+  
+  <!-- Web3Modal and wagmi libraries for wallet connection -->
+<script src="https://unpkg.com/@web3modal/wagmi@2.6.3/dist/index.js"></script>
+<script src="https://unpkg.com/@web3modal/ethers@2.6.3/dist/index.js"></script>
 </head>
 <body>
 
@@ -200,6 +204,39 @@
     localStorage.setItem("theme", currentMode);
   });
   </script>
+  <!-- Wallet Connect script block START -->
+<script type="module">
+  import { EthereumClient, w3mConnectors, w3mProvider } from "https://unpkg.com/@web3modal/ethereum@2.6.3";
+  import { Web3Modal } from "https://unpkg.com/@web3modal/html@2.6.3";
+  import { configureChains, createConfig, WagmiConfig } from "https://unpkg.com/@web3modal/wagmi@2.6.3";
+  import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from "https://unpkg.com/@wagmi/core/chains";
+
+  const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
+  const projectId = "demo"; // Replace with your own projectId from Web3Modal if needed
+
+  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient
+  });
+
+  const ethereumClient = new EthereumClient(wagmiConfig, chains);
+
+  const modal = new Web3Modal({
+    projectId,
+    themeMode: "dark",
+    accentColor: "default",
+    walletConnectVersion: 2
+  }, ethereumClient);
+
+  // Button click handler
+  document.getElementById("wallet-connect").addEventListener("click", () => {
+    modal.openModal();
+  });
+</script>
+<!-- Wallet Connect script block END -->
 
 </body>
 </html>
