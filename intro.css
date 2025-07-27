@@ -160,3 +160,33 @@ body {
   color: #bbb;
   margin-top: 8px;
 }
+/* === Market Panel === */
+.market-panel {
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  z-index: 500;
+}
+
+.market-panel h3 {
+  color: #4caf50;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.market-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.market-list li {
+  font-size: 14px;
+  color: #ddd;
+  margin-bottom: 6px;
+}
