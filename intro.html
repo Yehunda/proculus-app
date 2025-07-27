@@ -27,6 +27,8 @@
   <h3>Live Prices</h3>
   <p id="btc-price">BTC: Loading...</p>
   <p id="eth-price">ETH: Loading...</p>
+      <p id="btc-dominance">BTC Dominance: Loading...</p>
+<p id="total-market-cap">Total Market Cap: Loading...</p>
 </div>
     
     <section class="subscription-section">
@@ -91,7 +93,7 @@
     </div>
   </div>
 
-  <script>
+    <script>
     const modal = document.getElementById("modal");
     const modalText = document.getElementById("modal-text");
     const confirmBtn = document.getElementById("confirm-btn");
@@ -122,26 +124,27 @@
         modal.style.display = "none";
       }
     };
-    <script>
-async function fetchPrices() {
-  try {
-    const btcRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
-    const ethRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
 
-    const btcData = await btcRes.json();
-    const ethData = await ethRes.json();
+    // 🟢 BTC ve ETH fiyatlarını getir
+    async function fetchPrices() {
+      try {
+        const btcRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+        const ethRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
 
-    document.getElementById("btc-price").innerText = `BTC: $${btcData.bitcoin.usd.toLocaleString()}`;
-    document.getElementById("eth-price").innerText = `ETH: $${ethData.ethereum.usd.toLocaleString()}`;
-  } catch (error) {
-    document.getElementById("btc-price").innerText = "BTC: Error";
-    document.getElementById("eth-price").innerText = "ETH: Error";
-  }
-}
+        const btcData = await btcRes.json();
+        const ethData = await ethRes.json();
 
-fetchPrices();
-setInterval(fetchPrices, 60000); 
-</script>
+        document.getElementById("btc-price").innerText = `BTC: $${btcData.bitcoin.usd.toLocaleString()}`;
+        document.getElementById("eth-price").innerText = `ETH: $${ethData.ethereum.usd.toLocaleString()}`;
+      } catch (error) {
+        document.getElementById("btc-price").innerText = "BTC: Error";
+        document.getElementById("eth-price").innerText = "ETH: Error";
+      }
+    }
+
+    fetchPrices();
+    setInterval(fetchPrices, 60000);
+  </script>
 
 </body>
 </html>
