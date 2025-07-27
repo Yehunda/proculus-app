@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="panel.css">
 </head>
 <body>
+  <script>
+  const plan = localStorage.getItem("selectedPlan");
+  if (!plan) {
+    window.location.href = "intro.html";
+  }
+</script>
  <header class="topbar">
   <div class="top-left">
     <img src="proculus-logo.png" alt="Proculus Logo" class="top-logo">
