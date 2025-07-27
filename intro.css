@@ -52,9 +52,11 @@ body {
 }
 .subscription-cards {
   display: flex;
-  gap: 20px;
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 20px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: stretch;
 }
 .card {
   background-color: #1c1c1c;
