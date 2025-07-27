@@ -179,6 +179,15 @@
 
     fetchPrices();
     setInterval(fetchPrices, 60000);
+      
+          // Mode toggle: Light / Dark
+    const modeToggle = document.getElementById("mode-toggle");
+
+    modeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      const isLight = document.body.classList.contains("light-mode");
+      modeToggle.textContent = isLight ? "☀️" : "🌙";
+    });
   </script>
 
 </body>
