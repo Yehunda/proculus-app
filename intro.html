@@ -23,19 +23,12 @@
     <p>Proculus is a smart analytics platform offering private crypto signals for investors.  
     Choose one of the plans below to access your personalized signal panel.</p>
 
-    <div class="price-widget">
-  <h3>Live Prices</h3>
-  <p id="btc-price">BTC: Loading...</p>
-  <p id="eth-price">ETH: Loading...</p>
-      <p id="btc-dominance">BTC Dominance: Loading...</p>
-<p id="total-market-cap">Total Market Cap: Loading...</p>
-</div>
     
     <section class="subscription-section">
       <div class="subscription-cards">
         <div class="card">
           <h3>Daily Plan</h3>
-          <div class="price">$3.3</div>
+          <div class="price">$4.99</div>
           <ul>
             <li>24-hour access</li>
             <li>Daily market insights</li>
@@ -46,7 +39,7 @@
 
         <div class="card">
           <h3>Monthly Plan</h3>
-          <div class="price">$33</div>
+          <div class="price">$44.99</div>
           <ul>
             <li>All coin signals</li>
             <li>Risk alert system</li>
@@ -57,7 +50,7 @@
 
         <div class="card">
           <h3>Yearly Plan</h3>
-          <div class="price">$330</div>
+          <div class="price">$444.99</div>
           <ul>
             <li>Full access to Pro features</li>
             <li>Bot trading integration</li>
@@ -81,7 +74,33 @@
     <p class="highlight-comment">Rejected at major resistance. Quick drop with volume spike.</p>
   </div>
 </section>
-  </main>
+
+  <aside class="market-panel">
+  <h3>Market Overview</h3>
+  <ul class="market-list">
+    <li id="btc-price">BTC: Loading...</li>
+    <li id="eth-price">ETH: Loading...</li>
+    <li id="sol-price">SOL: Loading...</li>
+    <li id="bnb-price">BNB: Loading...</li>
+    <li id="xrp-price">XRP: Loading...</li>
+    <li id="avax-price">AVAX: Loading...</li>
+    <li id="link-price">LINK: Loading...</li>
+    <li id="dot-price">DOT: Loading...</li>
+    <li id="xmr-price">XMR: Loading...</li>
+    <li id="doge-price">DOGE: Loading...</li>
+    <li id="trx-price">TRX: Loading...</li>
+    <li id="ada-price">ADA: Loading...</li>
+    <li id="hype-price">HYPE: Loading...</li>
+    <li id="sui-price">SUI: Loading...</li>
+    <li id="tao-price">TAO: Loading...</li>
+    <li id="ena-price">ENA: Loading...</li>
+    <li id="ondo-price">ONDO: Loading...</li>
+    <li id="pepe-price">PEPE: Loading...</li>
+    <li id="btc-dominance">BTC Dominance: Loading...</li>
+    <li id="total-market-cap">Total Market Cap: Loading...</li>
+  </ul>
+</aside>
+    </main>
 
   <!-- Modal (confirmation popup) -->
   <div class="modal" id="modal">
@@ -125,7 +144,6 @@
       }
     };
 
-    // 🟢 BTC ve ETH fiyatlarını getir
     async function fetchPrices() {
       try {
         const btcRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
