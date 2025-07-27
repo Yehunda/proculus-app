@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proculus – Entry Page</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="top-left">
+      <img src="proculus-logo.png" class="top-logo" alt="Proculus Logo" />
+      <div class="title-slogan">
+        <span class="title">PROCULUS</span>
+        <span class="slogan">Smart Signals. Smarter Moves.</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="panel-content">
+    <h1>Welcome</h1>
+    <p>Proculus is a smart analytics platform offering private crypto signals for investors.  
+    Choose one of the plans below to access your personalized signal panel.</p>
+
+    <section class="subscription-section">
+      <div class="subscription-cards">
+        <div class="card">
+          <h3>Daily Plan</h3>
+          <div class="price">$4.99</div>
+          <ul>
+            <li>24-hour access</li>
+            <li>Daily market insights</li>
+            <li>Live BTC price</li>
+          </ul>
+          <button class="subscribe-btn" data-plan="daily">Subscribe</button>
+        </div>
+
+        <div class="card">
+          <h3>Monthly Plan</h3>
+          <div class="price">$29.99</div>
+          <ul>
+            <li>All coin signals</li>
+            <li>Risk alert system</li>
+            <li>Telegram notifications</li>
+          </ul>
+          <button class="subscribe-btn" data-plan="monthly">Subscribe</button>
+        </div>
+
+        <div class="card">
+          <h3>Yearly Plan</h3>
+          <div class="price">$299</div>
+          <ul>
+            <li>Full access to Pro features</li>
+            <li>Bot trading integration</li>
+            <li>VIP support</li>
+          </ul>
+          <button class="subscribe-btn" data-plan="yearly">Subscribe</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal (confirmation popup) -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Confirm Plan</h2>
+      <p id="modal-text">Do you want to activate this plan?</p>
+      <button id="confirm-btn">Confirm</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("modal");
+    const modalText = document.getElementById("modal-text");
+    const confirmBtn = document.getElementById("confirm-btn");
+    const closeModal = document.getElementById("closeModal");
+
+    document.querySelectorAll(".subscribe-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const plan = button.getAttribute("data-plan");
+        modalText.innerText = `Do you want to activate the "${plan}" plan?`;
+        modal.style.display = "block";
+        confirmBtn.setAttribute("data-plan", plan);
+      });
+    });
+
+    confirmBtn.onclick = () => {
+      const selectedPlan = confirmBtn.getAttribute("data-plan");
+      localStorage.setItem("selectedPlan", selectedPlan);
+      modal.style.display = "none";
+      window.location.href = "panel.html";
+    };
+
+    closeModal.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    window.onclick = (event) => {
+      if (event.target.classList.contains("modal")) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+</body>
+</html>
