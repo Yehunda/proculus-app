@@ -1,8 +1,7 @@
-import { Web3Modal } from 'https://unpkg.com/@web3modal/html@2.7.2/dist/index.js';
-import { EthereumClient, w3mConnectors, w3mProvider } from 'https://unpkg.com/@web3modal/ethereum@2.7.2/dist/index.js';
-import { configureChains, createConfig } from 'https://unpkg.com/@wagmi/core@1.4.0/dist/index.js';
-import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from 'https://unpkg.com/@wagmi/chains@1.4.0/dist/index.js';
-
+import { Web3Modal } from './web3modal/html.js';
+import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum.js';
+import { configureChains, createConfig } from './web3modal/core.js';
+import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chains.js';
 const projectId = 'demo'; // kendi Project ID’n varsa buraya yaz
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
