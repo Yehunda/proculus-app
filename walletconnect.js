@@ -1,7 +1,7 @@
 import { Web3Modal } from './web3modal/html.js';
 import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum.js';
 import { configureChains, createConfig } from './web3modal/core.js';
-import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chains.js';
+import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chain.js';
 const projectId = 'a64004a6d07f7e8f7c8a2bb7b8c0fa50'; 
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
