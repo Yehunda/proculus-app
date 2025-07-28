@@ -26,10 +26,14 @@ const modal = new Web3Modal(
   ethereumClient
 );
 
+console.log("WalletConnect script loaded");
+
 window.addEventListener('DOMContentLoaded', () => {
   const walletButton = document.getElementById('wallet-connect');
   if (walletButton) {
+    console.log("Wallet button found. Adding event listener...");
     walletButton.addEventListener('click', () => {
+      console.log("Wallet button clicked. Opening modal...");
       modal.openModal();
     });
   } else {
