@@ -1,20 +1,13 @@
 // walletconnect.js
 
-import { EthereumClient, w3mConnectors, w3mProvider } from './ethereum.js';
-import { Web3Modal } from './html.js';
-import { configureChains, createConfig } from './wagmi.js';
-import {
-  mainnet,
-  polygon,
-  avalanche,
-  arbitrum,
-  optimism,
-  base,
-  bsc
-} from './wagmi.js';
+import { Web3Modal } from 'https://unpkg.com/@web3modal/html@2.7.2/dist/index.js';
+import { EthereumClient, w3mConnectors, w3mProvider } from 'https://unpkg.com/@web3modal/ethereum@2.7.2/dist/index.js';
+import { configureChains, createConfig } from 'https://unpkg.com/@wagmi/core@1.4.0/dist/index.js';
+import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from 'https://unpkg.com/@wagmi/chains@1.4.0/dist/index.js';
+
+const projectId = 'demo'; // kendi Project ID’n varsa buraya yaz
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
-const projectId = 'demo';
 
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
@@ -36,9 +29,11 @@ const modal = new Web3Modal(
   ethereumClient
 );
 
-const walletButton = document.getElementById('wallet-connect');
-if (walletButton) {
-  walletButton.addEventListener('click', () => {
-    modal.openModal();
-  });
-}
+window.addEventListener('DOMContentLoaded', () => {
+  const walletButton = document.getElementById('wallet-connect');
+  if (walletButton) {
+    walletButton.addEventListener('click', () => {
+      modal.openModal();
+    });
+  }
+});
