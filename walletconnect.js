@@ -3,11 +3,10 @@ import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum
 import { configureChains, createConfig } from './web3modal/core.js';
 import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chains.js';
 
-// ✅ Web3Modal Configuration
-const projectId = 'demo'; // ⚠️ Replace this with your actual project ID from WalletConnect
+// ✅ Project ID – Replace this with your real one later
+const projectId = 'demo';
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
-
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
 const wagmiConfig = createConfig({
@@ -28,8 +27,8 @@ const modal = new Web3Modal(
   ethereumClient
 );
 
-// ✅ Save wallet address and update UI
-async function saveWalletAddress() {
+// ✅ Save wallet address & UI update
+async function saveWalletAddress(redirect = false) {
   if (window.ethereum) {
     try {
       const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -48,38 +47,42 @@ async function saveWalletAddress() {
           walletSpan.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
         }
 
-        // Show logout button if available
         if (typeof toggleLogoutVisibility === 'function') {
           toggleLogoutVisibility(true);
         }
 
-        // ✅ Redirect to panel
-        window.location.href = 'panel.html';
+        if (redirect) {
+          window.location.href = 'panel.html';
+        }
       }
-    } catch (error) {
-      console.error("Failed to fetch address:", error);
+    } catch (err) {
+      console.error('Wallet address fetch failed:', err);
     }
   }
 }
 
-// ✅ Initialize on page load
+// ✅ On load
 window.addEventListener('DOMContentLoaded', () => {
   const walletButton = document.getElementById('wallet-connect');
-
   const saved = localStorage.getItem('walletAddress');
+
   if (saved && walletButton) {
     walletButton.textContent = `${saved.slice(0, 6)}...${saved.slice(-4)}`;
+    const walletSpan = document.getElementById('wallet-address');
+    if (walletSpan) {
+      walletSpan.textContent = `Connected: ${saved.slice(0, 6)}...${saved.slice(-4)}`;
+    }
     if (typeof toggleLogoutVisibility === 'function') {
       toggleLogoutVisibility(true);
     }
   }
 
+  // 🔌 Wallet connect click
   if (walletButton) {
     walletButton.addEventListener('click', async () => {
-      const isConnected = localStorage.getItem('walletAddress');
-      if (!isConnected) {
+      if (!localStorage.getItem('walletAddress')) {
         await modal.openModal();
-        await saveWalletAddress();
+        await saveWalletAddress(true); // redirect to panel.html
       }
     });
   }
@@ -89,6 +92,4 @@ window.addEventListener('DOMContentLoaded', () => {
       saveWalletAddress();
     });
   }
-
-  saveWalletAddress();
 });
