@@ -1,1 +1,13 @@
-export { configureChains, createConfig } from 'https://unpkg.com/@wagmi/core@1.4.0/dist/index.js';
+export function configureChains(chains, providers) {
+  return {
+    publicClient: providers[0]
+  };
+}
+
+export function createConfig({ autoConnect, connectors, publicClient }) {
+  return {
+    autoConnect,
+    connectors,
+    publicClient
+  };
+}
