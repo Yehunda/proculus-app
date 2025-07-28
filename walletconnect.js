@@ -1,5 +1,3 @@
-// walletconnect.js
-
 import { Web3Modal } from 'https://unpkg.com/@web3modal/html@2.7.2/dist/index.js';
 import { EthereumClient, w3mConnectors, w3mProvider } from 'https://unpkg.com/@web3modal/ethereum@2.7.2/dist/index.js';
 import { configureChains, createConfig } from 'https://unpkg.com/@wagmi/core@1.4.0/dist/index.js';
@@ -35,5 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
     walletButton.addEventListener('click', () => {
       modal.openModal();
     });
+  } else {
+    console.error("Wallet button not found in DOM.");
   }
 });
