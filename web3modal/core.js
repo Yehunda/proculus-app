@@ -1,13 +1,6 @@
-export function configureChains(chains, providers) {
-  return {
-    publicClient: providers[0]
-  };
-}
+// core.js
+import { configureChains as wagmiConfigureChains } from './wagmi-config.js';
+import { createConfig as wagmiCreateConfig } from './wagmi-config.js';
 
-export function createConfig({ autoConnect, connectors, publicClient }) {
-  return {
-    autoConnect,
-    connectors,
-    publicClient
-  };
-}
+export const configureChains = wagmiConfigureChains;
+export const createConfig = wagmiCreateConfig;
