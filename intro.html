@@ -235,6 +235,30 @@
     });
   </script>
 
+  <script>
+  // 🔌 Logout işlemi
+  const logoutBtn = document.getElementById('logout-btn');
+
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('walletAddress');
+
+    const walletButton = document.getElementById('wallet-connect');
+    const walletSpan = document.getElementById('wallet-address');
+
+    if (walletButton) walletButton.textContent = 'Login / Signup';
+    if (walletSpan) walletSpan.textContent = '';
+    logoutBtn.style.display = 'none';
+  });
+
+  // Eğer adres varsa Logout butonunu göster
+  function toggleLogoutVisibility(addressExists) {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.style.display = addressExists ? 'inline-block' : 'none';
+    }
+  }
+</script>
+  
    <!-- Yerel Web3 bağlantısı -->
   <script type="module" src="./walletconnect.js"></script>
 
