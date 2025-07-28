@@ -1,3 +1,2 @@
-import { Web3Modal } from '@web3modal/html';
-
-export { Web3Modal };
+// html.js
+export { Web3Modal } from 'https://unpkg.com/@web3modal/html@2.6.3/dist/index.js';
