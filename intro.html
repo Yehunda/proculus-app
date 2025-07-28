@@ -209,7 +209,7 @@
   import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/wagmi.js';
 
   const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
-  const projectId = "demo"; // Replace with your actual projectId from Web3Modal
+  const projectId = "demo";
 
   const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
@@ -231,9 +231,12 @@
     ethereumClient
   );
 
-  document.getElementById("wallet-connect").addEventListener("click", () => {
-    modal.openModal();
-  });
+  const walletBtn = document.getElementById("wallet-connect");
+  if (walletBtn) {
+    walletBtn.addEventListener("click", () => {
+      modal.openModal();
+    });
+  }
 </script>
 
 </body>
