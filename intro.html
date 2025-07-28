@@ -56,7 +56,6 @@
             <li>Mobile app access</li>
             <li>Coin watchlist</li>
             <li class="highlight">+ 3 days free trial</li>
-            <li class="highlight">+ Bonus features</li>
           </ul>
           <button class="subscribe-btn" data-plan="monthly">Start Free Trial</button>
         </div>
@@ -71,8 +70,6 @@
             <li>Presale insights</li>
             <li>Token unlock calendar</li>
             <li class="highlight">+ 3 days free trial</li>
-            <li class="highlight">+ Bonus features</li>
-            <li class="highlight">VIP support</li>
           </ul>
           <button class="subscribe-btn" data-plan="yearly">Start Free Trial</button>
         </div>
@@ -168,7 +165,7 @@
         const coinIds = [
           'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
           'polkadot', 'monero', 'dogecoin', 'tron', 'cardano',
-          'hype', 'sui', 'tao', 'ethena', 'ondoland', 'pepe'
+          'hype', 'sui', 'bittensor', 'ethena', 'ondoland', 'pepe', 'kaspa', 'arbitrum', 'render', 'celestia', 'hyperliquid'
         ];
 
         const coinRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
@@ -251,12 +248,12 @@
   });
 
   // Eğer adres varsa Logout butonunu göster
-  function toggleLogoutVisibility(addressExists) {
+  function toggleLogoutVisibility(show) {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
-      logoutBtn.style.display = addressExists ? 'inline-block' : 'none';
+      logoutBtn.style.display = show ? 'inline-block' : 'none';
     }
-  }
+ }  
 </script>
 
   <!-- ✅ Login yapılmışsa panel sayfasına yönlendir -->
