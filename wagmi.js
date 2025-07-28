@@ -1,15 +1,21 @@
-// wagmi.js
-export {
-  configureChains,
-  createConfig
-} from 'https://unpkg.com/@wagmi/core@1.4.0/dist/index.js';
-
-export {
+import { configureChains, createConfig } from '@wagmi/core';
+import { publicProvider } from '@wagmi/core/providers/public';
+import {
   mainnet,
   polygon,
-  avalanche,
   arbitrum,
+  avalanche,
   optimism,
   base,
-  bsc
-} from 'https://unpkg.com/@wagmi/chains@1.4.0/dist/index.js';
+  bsc,
+} from '@wagmi/core/chains';
+
+export const { chains, publicClient } = configureChains(
+  [mainnet, polygon, arbitrum, avalanche, optimism, base, bsc],
+  [publicProvider()],
+);
+
+export const wagmiConfig = createConfig({
+  autoConnect: true,
+  publicClient,
+});
