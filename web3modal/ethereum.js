@@ -1,2 +1,24 @@
-import { EthereumClient, w3mConnectors, w3mProvider } from 'https://unpkg.com/@web3modal/ethereum@2.7.2/dist/index.js';
-export { EthereumClient, w3mConnectors, w3mProvider };
+export class EthereumClient {
+  constructor(config, chains) {
+    this.config = config;
+    this.chains = chains;
+  }
+}
+
+export function w3mConnectors({ projectId, chains }) {
+  return [
+    {
+      id: 'injected',
+      name: 'Injected',
+      ready: true
+    }
+  ];
+}
+
+export function w3mProvider({ projectId }) {
+  return {
+    request: async ({ method, params }) => {
+      return Promise.resolve();
+    }
+  };
+}
