@@ -1,4 +1,3 @@
-import { EthereumClient } from '@web3modal/ethereum';
-import { w3mConnectors, w3mProvider } from '@web3modal/ethereum';
-
+// ethereum.js
+import { EthereumClient, w3mConnectors, w3mProvider } from 'https://unpkg.com/@web3modal/ethereum@2.6.3/dist/index.js';
 export { EthereumClient, w3mConnectors, w3mProvider };
