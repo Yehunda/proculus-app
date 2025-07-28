@@ -55,8 +55,8 @@
             <li>Bot integration</li>
             <li>Mobile app access</li>
             <li>Coin watchlist</li>
-            <li>+ 3 days free trial</li>
-            <li>+ Bonus features</li>
+            <li class="highlight">+ 3 days free trial</li>
+            <li class="highlight">+ Bonus features</li>
           </ul>
           <button class="subscribe-btn" data-plan="monthly">Start Free Trial</button>
         </div>
@@ -70,9 +70,9 @@
             <li>NFT radar</li>
             <li>Presale insights</li>
             <li>Token unlock calendar</li>
-            <li>+ 3 days free trial</li>
-            <li>+ Bonus features</li>
-            <li>VIP support</li>
+            <li class="highlight">+ 3 days free trial</li>
+            <li class="highlight">+ Bonus features</li>
+            <li class="highlight">VIP support</li>
           </ul>
           <button class="subscribe-btn" data-plan="yearly">Start Free Trial</button>
         </div>
@@ -161,29 +161,72 @@
         modal.style.display = "none";
       }
     };
+  </script>
 
-    async function fetchPrices() {
-      try {
-        const btcRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
-        const ethRes = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd");
+<script>
+       async function fetchPrices() {
+  try {
+    const coinIds = [
+      'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
+      'polkadot', 'monero', 'dogecoin', 'tron', 'cardano',
+      'hype', 'sui', 'tao', 'ethena', 'ondoland', 'pepe'
+    ];
 
-        const btcData = await btcRes.json();
-        const ethData = await ethRes.json();
+    const coinRes = await fetch(
+      `https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`
+    );
+    const coinData = await coinRes.json();
 
-        document.getElementById("btc-price").innerText = `BTC: $${btcData.bitcoin.usd.toLocaleString()}`;
-        document.getElementById("eth-price").innerText = `ETH: $${ethData.ethereum.usd.toLocaleString()}`;
-      } catch (error) {
-        document.getElementById("btc-price").innerText = "BTC: Error";
-        document.getElementById("eth-price").innerText = "ETH: Error";
-      }
+    const map = {
+      bitcoin: 'btc-price',
+      ethereum: 'eth-price',
+      solana: 'sol-price',
+      binancecoin: 'bnb-price',
+      ripple: 'xrp-price',
+      avalanche-2: 'avax-price',
+      chainlink: 'link-price',
+      polkadot: 'dot-price',
+      monero: 'xmr-price',
+      dogecoin: 'doge-price',
+      tron: 'trx-price',
+      cardano: 'ada-price',
+      hype: 'hype-price',
+      sui: 'sui-price',
+      tao: 'tao-price',
+      ethena: 'ena-price',
+      ondoland: 'ondo-price',
+      pepe: 'pepe-price'
+    };
+
+    for (const [key, id] of Object.entries(map)) {
+      const price = coinData[key]?.usd;
+      document.getElementById(id).innerText = `${id.split('-')[0].toUpperCase()}: $${price?.toLocaleString() || 'Error'}`;
     }
 
-    fetchPrices();
-    setInterval(fetchPrices, 60000);
-      </script>
-      
+    // BTC Dominance ve Total Market Cap
+    const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
+    const globalData = await globalRes.json();
+
+    const dominance = globalData.data.market_cap_percentage?.btc;
+    const marketCap = globalData.data.total_market_cap?.usd;
+
+    document.getElementById("btc-dominance").innerText = `BTC Dominance: ${dominance?.toFixed(2) || 'Error'}%`;
+    document.getElementById("total-market-cap").innerText = `Total Market Cap: $${marketCap?.toLocaleString() || 'Error'}`;
+
+  } catch (error) {
+    console.error("Price fetch error:", error);
+    const allIds = Object.values(map).concat(['btc-dominance', 'total-market-cap']);
+    allIds.forEach(id => {
+      document.getElementById(id).innerText = `${id.split('-')[0].toUpperCase()}: Error`;
+    });
+  }
+}
+
+fetchPrices();
+setInterval(fetchPrices, 60000);
+</script>
+
     <script>
-  // Apply saved theme on page load
   window.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
@@ -202,7 +245,47 @@
   });
   </script>
 
-  <script type="module" src="walletconnect.js"></script>
+  <!-- Web3Modal SDK -->
+<script type="module">
+  import { Web3Modal } from 'https://unpkg.com/@web3modal/html@2.7.2/dist/index.js';
+  import { EthereumClient, w3mConnectors, w3mProvider } from 'https://unpkg.com/@web3modal/ethereum@2.7.2/dist/index.js';
+  import { configureChains, createConfig } from 'https://unpkg.com/@wagmi/core@1.4.0/dist/index.js';
+  import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from 'https://unpkg.com/@wagmi/chains@1.4.0/dist/index.js';
+
+  const projectId = 'demo'; // Kendi Web3Modal Project ID'n varsa buraya yaz
+
+  const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
+
+  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient
+  });
+
+  const ethereumClient = new EthereumClient(wagmiConfig, chains);
+
+  const modal = new Web3Modal(
+    {
+      projectId,
+      themeMode: 'dark',
+      accentColor: 'default',
+      walletConnectVersion: 2
+    },
+    ethereumClient
+  );
+
+  // Tıklama eventi
+  const walletBtn = document.getElementById("wallet-connect");
+  if (walletBtn) {
+    walletBtn.addEventListener("click", () => {
+      modal.openModal();
+    });
+  }
+</script>
 
 </body>
-</html>
+</html>  
+  
+ 
