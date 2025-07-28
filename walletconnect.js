@@ -1,8 +1,9 @@
 import { Web3Modal } from './web3modal/html.js';
 import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum.js';
 import { configureChains, createConfig } from './web3modal/core.js';
-import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chain.js';
-const projectId = 'a64004a6d07f7e8f7c8a2bb7b8c0fa50'; 
+import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chain.js'; // ✅ dikkat: tekil 'chain.js'
+
+const projectId = 'demo'; // Kendi Project ID’n varsa buraya koy
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
 
@@ -26,17 +27,13 @@ const modal = new Web3Modal(
   ethereumClient
 );
 
-console.log("WalletConnect script loaded");
-
 window.addEventListener('DOMContentLoaded', () => {
   const walletButton = document.getElementById('wallet-connect');
   if (walletButton) {
-    console.log("Wallet button found. Adding event listener...");
     walletButton.addEventListener('click', () => {
-      console.log("Wallet button clicked. Opening modal...");
       modal.openModal();
     });
   } else {
-    console.error("Wallet button not found in DOM.");
+    console.error("Wallet connect butonu bulunamadı.");
   }
 });
