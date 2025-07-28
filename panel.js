@@ -17,7 +17,7 @@ async function fetchBTCPrice() {
 async function loadSignals() {
   console.log("Trying to fetch signals...");
   try {
-    const response = await fetch("/proculus-app/signals.json");
+    const response = await fetch('signals.json');
     const signals = await response.json();
     console.log("Signals received:", signals);
     
