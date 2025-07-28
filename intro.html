@@ -164,20 +164,8 @@
   </script>
 
 <script>
-       async function fetchPrices() {
-  try {
-    const coinIds = [
-      'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
-      'polkadot', 'monero', 'dogecoin', 'tron', 'cardano',
-      'hype', 'sui', 'tao', 'ethena', 'ondoland', 'pepe'
-    ];
-
-    const coinRes = await fetch(
-      `https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`
-    );
-    const coinData = await coinRes.json();
-
-    const map = {
+  async function fetchPrices() {
+    const coinMap = {
       bitcoin: 'btc-price',
       ethereum: 'eth-price',
       solana: 'sol-price',
@@ -198,32 +186,33 @@
       pepe: 'pepe-price'
     };
 
-    for (const [key, id] of Object.entries(map)) {
-      const price = coinData[key]?.usd;
-      document.getElementById(id).innerText = `${id.split('-')[0].toUpperCase()}: $${price?.toLocaleString() || 'Error'}`;
+    try {
+      const ids = Object.keys(coinMap).join(',');
+      const priceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`);
+      const priceData = await priceRes.json();
+
+      for (const [id, el] of Object.entries(coinMap)) {
+        const price = priceData[id]?.usd;
+        document.getElementById(el).innerText = `${el.split('-')[0].toUpperCase()}: $${price?.toLocaleString() || 'Error'}`;
+      }
+
+      // BTC Dominance ve Total Market Cap
+      const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
+      const globalData = await globalRes.json();
+
+      const dominance = globalData.data.market_cap_percentage.btc;
+      const marketCap = globalData.data.total_market_cap.usd;
+
+      document.getElementById("btc-dominance").innerText = `BTC Dominance: ${dominance.toFixed(2)}%`;
+      document.getElementById("total-market-cap").innerText = `Total Market Cap: $${marketCap.toLocaleString()}`;
+
+    } catch (err) {
+      console.error("Fetch error:", err);
     }
-
-    // BTC Dominance ve Total Market Cap
-    const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
-    const globalData = await globalRes.json();
-
-    const dominance = globalData.data.market_cap_percentage?.btc;
-    const marketCap = globalData.data.total_market_cap?.usd;
-
-    document.getElementById("btc-dominance").innerText = `BTC Dominance: ${dominance?.toFixed(2) || 'Error'}%`;
-    document.getElementById("total-market-cap").innerText = `Total Market Cap: $${marketCap?.toLocaleString() || 'Error'}`;
-
-  } catch (error) {
-    console.error("Price fetch error:", error);
-    const allIds = Object.values(map).concat(['btc-dominance', 'total-market-cap']);
-    allIds.forEach(id => {
-      document.getElementById(id).innerText = `${id.split('-')[0].toUpperCase()}: Error`;
-    });
   }
-}
 
-fetchPrices();
-setInterval(fetchPrices, 60000);
+  fetchPrices();
+  setInterval(fetchPrices, 60000);
 </script>
 
     <script>
