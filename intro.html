@@ -258,6 +258,16 @@
     }
   }
 </script>
+
+  <!-- ✅ Login yapılmışsa panel sayfasına yönlendir -->
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const walletAddress = localStorage.getItem("walletAddress");
+      if (walletAddress) {
+        window.location.href = "panel.html";
+      }
+    });
+  </script>
   
    <!-- Yerel Web3 bağlantısı -->
   <script type="module" src="./walletconnect.js"></script>
