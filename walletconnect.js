@@ -63,6 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('walletAddress');
   if (saved && walletButton) {
     walletButton.textContent = `${saved.slice(0, 6)}...${saved.slice(-4)}`;
+    toggleLogoutVisibility(true);
   }
 
   // Click to connect (only if not already connected)
