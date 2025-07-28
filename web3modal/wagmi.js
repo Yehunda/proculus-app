@@ -1,9 +1,5 @@
-import {
-  configureChains,
-  createConfig,
-  WagmiConfig
-} from '@web3modal/wagmi';
-
+// wagmi.js
+import { configureChains, createConfig } from 'https://unpkg.com/@web3modal/wagmi@2.6.3/dist/index.js';
 import {
   mainnet,
   polygon,
@@ -12,12 +8,11 @@ import {
   optimism,
   base,
   bsc
-} from '@wagmi/core/chains';
+} from 'https://unpkg.com/@wagmi/core/chains';
 
 export {
   configureChains,
   createConfig,
-  WagmiConfig,
   mainnet,
   polygon,
   avalanche,
