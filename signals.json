@@ -1,18 +1,18 @@
 [
   {
-    "pair": "BTCUSDT",
-    "type": "LONG",
-    "entry": "102500",
-    "target": "112000",
-    "stop": "98500",
-    "comment": "Breakout above resistance with strong volume."
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": "28,500",
+    "target": "31,000",
+    "stop": "27,800",
+    "comment": "Breakout from triangle"
   },
   {
-    "pair": "ETHUSDT",
-    "type": "SHORT",
-    "entry": "5800",
-    "target": "5150",
-    "stop": "6000",
-    "comment": "Rejection at key Fibonacci resistance zone."
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": "2,950",
+    "target": "2,750",
+    "stop": "3,050",
+    "comment": "Rejected at resistance"
   }
 ]
