@@ -13,26 +13,19 @@ import {
   bsc
 } from './wagmi.js';
 
-// Supported blockchain networks
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
-
-// Project ID from Web3Modal dashboard (use your own in production)
 const projectId = 'demo';
 
-// Configure providers
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
-// Create Wagmi config
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: w3mConnectors({ projectId, chains }),
   publicClient
 });
 
-// Initialize Ethereum client
 const ethereumClient = new EthereumClient(wagmiConfig, chains);
 
-// Create Web3Modal instance
 const modal = new Web3Modal(
   {
     projectId,
@@ -43,7 +36,6 @@ const modal = new Web3Modal(
   ethereumClient
 );
 
-// Attach click event to the login/signup button
 const walletButton = document.getElementById('wallet-connect');
 if (walletButton) {
   walletButton.addEventListener('click', () => {
