@@ -3,7 +3,8 @@ import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum
 import { configureChains, createConfig } from './web3modal/core.js';
 import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chains.js';
 
-const projectId = 'demo'; // Replace with your actual Project ID if available
+// ✅ Web3Modal Config
+const projectId = 'demo'; // Replace with your actual Project ID
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
 
@@ -27,35 +28,61 @@ const modal = new Web3Modal(
   ethereumClient
 );
 
-window.addEventListener('DOMContentLoaded', () => {
-  const walletButton = document.getElementById('wallet-connect');
-  if (walletButton) {
-    walletButton.addEventListener('click', () => {
-      modal.openModal();
-      setTimeout(showWalletAddress, 2000);
-    });
-  } else {
-    console.error("Wallet button not found.");
-  }
-});
-
-async function showWalletAddress() {
+// ✅ Show address and save to localStorage
+async function saveWalletAddress() {
   if (window.ethereum) {
     try {
       const accounts = await window.ethereum.request({ method: 'eth_accounts' });
       const address = accounts[0];
       if (address) {
+        localStorage.setItem('walletAddress', address);
+
+        // Update button text
+        const walletButton = document.getElementById('wallet-connect');
+        if (walletButton) {
+          walletButton.textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
+        }
+
+        // Optional extra display (e.g. in panel.html)
         const walletDisplay = document.getElementById('wallet-address');
         if (walletDisplay) {
           walletDisplay.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
-        } else {
-          console.warn("wallet-address element not found.");
         }
       }
     } catch (error) {
-      console.error("Unable to fetch wallet address:", error);
+      console.error("Failed to fetch address:", error);
     }
-  } else {
-    console.warn("window.ethereum not available.");
   }
 }
+
+// ✅ On page load, restore address & bind events
+window.addEventListener('DOMContentLoaded', () => {
+  const walletButton = document.getElementById('wallet-connect');
+
+  // Restore from localStorage
+  const saved = localStorage.getItem('walletAddress');
+  if (saved && walletButton) {
+    walletButton.textContent = `${saved.slice(0, 6)}...${saved.slice(-4)}`;
+  }
+
+  // Click to connect (only if not already connected)
+  if (walletButton) {
+    walletButton.addEventListener('click', () => {
+      const isConnected = localStorage.getItem('walletAddress');
+      if (!isConnected) {
+        modal.openModal();
+        setTimeout(saveWalletAddress, 2000);
+      }
+    });
+  }
+
+  // Listen for wallet account changes
+  if (window.ethereum) {
+    window.ethereum.on('accountsChanged', () => {
+      saveWalletAddress();
+    });
+  }
+
+  // Trigger initial fetch
+  saveWalletAddress();
+});
