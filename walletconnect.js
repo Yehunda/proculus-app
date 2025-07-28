@@ -3,7 +3,7 @@ import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum
 import { configureChains, createConfig } from './web3modal/core.js';
 import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chains.js';
 
-const projectId = 'demo'; // Gerçek ID varsa buraya yaz
+const projectId = 'demo'; // Gerçek project ID’n varsa buraya
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
 
