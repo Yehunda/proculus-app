@@ -1,9 +1,9 @@
 import { Web3Modal } from './web3modal/html.js';
 import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum.js';
 import { configureChains, createConfig } from './web3modal/core.js';
-import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chain.js'; // ✅ dikkat: tekil 'chain.js'
+import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chain.js';
 
-const projectId = 'demo'; // Kendi Project ID’n varsa buraya koy
+const projectId = 'demo'; // Gerçek ID varsa buraya yaz
 
 const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
 
@@ -34,6 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
       modal.openModal();
     });
   } else {
-    console.error("Wallet connect butonu bulunamadı.");
+    console.error("Wallet button not found.");
   }
 });
