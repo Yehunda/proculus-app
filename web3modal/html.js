@@ -1,2 +1,12 @@
-import { Web3Modal } from 'https://unpkg.com/@web3modal/html@2.7.2/dist/index.js';
-export { Web3Modal };
+export class Web3Modal {
+  constructor(config, ethereumClient) {
+    this.config = config;
+    this.ethereumClient = ethereumClient;
+  }
+
+  openModal() {
+    console.log("Web3Modal opened (mock mode)");
+    // You can replace this with actual modal UI later
+    alert("Web3Modal opened (mock mode)");
+  }
+}
