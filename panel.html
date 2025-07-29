@@ -5,99 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proculus Panel</title>
   <link rel="stylesheet" href="panel.css" />
-  <script defer src="panel.js"></script>
+  <script src="https://kit.fontawesome.com/a2e0e6ad2b.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="topbar">
+  <header>
     <div class="logo-section">
-      <img src="proculus-logo.png" alt="Proculus Logo" class="logo" />
-      <div class="title-group">
-        <h1>PROCULUS</h1>
-        <p class="slogan">AI-Powered Signals & Market Intelligence</p>
+      <img src="proculus-logo.png" alt="Proculus Logo" />
+      <div class="text-group">
+        <div class="title">PROCULUS</div>
+        <div class="slogan">AI-Powered Signals & Market Intelligence</div>
       </div>
     </div>
-    <div class="wallet-actions">
-      <span id="wallet-address"></span>
-      <button id="wallet-connect">Login / Signup</button>
-      <button id="logout-btn" style="display:none">Logout</button>
-      <button id="theme-toggle">🌓</button>
+    <div class="right-controls">
+      <button class="top-btn" onclick="toggleTheme()">Toggle Theme</button>
+      <span class="wallet-status" id="wallet-address">Not Connected</span>
+      <button class="top-btn" id="logout-btn" onclick="logout()">Logout</button>
     </div>
   </header>
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="#signals">Signals</a></li>
-        <li><a href="#notifications">Notifications</a></li>
-        <li id="api-section-link" class="premium-only">API Access</li>
-        <li id="stocks-section-link" class="monthly-up">Stock Overview</li>
-        <li id="nft-section-link" class="yearly-only">NFT Radar</li>
-        <li id="presale-section-link" class="yearly-only">Presale Info</li>
-        <li id="token-section-link" class="yearly-only">Unlock Calendar</li>
-      </ul>
-    </nav>
-  </aside>
-
-  <!-- Main Content -->
-  <main class="content">
-    <!-- Signals -->
-    <section id="signals" class="panel-section">
-      <h2>Signal Feed</h2>
-      <div id="signals-container"></div>
-    </section>
-
-    <!-- Notifications -->
-    <section id="notifications" class="panel-section">
-      <h2>Notification Preferences</h2>
-      <form id="notification-form">
-        <label><input type="checkbox" name="email" /> Email</label>
-        <label><input type="checkbox" name="sms" /> SMS</label>
-        <label><input type="checkbox" name="telegram" /> Telegram</label>
-        <label><input type="checkbox" name="discord" /> Discord</label>
-        <button type="submit">Save Preferences</button>
-      </form>
-    </section>
-
-    <!-- API Access -->
-    <section id="api-section" class="panel-section premium-only">
-      <h2>Exchange API Access</h2>
-      <div class="api-grid">
-        <div class="api-box">Binance</div>
-        <div class="api-box">Coinbase</div>
-        <div class="api-box">Gate.io</div>
-        <div class="api-box">MEXC</div>
-        <div class="api-box">OKX</div>
-        <div class="api-box">KuCoin</div>
-        <div class="api-box">HTX</div>
-        <div class="api-box">Bybit</div>
+  <main>
+    <section class="section" id="signals-section">
+      <h2>Market Signals</h2>
+      <div class="signals-wrapper" id="signals-container">
+        <!-- Signals injected here -->
       </div>
     </section>
 
-    <!-- Stock Overview -->
-    <section id="stocks-section" class="panel-section monthly-up">
-      <h2>Stock Overview</h2>
-      <div id="stocks-container">Loading stock data...</div>
+    <section class="section">
+      <h2>Notifications</h2>
+      <div class="notification-options">
+        <label><input type="checkbox" /> Email</label>
+        <label><input type="checkbox" /> SMS</label>
+        <label><input type="checkbox" /> Telegram</label>
+        <label><input type="checkbox" /> Discord</label>
+      </div>
     </section>
 
-    <!-- NFT Radar -->
-    <section id="nft-section" class="panel-section yearly-only">
-      <h2>NFT Radar</h2>
-      <div id="nft-container">Coming soon: Trending NFTs with volume and floor analysis</div>
+    <section class="section">
+      <h2>API Integrations</h2>
+      <div class="features-grid">
+        <div class="feature-box api">
+          <h4><i class="fab fa-binance"></i> Binance</h4>
+          <p>Access via API</p>
+        </div>
+        <div class="feature-box api">
+          <h4><i class="fab fa-ethereum"></i> Coinbase</h4>
+          <p>Access via API</p>
+        </div>
+        <div class="feature-box api">
+          <h4><i class="fas fa-plug"></i> Gate.io</h4>
+          <p>Access via API</p>
+        </div>
+        <div class="feature-box api">
+          <h4><i class="fas fa-signal"></i> KuCoin</h4>
+          <p>Access via API</p>
+        </div>
+        <div class="feature-box api">
+          <h4><i class="fas fa-chart-line"></i> Bybit</h4>
+          <p>Access via API</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Presale Info -->
-    <section id="presale-section" class="panel-section yearly-only">
-      <h2>Presale Opportunities</h2>
-      <div id="presale-container">Latest early-stage opportunities...</div>
-    </section>
-
-    <!-- Token Unlock Calendar -->
-    <section id="token-section" class="panel-section yearly-only">
-      <h2>Token Unlock Calendar</h2>
-      <div id="token-calendar">Stay ahead of unlock events...</div>
+    <section class="section">
+      <h2>Stock & NFT Panels</h2>
+      <div class="features-grid">
+        <div class="feature-box">
+          <h4><i class="fas fa-chart-bar"></i> Stocks Overview</h4>
+          <p>Market insights</p>
+        </div>
+        <div class="feature-box">
+          <h4><i class="fas fa-image"></i> NFT Radar</h4>
+          <p>Track hot NFTs</p>
+        </div>
+        <div class="feature-box">
+          <h4><i class="fas fa-bullhorn"></i> Presale Alerts</h4>
+          <p>Never miss presales</p>
+        </div>
+        <div class="feature-box">
+          <h4><i class="fas fa-calendar-alt"></i> Token Unlocks</h4>
+          <p>Track unlock events</p>
+        </div>
+      </div>
     </section>
   </main>
+
+  <footer>
+    &copy; 2025 Proculus Alpha Intelligence — All rights reserved.
+  </footer>
+
+  <script src="panel.js"></script>
 </body>
 </html>
