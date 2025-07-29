@@ -204,15 +204,15 @@
           celestia: 'celestia-price',
           hyperliquid: 'hyperliquid-price',
           hacash: 'hacash-price',            
-          hacash-diamond: 'hacash-diamond-price' 
+          'hacash-diamond': 'hacash-diamond-price' 
           
-        };
+       };
 
-        for (const [key, id] of Object.entries(map)) {
-          const price = coinData[key]?.usd;
-          const name = id.split('-')[0].toUpperCase();
-          const formattedPrice = price?.toLocaleString() || 'Error';
-          document.getElementById(id).innerText = `${name}: $${formattedPrice}`;
+      for (const [key, id] of Object.entries(map)) {
+        const price = coinData[key]?.usd;
+        const formattedPrice = price?.toLocaleString() || 'Error';
+        const label = id.split('-')[0].toUpperCase();
+        document.getElementById(id).innerText = `${label}: $${formattedPrice}`;
         }
 
         const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
