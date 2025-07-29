@@ -1,14 +1,20 @@
-/* Global styles */
+/* Genel Ayarlar */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0a0a0a;
-  color: #f0f0f0;
+  background-color: #111;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .light-mode {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+h1, h2, h3 {
+  margin: 10px 0;
 }
 
 /* Topbar */
@@ -16,19 +22,22 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #111;
-  padding: 10px 20px;
+  padding: 15px 30px;
+  background-color: #1e1e1e;
   border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .top-left {
   display: flex;
   align-items: center;
+  gap: 15px;
 }
 
 .top-logo {
-  height: 50px;
-  margin-right: 10px;
+  height: 48px;
 }
 
 .title-slogan {
@@ -37,14 +46,14 @@ body {
 }
 
 .title {
-  font-size: 1.6em;
+  font-size: 22px;
   font-weight: bold;
-  color: #00ffcc;
+  color: #0ff;
 }
 
 .slogan {
-  font-size: 0.9em;
-  color: #999;
+  font-size: 13px;
+  color: #ccc;
 }
 
 .top-right {
@@ -53,183 +62,145 @@ body {
   gap: 10px;
 }
 
-.top-link {
-  color: #00ffcc;
-  text-decoration: none;
-  font-size: 0.9em;
-}
-
-.top-btn {
-  padding: 6px 12px;
-  background-color: #222;
-  color: #fff;
-  border: 1px solid #333;
-  border-radius: 4px;
+.top-btn, .top-link {
+  background-color: transparent;
+  border: none;
+  color: #0ff;
   cursor: pointer;
+  font-size: 14px;
 }
 
-/* Main panel */
+.top-btn:hover, .top-link:hover {
+  color: #fff;
+}
+
+/* Ana Panel */
 .panel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 20px 20px;
   margin-left: 250px;
   margin-right: 250px;
-  padding: 20px;
+  min-height: 400px;
   text-align: center;
+  z-index: 1;
 }
 
-.panel-content h1 {
-  font-size: 2em;
-  margin-bottom: 0.3em;
-}
-
-.panel-content p {
-  font-size: 1.1em;
-  margin-bottom: 1.5em;
-  color: #ccc;
-}
-
-/* Subscription Cards */
 .subscription-section {
-  margin-bottom: 40px;
+  margin-top: 30px;
+  width: 100%;
 }
 
 .subscription-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 20px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-items: center;
 }
 
 .card {
-  background-color: #181818;
-  border: 1px solid #333;
+  background: #1c1c1c;
+  padding: 25px;
   border-radius: 10px;
-  padding: 20px;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease, background 0.3s ease;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid #0ff3;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 20px rgba(0,255,204,0.1);
+  transform: scale(1.03);
+  background: #292929;
 }
 
 .card h3 {
-  margin-top: 0;
-  color: #00ffcc;
+  margin-bottom: 10px;
 }
 
 .card .price {
-  font-size: 1.5em;
-  margin: 10px 0;
-  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #0ff;
 }
 
 .card ul {
   list-style: none;
   padding: 0;
-  margin: 15px 0;
-  text-align: left;
-  color: #ccc;
+  margin-bottom: 15px;
 }
 
-.card ul li.highlight {
-  color: #00ffcc;
+.card li {
+  margin-bottom: 6px;
 }
 
-.subscribe-btn {
-  background-color: #00ffcc;
-  color: #000;
+.card .highlight {
+  color: #ff0;
+}
+
+.card button {
+  padding: 8px 16px;
+  background: #0ff;
+  color: #111;
   border: none;
   border-radius: 6px;
-  padding: 10px;
-  width: 100%;
-  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.subscribe-btn:hover {
-  background-color: #00ddb3;
+.card button:hover {
+  background: #0dd;
 }
 
 /* Market Overview */
 .market-panel {
   position: absolute;
-  top: 80px;
-  left: 10px;
+  top: 100px;
+  left: 20px;
   width: 220px;
-  padding: 10px;
-  background-color: #111;
-  border: 1px solid #333;
-  border-radius: 8px;
-}
-
-.market-panel h3 {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  color: #00ffcc;
+  background-color: #1c1c1c;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  z-index: 2;
+  border: 1px solid #0ff2;
 }
 
 .market-list {
   list-style: none;
   padding: 0;
-  font-size: 0.9em;
+  margin: 0;
 }
 
 .market-list li {
-  margin-bottom: 5px;
-  color: #ccc;
+  margin: 6px 0;
 }
 
-/* Modal */
-.modal {
-  position: fixed;
-  display: none;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 999;
-}
-
-.modal-content {
-  background: #222;
+/* Sağ panel */
+aside.right-panel {
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  width: 180px;
+  background-color: #1c1c1c;
+  padding: 15px;
   border-radius: 10px;
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 20px;
-  border: 1px solid #00ffcc;
-  color: #fff;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.modal-content button {
-  background-color: #00ffcc;
-  border: none;
-  padding: 10px;
-  font-weight: bold;
-  border-radius: 6px;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.close {
-  float: right;
-  font-size: 1.4em;
-  cursor: pointer;
+  font-size: 13px;
+  z-index: 2;
+  border: 1px solid #0ff2;
 }
 
 /* Success Wall */
 .success-wall {
-  margin-top: 40px;
+  margin-top: 50px;
+  padding: 30px 20px;
+  width: 100%;
+  background: #111;
+  text-align: center;
+  border-top: 1px solid #444;
 }
 
 .success-wall h2 {
-  font-size: 1.5em;
-  color: #00ffcc;
+  color: #0ff;
   margin-bottom: 20px;
 }
 
@@ -237,71 +208,73 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .success-card {
-  width: 250px;
-  background: #181818;
+  background: #1f1f1f;
+  border: 1px solid #0ff2;
+  border-radius: 8px;
   padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #333;
+  width: 250px;
+  text-align: left;
+  font-size: 13px;
 }
 
 .success-card img {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  vertical-align: middle;
   margin-right: 6px;
 }
 
 .success-card .pair {
+  font-weight: bold;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #00ffcc;
 }
 
 .success-card .type {
-  font-size: 0.95em;
-  margin-bottom: 5px;
-  color: #ccc;
+  font-size: 12px;
+  font-weight: bold;
+  color: #0ff;
+  margin-bottom: 8px;
 }
 
 .success-card .comment {
-  margin-top: 10px;
+  margin-top: 6px;
   font-style: italic;
+  color: #ccc;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #1f1f1f;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #0ff4;
+  width: 300px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.close {
   color: #aaa;
-}
-
-/* Right panel placeholder */
-.right-panel {
-  position: absolute;
-  top: 100px;
-  right: 10px;
-  width: 200px;
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 10px;
-  color: #00ffcc;
-  text-align: center;
-}
-
-@media screen and (max-width: 768px) {
-  .panel-content {
-    margin: 20px;
-  }
-
-  .market-panel,
-  .right-panel {
-    position: static;
-    margin: 10px auto;
-    width: auto;
-  }
-
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
 }
