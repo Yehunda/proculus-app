@@ -1,14 +1,10 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0c0f1a;
-  color: #ffffff;
+  background-color: #0d0f17;
+  color: #e0e0e0;
   overflow-x: hidden;
-}
-
-.light-mode {
-  background-color: #f5f5f5;
-  color: #000000;
 }
 
 .topbar {
@@ -16,7 +12,11 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  border-bottom: 1px solid #333;
+  background-color: #0d0f17;
+  border-bottom: 1px solid #2a2a2a;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .top-left {
@@ -25,14 +25,14 @@ body {
 }
 
 .top-logo {
-  height: 48px;
+  height: 60px;
   margin-right: 15px;
 }
 
 .title {
   font-size: 28px;
   font-weight: bold;
-  color: #00f5a0;
+  color: #10e0c8;
 }
 
 .slogan {
@@ -40,40 +40,36 @@ body {
   color: #ccc;
 }
 
-.title-slogan {
-  display: flex;
-  flex-direction: column;
-}
-
 .top-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .top-link {
-  color: #00f5a0;
+  color: #10e0c8;
   text-decoration: none;
 }
 
 .top-btn {
-  background: #222;
-  color: #00f5a0;
+  background: #1e1e1e;
+  color: #ccc;
   border: none;
-  padding: 8px 12px;
+  padding: 7px 12px;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.3s;
+  transition: 0.3s;
 }
 
 .top-btn:hover {
-  background: #333;
+  background: #2e2e2e;
 }
 
 .panel-content {
-  margin-left: 240px;
-  margin-right: 220px;
-  padding: 30px;
+  margin-left: 260px;
+  margin-right: 260px;
+  padding: 40px 20px;
+  text-align: center;
 }
 
 .panel-content h1 {
@@ -84,184 +80,194 @@ body {
 .panel-content p {
   font-size: 18px;
   margin-bottom: 40px;
+  color: #aaa;
 }
 
 .subscription-section {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333;
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid #10e0c8;
   border-radius: 12px;
   padding: 25px;
   width: 280px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 12px rgba(16, 224, 200, 0.2);
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 12px rgba(0, 245, 160, 0.4);
+  transform: translateY(-5px);
 }
 
 .card h3 {
-  font-size: 20px;
+  font-size: 22px;
+  color: #fff;
   margin-bottom: 10px;
 }
 
 .card .price {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  margin-bottom: 12px;
-  color: #00f5a0;
+  margin-bottom: 10px;
+  color: #10e0c8;
 }
 
 .card ul {
-  padding-left: 20px;
-  margin-bottom: 12px;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 15px;
 }
 
 .card li {
-  margin-bottom: 6px;
+  margin: 6px 0;
   font-size: 15px;
 }
 
 .card .highlight {
-  color: orange;
-  font-weight: bold;
+  color: #ffcc00;
 }
 
-.subscribe-btn {
-  background: #00f5a0;
-  color: #000;
-  padding: 10px 18px;
+.card button {
+  background: #10e0c8;
+  color: #0d0f17;
   border: none;
+  padding: 10px;
   border-radius: 6px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
+  width: 100%;
   transition: background 0.3s;
 }
 
-.subscribe-btn:hover {
-  background: #00d18d;
+.card button:hover {
+  background: #0bc0a8;
 }
 
 .market-panel {
   position: fixed;
-  top: 80px;
   left: 0;
-  width: 220px;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 15px;
-  height: calc(100% - 80px);
+  top: 80px;
+  width: 240px;
+  background: rgba(30, 30, 30, 0.9);
+  padding: 20px;
+  border-right: 1px solid #2a2a2a;
+  height: calc(100vh - 80px);
   overflow-y: auto;
-  border-right: 1px solid #333;
+  z-index: 50;
 }
 
 .market-panel h3 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #10e0c8;
 }
 
 .market-list {
   list-style: none;
   padding: 0;
   font-size: 14px;
-  line-height: 1.6;
+}
+
+.market-list li {
+  margin-bottom: 6px;
+  color: #ccc;
 }
 
 .success-wall {
-  margin-top: 60px;
+  margin-top: 80px;
   text-align: center;
 }
 
 .success-wall h2 {
-  color: #00f5a0;
+  font-size: 24px;
   margin-bottom: 20px;
+  color: #10e0c8;
 }
 
 .success-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 15px;
   justify-content: center;
-  gap: 16px;
 }
 
 .success-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333;
-  border-radius: 10px;
+  background-color: #1e1e1e;
+  border-left: 5px solid #10e0c8;
   padding: 15px;
-  width: 240px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: left;
   font-size: 14px;
+  box-shadow: 0 0 8px rgba(16, 224, 200, 0.1);
 }
-
-.success-card.long { border-left: 4px solid #00f5a0; }
-.success-card.short { border-left: 4px solid #f54242; }
 
 .success-card .pair {
   font-weight: bold;
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.success-card .pair img {
-  height: 20px;
-  margin-right: 8px;
+  margin-bottom: 5px;
 }
 
 .success-card .type {
-  font-style: italic;
-  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #10e0c8;
 }
 
 .success-card .comment {
-  margin-top: 8px;
-  color: #ccc;
   font-style: italic;
+  margin-top: 5px;
 }
 
-.modal {
-  display: none;
+aside.active-users-panel {
   position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0,0,0,0.6);
-}
-
-.modal-content {
-  background: #1a1a1a;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 320px;
-  text-align: center;
-}
-
-.close {
-  color: #ccc;
-  float: right;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-#active-users {
-  position: fixed;
-  top: 80px;
   right: 0;
+  top: 80px;
   width: 200px;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 15px;
-  height: calc(100% - 80px);
-  overflow-y: auto;
-  border-left: 1px solid #333;
+  height: calc(100vh - 80px);
+  background-color: rgba(30, 30, 30, 0.9);
+  padding: 20px;
+  border-left: 1px solid #2a2a2a;
   font-size: 14px;
+  z-index: 50;
+}
+
+.active-users-panel h3 {
+  font-size: 16px;
+  color: #10e0c8;
+  margin-bottom: 10px;
+}
+
+.light-mode {
+  background: #f5f5f5;
+  color: #111;
+}
+
+.light-mode .topbar {
+  background: #fff;
+}
+
+.light-mode .top-logo {
+  filter: brightness(0.1);
+}
+
+.light-mode .card {
+  background: #fff;
+  border-color: #10e0c8;
+}
+
+.light-mode .market-panel,
+.light-mode .active-users-panel {
+  background: #f0f0f0;
+  color: #222;
+}
+
+.light-mode .success-card {
+  background: #fff;
 }
