@@ -1,101 +1,84 @@
-console.log("JS file loaded");
+console.log("✅ Panel.js loaded");
 
 // === BTC LIVE PRICE ===
 async function fetchBTCPrice() {
   try {
-    const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
-    const data = await response.json();
-    const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+    const data = await res.json();
+    const price = data.bitcoin.usd.toLocaleString("en-US", { style: "currency", currency: "USD" });
     document.getElementById("btc-price").textContent = price;
-  } catch (error) {
-    console.error("Error fetching BTC price:", error);
-    document.getElementById("btc-price").textContent = "Unable to load price";
+  } catch (e) {
+    console.error("BTC fetch error:", e);
+    document.getElementById("btc-price").textContent = "N/A";
   }
 }
 
 // === LOAD SIGNALS ===
 async function loadSignals() {
-  console.log("Trying to fetch signals...");
   try {
-    const response = await fetch('signals.json');
+    const response = await fetch("signals.json");
     const signals = await response.json();
-    console.log("Signals received:", signals);
-    
     const container = document.getElementById("signals-container");
+
+    container.innerHTML = ""; // clear before append
 
     signals.forEach(signal => {
       const box = document.createElement("div");
-      box.className = `signal-box ${signal.type.toLowerCase()}`;
+      box.className = `signal-box ${signal.direction.toUpperCase()}`;
       box.innerHTML = `
-        <h3>${signal.pair} — ${signal.type}</h3>
-        <p>Entry: $${signal.entry}</p>
-        <p>Target: $${signal.target}</p>
-        <p>Stop Loss: $${signal.stop}</p>
-        <div class="signal-comment">Reason: ${signal.comment}</div>
+        <h3>${signal.symbol} — ${signal.direction}</h3>
+        <p><strong>Entry:</strong> $${signal.entry}</p>
+        <p><strong>Target:</strong> $${signal.target}</p>
+        <p><strong>Stop Loss:</strong> $${signal.stop}</p>
+        <div class="signal-comment">📌 ${signal.comment}</div>
       `;
       container.appendChild(box);
     });
-  } catch (error) {
-    console.error("Failed to load signals:", error);
+  } catch (err) {
+    console.error("Signal fetch error:", err);
   }
 }
-loadSignals();
 
-// === FILTER BUTTONS ===
+// === FILTER SIGNALS ===
 function filterSignals(type) {
   const boxes = document.querySelectorAll(".signal-box");
   boxes.forEach(box => {
-    box.style.display = type === "all" || box.classList.contains(type) ? "block" : "none";
+    box.style.display = (type === "all" || box.classList.contains(type.toUpperCase())) ? "block" : "none";
   });
 }
 
-// === MODAL SYSTEM ===
-const modal = document.getElementById("modal");
-const modalText = document.getElementById("modal-text");
-const confirmBtn = document.getElementById("confirm-btn");
-const closeModal = document.getElementById("closeModal");
-
-document.querySelectorAll(".subscribe-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    const plan = button.closest(".card").querySelector("h3").innerText;
-    modalText.innerText = `Do you want to activate the ${plan} plan?`;
-    modal.style.display = "block";
-    confirmBtn.setAttribute("data-plan", plan.toLowerCase());
+// === API & NOTIFICATION OPTIONS ===
+document.querySelectorAll(".api-toggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    alert(`🌐 API access for ${btn.dataset.api} requested!`);
   });
 });
 
-confirmBtn.onclick = () => {
-  const selectedPlan = confirmBtn.getAttribute("data-plan");
-  localStorage.setItem("selectedPlan", selectedPlan);
-  alert(`"${selectedPlan}" plan activated!`);
-  modal.style.display = "none";
-};
-
-closeModal.onclick = () => {
-  modal.style.display = "none";
-};
-
-window.onclick = (event) => {
-  if (event.target.classList.contains("modal")) {
-    modal.style.display = "none";
-  }
-};
-
-// === MOBILE MENU TOGGLE ===
-const hamburger = document.getElementById("hamburger-menu");
-const mobileMenu = document.getElementById("mobile-menu");
-
-hamburger.addEventListener("click", () => {
-  mobileMenu.classList.toggle("show");
+document.querySelectorAll(".notify-toggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    alert(`🔔 Notification enabled via ${btn.dataset.channel}`);
+  });
 });
-window.addEventListener("click", function(event) {
-  if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
-    mobileMenu.classList.remove("show");
-  }
+
+// === LOGOUT ===
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn?.addEventListener("click", () => {
+  localStorage.removeItem("walletAddress");
+  window.location.href = "intro.html";
 });
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM fully loaded and parsed");
+
+// === THEME INIT ===
+window.addEventListener("DOMContentLoaded", () => {
   fetchBTCPrice();
-  setInterval(fetchBTCPrice, 60000);
   loadSignals();
+  setInterval(fetchBTCPrice, 60000);
+
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") document.body.classList.add("light-mode");
+
+  const walletAddr = localStorage.getItem("walletAddress");
+  if (!walletAddr) {
+    alert("⚠️ Wallet not connected. Redirecting...");
+    window.location.href = "intro.html";
+  }
 });
