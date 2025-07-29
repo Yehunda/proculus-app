@@ -20,19 +20,50 @@
       <a href="whitepaper.pdf" target="_blank" class="top-link">Whitepaper</a>
       <button id="mode-toggle" class="top-btn">🌙</button>
       <button id="wallet-connect" class="top-btn">Login / Signup</button>
-      <span id="wallet-address" class="top-link" style="margin-left:10px;"></span>
-      <button id="logout-btn" class="top-btn" style="display: none; margin-left: 10px;">Logout</button>
+      <span id="wallet-address" class="top-link"></span>
+      <button id="logout-btn" class="top-btn" style="display:none;">Logout</button>
     </div>
   </header>
 
-  <main class="panel-content">
-    <h1>Welcome</h1>
-    <p>Proculus is a smart analytics platform offering private crypto signals for investors.  
-    Choose one of the plans below to access your personalized signal panel.</p>
+  <main class="main-layout">
+    <aside class="market-panel">
+      <h3>Market Overview</h3>
+      <ul class="market-list">
+        <li id="btc-price">BTC: Loading...</li>
+        <li id="eth-price">ETH: Loading...</li>
+        <li id="sol-price">SOL: Loading...</li>
+        <li id="bnb-price">BNB: Loading...</li>
+        <li id="xrp-price">XRP: Loading...</li>
+        <li id="avax-price">AVAX: Loading...</li>
+        <li id="link-price">LINK: Loading...</li>
+        <li id="dot-price">DOT: Loading...</li>
+        <li id="xmr-price">XMR: Loading...</li>
+        <li id="doge-price">DOGE: Loading...</li>
+        <li id="trx-price">TRX: Loading...</li>
+        <li id="ada-price">ADA: Loading...</li>
+        <li id="hype-price">HYPE: Loading...</li>
+        <li id="sui-price">SUI: Loading...</li>
+        <li id="tao-price">TAO: Loading...</li>
+        <li id="ena-price">ENA: Loading...</li>
+        <li id="ondo-price">ONDO: Loading...</li>
+        <li id="pepe-price">PEPE: Loading...</li>
+        <li id="kaspa-price">KASPA: Loading...</li>
+        <li id="arbitrum-price">ARBITRUM: Loading...</li>
+        <li id="render-price">RENDER: Loading...</li>
+        <li id="celestia-price">CELESTIA: Loading...</li>
+        <li id="hacash-price">HACASH: Loading...</li>
+        <li id="hacash-diamond-price">HACD: Loading...</li>
+        <li id="btc-dominance">BTC Dominance: Loading...</li>
+        <li id="total-market-cap">Total Market Cap: Loading...</li>
+      </ul>
+    </aside>
 
-    <section class="subscription-section">
+    <section class="content-center">
+      <h1>Welcome</h1>
+      <p>Proculus is a smart analytics platform offering private crypto signals for investors.<br>
+         Choose one of the plans below to access your personalized signal panel.</p>
+
       <div class="subscription-cards">
-        <!-- Abonelik kartları (değişmeden bırakıldı) -->
         <div class="card">
           <h3>Daily Plan</h3>
           <div class="price">$5.99</div>
@@ -43,7 +74,6 @@
           </ul>
           <button class="subscribe-btn" data-plan="daily">Subscribe</button>
         </div>
-
         <div class="card">
           <h3>Monthly Plan</h3>
           <div class="price">$39.99</div>
@@ -59,7 +89,6 @@
           </ul>
           <button class="subscribe-btn" data-plan="monthly">Start Free Trial</button>
         </div>
-
         <div class="card">
           <h3>Yearly Plan</h3>
           <div class="price">$399.99</div>
@@ -74,48 +103,20 @@
           <button class="subscribe-btn" data-plan="yearly">Start Free Trial</button>
         </div>
       </div>
+
+      <section class="success-wall">
+        <h2>🔥 Successful Signals</h2>
+        <div id="success-container" class="success-container"></div>
+      </section>
     </section>
-    
-    <section class="success-wall">
-  <h2>🔥 Successful Signals</h2>
-  <div id="success-container" class="success-container"></div>
-</section>
+
+    <aside class="user-panel">
+      <h3>Active Users</h3>
+      <p id="user-count">Loading...</p>
+    </aside>
   </main>
 
-  <aside class="market-panel">
-    <h3>Market Overview</h3>
-    <ul class="market-list">
-      <!-- ID'ler korunarak fiyat kutuları eklendi -->
-      <li id="btc-price">BTC: Loading...</li>
-      <li id="eth-price">ETH: Loading...</li>
-      <li id="sol-price">SOL: Loading...</li>
-      <li id="bnb-price">BNB: Loading...</li>
-      <li id="xrp-price">XRP: Loading...</li>
-      <li id="avax-price">AVAX: Loading...</li>
-      <li id="link-price">LINK: Loading...</li>
-      <li id="dot-price">DOT: Loading...</li>
-      <li id="xmr-price">XMR: Loading...</li>
-      <li id="doge-price">DOGE: Loading...</li>
-      <li id="trx-price">TRX: Loading...</li>
-      <li id="ada-price">ADA: Loading...</li>
-      <li id="hype-price">HYPE: Loading...</li>
-      <li id="sui-price">SUI: Loading...</li>
-      <li id="tao-price">TAO: Loading...</li>
-      <li id="ena-price">ENA: Loading...</li>
-      <li id="ondo-price">ONDO: Loading...</li>
-      <li id="pepe-price">PEPE: Loading...</li>
-      <li id="kaspa-price">KASPA: Loading...</li>
-      <li id="arbitrum-price">ARBITRUM: Loading...</li>
-      <li id="render-price">RENDER: Loading...</li>
-      <li id="celestia-price">CELESTIA: Loading...</li>
-      <li id="hacash-price">HACASH: Loading...</li>
-      <li id="hacash-diamond-price">HACD: Loading...</li>
-      <li id="btc-dominance">BTC Dominance: Loading...</li>
-      <li id="total-market-cap">Total Market Cap: Loading...</li>
-    </ul>
-  </aside>
-
-  <!-- Modal sistemi -->
+  <!-- Modal -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
@@ -125,140 +126,81 @@
     </div>
   </div>
 
-  <!-- Modal kontrol ve yönlendirme -->
   <script>
+    // Modal
     const modal = document.getElementById("modal");
-    const modalText = document.getElementById("modal-text");
     const confirmBtn = document.getElementById("confirm-btn");
-    const closeModal = document.getElementById("closeModal");
-
-    document.querySelectorAll(".subscribe-btn").forEach(button => {
-      button.addEventListener("click", () => {
-        const plan = button.getAttribute("data-plan");
-        modalText.innerText = `Do you want to activate the "${plan}" plan?`;
+    document.querySelectorAll(".subscribe-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const plan = btn.dataset.plan;
+        document.getElementById("modal-text").innerText = `Do you want to activate the "${plan}" plan?`;
         modal.style.display = "block";
-        confirmBtn.setAttribute("data-plan", plan);
+        confirmBtn.dataset.plan = plan;
       });
     });
-
     confirmBtn.onclick = () => {
-      const selectedPlan = confirmBtn.getAttribute("data-plan");
-      localStorage.setItem("selectedPlan", selectedPlan);
-      modal.style.display = "none";
-      const wallet = localStorage.getItem("walletAddress");
-      if (wallet) window.location.href = "panel.html";
-      else alert("Please connect your wallet before proceeding.");
+      if (!localStorage.getItem("walletAddress")) {
+        alert("Please connect your wallet before proceeding.");
+        return;
+      }
+      window.location.href = "panel.html";
     };
-
-    closeModal.onclick = () => modal.style.display = "none";
-    window.onclick = (e) => {
-      if (e.target.classList.contains("modal")) modal.style.display = "none";
-    };
+    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+    window.onclick = e => e.target == modal ? modal.style.display = "none" : null;
   </script>
 
-  <!-- Coin fiyatlarını çek -->
   <script>
+    // Fetch prices
     async function fetchPrices() {
-      const coinIds = [
-        'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
-        'polkadot', 'monero', 'dogecoin', 'tron', 'cardano', 'hyperliquid'', 'sui', 'bittensor', 'ethena',
-        'ondo', 'pepe', 'kaspa', 'arbitrum', 'render', 'celestia', 'hacash', 'hacash-diamond'
-      ];
-      const map = {
-        bitcoin: 'btc-price', ethereum: 'eth-price', solana: 'sol-price', binancecoin: 'bnb-price',
-        ripple: 'xrp-price', 'avalanche-2': 'avax-price', chainlink: 'link-price', polkadot: 'dot-price',
-        monero: 'xmr-price', dogecoin: 'doge-price', tron: 'trx-price', cardano: 'ada-price',
-        hyperliquid: 'hype-price', sui: 'sui-price', bittensor: 'tao-price', ethena: 'ena-price',
-        ondo: 'ondo-price', pepe: 'pepe-price', kaspa: 'kaspa-price', arbitrum: 'arbitrum-price',
-        render: 'render-price', celestia: 'celestia-price',
-        hacash: 'hacash-price', 'hacash-diamond': 'hacash-diamond-price'
-      };
-
+      const ids = ['bitcoin','ethereum','solana','binancecoin','ripple','avalanche-2','chainlink',
+        'polkadot','monero','dogecoin','tron','cardano','hyperliquid','sui','bittensor','ethena',
+        'ondo','pepe','kaspa','arbitrum','render','celestia','hacash','hacash-diamond'];
+      const map = { bitcoin:'btc-price', ethereum:'eth-price', solana:'sol-price', binancecoin:'bnb-price',
+        ripple:'xrp-price','avalanche-2':'avax-price',chainlink:'link-price',polkadot:'dot-price',
+        monero:'xmr-price',dogecoin:'doge-price',tron:'trx-price',cardano:'ada-price',hyperliquid:'hype-price',
+        sui:'sui-price',bittensor:'tao-price',ethena:'ena-price',ondo:'ondo-price',pepe:'pepe-price',
+        kaspa:'kaspa-price',arbitrum:'arbitrum-price',render:'render-price',celestia:'celestia-price',
+        hacash:'hacash-price','hacash-diamond':'hacash-diamond-price'};
       try {
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd`);
         const data = await res.json();
-        for (const [key, id] of Object.entries(map)) {
-          const price = data[key]?.usd?.toLocaleString() || 'Error';
-          document.getElementById(id).innerText = `${key.toUpperCase()}: $${price}`;
+        for (const [key, el] of Object.entries(map)) {
+          document.getElementById(el).innerText = `${key.toUpperCase()}: $${data[key]?.usd ?? 'Error'}`;
         }
-
         const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
         const global = await globalRes.json();
         document.getElementById("btc-dominance").innerText = `BTC Dominance: ${global.data.market_cap_percentage.btc.toFixed(2)}%`;
         document.getElementById("total-market-cap").innerText = `Total Market Cap: $${global.data.total_market_cap.usd.toLocaleString()}`;
+      } catch(err){ console.error("Price fetch error:", err); }
+    }
+    fetchPrices(); setInterval(fetchPrices, 60000);
+  </script>
+
+  <script>
+    // Load success signals from backend
+    async function loadSuccessWall() {
+      try {
+        const res = await fetch("http://138.199.155.77:3021/api/success-signals");
+        const signals = await res.json();
+        const container = document.getElementById("success-container");
+        container.innerHTML = "";
+        signals.slice(0,3).forEach(signal => {
+          const card = document.createElement("div");
+          card.className = `success-card ${signal.type.toLowerCase()}`;
+          card.innerHTML = `
+            <h4>${signal.pair} – ${signal.type}</h4>
+            <p><strong>Entry:</strong> ${signal.entry} | <strong>Target:</strong> ${signal.target} | <strong>Stop:</strong> ${signal.stop}</p>
+            <p>${signal.comment}</p>
+          `;
+          container.appendChild(card);
+        });
       } catch (err) {
-        console.error("Price fetch error:", err);
+        console.error("Failed to load success wall:", err);
       }
     }
-    fetchPrices();
-    setInterval(fetchPrices, 60000);
+    loadSuccessWall();
   </script>
 
-  <!-- Tema ve cüzdan işlemleri -->
-  <script>
-    const modeToggle = document.getElementById("mode-toggle");
-    modeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
-
-      const walletAddress = localStorage.getItem("walletAddress");
-      const walletBtn = document.getElementById("wallet-connect");
-      const addressSpan = document.getElementById("wallet-address");
-      const logoutBtn = document.getElementById("logout-btn");
-
-      if (walletAddress) {
-        walletBtn.textContent = `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
-        addressSpan.textContent = `Connected: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
-        logoutBtn.style.display = "inline-block";
-      }
-
-      logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("walletAddress");
-        walletBtn.textContent = "Login / Signup";
-        addressSpan.textContent = "";
-        logoutBtn.style.display = "none";
-      });
-    });
-  </script>
-
-  <script>
-  async function loadSuccessWall() {
-    try {
-      const res = await fetch('success-signals.json');
-      const signals = await res.json();
-      const container = document.getElementById('success-container');
-      container.innerHTML = "";
-
-      signals.forEach(signal => {
-        const typeClass = signal.type.toLowerCase();
-        const logo = `https://cryptoicon-api.pages.dev/api/icon/${signal.pair.slice(0, 3).toLowerCase()}`;
-
-        const card = document.createElement("div");
-        card.className = `success-card ${typeClass}`;
-        card.innerHTML = `
-          <div class="pair"><img src="${logo}" alt=""> ${signal.pair}</div>
-          <div class="type">${signal.type}</div>
-          <div>🎯 <strong>Entry:</strong> ${signal.entry}</div>
-          <div>🚀 <strong>Target:</strong> ${signal.target}</div>
-          <div>🛑 <strong>Stop:</strong> ${signal.stop}</div>
-          <div class="comment">💬 ${signal.comment}</div>
-        `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error("Failed to load success wall:", err);
-    }
-  }
-
-  loadSuccessWall();
-</script>
-
-  <!-- walletconnect.js -->
   <script type="module" src="walletconnect.js"></script>
-
 </body>
 </html>
