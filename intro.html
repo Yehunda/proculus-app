@@ -274,21 +274,19 @@
 
   <script>
   window.addEventListener("DOMContentLoaded", async () => {
-    // Sadece localStorage değil, gerçekten bağlı mı kontrol et
-    const address = localStorage.getItem("walletAddress");
+  const address = localStorage.getItem("walletAddress");
 
-    if (address && window.ethereum) {
-      try {
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-        if (accounts[0] && accounts[0].toLowerCase() === address.toLowerCase()) {
-          // Cüzdan gerçekten bağlıysa geç
-          window.location.href = "panel.html";
-        }
-      } catch (err) {
-        console.error("Wallet check failed:", err);
+  if (address && window.ethereum) {
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      if (accounts[0] && accounts[0].toLowerCase() === address.toLowerCase()) {
+        // window.location.href = "panel.html"; // ✅ Yönlendirme devre dışı
       }
+    } catch (err) {
+      console.error("Wallet check failed:", err);
     }
-  });
+  }
+});
 </script>
   
    <!-- Yerel Web3 bağlantısı -->
