@@ -1,125 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Proculus Panel</title>
-  <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="panel.css" />
 </head>
 <body>
-  <script>
-  const plan = localStorage.getItem("selectedPlan");
-  if (!plan) {
-    window.location.href = "intro.html";
-  }
-</script>
- <header class="topbar">
-  <div class="top-left">
-    <img src="proculus-logo.png" alt="Proculus Logo" class="top-logo">
-    <div class="title-slogan">
-      <h1 class="title">PROCULUS</h1>
-      <p class="slogan">Eyes Beyond The Chain</p>
+
+  <header class="topbar">
+    <div class="top-left">
+      <img src="proculus-logo.png" class="top-logo" alt="Proculus Logo" />
+      <div class="title-slogan">
+        <span class="title">PROCULUS</span>
+        <span class="slogan">Eyes Beyond The Chain</span>
+      </div>
     </div>
-  </div>
-  <div class="top-right">
-    <nav class="desktop-menu">
-      <a href="#">Dashboard</a>
-      <a href="#">Signals</a>
-      <a href="#">Settings</a>
+    <div class="top-right">
+      <button id="mode-toggle" class="top-btn">🌙</button>
+      <button id="logout-btn" class="top-btn">Logout</button>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <nav class="menu">
+      <ul>
+        <li><a href="#" class="active">Dashboard</a></li>
+        <li><a href="#">Signals</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li><a href="#">API Access</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
     </nav>
-    <div class="auth-buttons">
-      <button class="login-btn">Login</button>
-      <button class="signup-btn">Sign Up</button>
-    </div>
-    
-<div class="hamburger" id="hamburger-menu">☰</div>
+  </aside>
 
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#">Dashboard</a>
-  <a href="#">Signals</a>
-  <a href="#">Settings</a>
-  <div class="mobile-auth">
-    <button type="button">Login</button>
-    <button type="button">Sign Up</button>
-  </div>
-</div>
-</div>
-</header>
-    <div class="filter-buttons">
-  <button onclick="filterSignals('all')">All</button>
-  <button onclick="filterSignals('long')">LONG</button>
-  <button onclick="filterSignals('short')">SHORT</button>
-</div>
+  <main class="content">
+    <section class="signal-section">
+      <h2>Live Signals</h2>
+      <div id="signals-container" class="signals-grid">
+        <!-- Signal boxes will be inserted here via JS -->
+      </div>
+    </section>
 
-    <div class="panel-content">
-      <div id="signals-container"></div>
-     
-
-      <div class="price-widget">
-  <h3>Bitcoin Price (Live):</h3>
-  <div id="btc-price"></div>
-</div>
-
-<div class="subscription-section">
-  <h2>Choose Your Access Plan</h2>
-  <div class="subscription-cards">
-    <div class="card">
-      <h3>Daily</h3>
-      <p class="price">$3 / day</p>
-      <ul>
-        <li>1 signal per day</li>
-        <li>Notification system</li>
-        <li>Risk alerts</li>
+    <section class="notifications-section">
+      <h2>Notification Options</h2>
+      <ul class="notify-list">
+        <li><input type="checkbox" id="email" /> <label for="email">Email Alerts</label></li>
+        <li><input type="checkbox" id="sms" /> <label for="sms">SMS Alerts</label></li>
+        <li><input type="checkbox" id="telegram" /> <label for="telegram">Telegram Alerts</label></li>
+        <li><input type="checkbox" id="discord" /> <label for="discord">Discord Alerts</label></li>
       </ul>
-      <button class="subscribe-btn">Subscribe Now</button>
-    </div>
+    </section>
 
-    <div class="card">
-      <h3>Monthly</h3>
-      <p class="price">$30 / month</p>
-      <ul>
-        <li>2 signals per day</li>
-        <li>Notification system</li>
-        <li>Risk alerts</li>
-        <li>API access</li>
-        <li>Stock market support</li>
-        <li>Bot integration</li>
-        <li>Mobile app access</li>
-        <li>Coin watchlist</li>
-        <li><strong>+ 3 days free trial</strong></li>
-        <li><strong>+ Bonus features</strong></li>
+    <section class="api-section">
+      <h2>Exchange API Access</h2>
+      <ul class="api-list">
+        <li><button class="api-btn">Connect Binance</button></li>
+        <li><button class="api-btn">Connect Coinbase</button></li>
+        <li><button class="api-btn">Connect Gate.io</button></li>
+        <li><button class="api-btn">Connect MEXC</button></li>
+        <li><button class="api-btn">Connect OKX</button></li>
+        <li><button class="api-btn">Connect KuCoin</button></li>
+        <li><button class="api-btn">Connect HTX</button></li>
+        <li><button class="api-btn">Connect Bybit</button></li>
       </ul>
-      <button class="subscribe-btn trial">Start Free Trial</button>
-    </div>
+    </section>
+  </main>
 
-    <div class="card">
-      <h3>Yearly</h3>
-      <p class="price">$300 / year</p>
-      <ul>
-        <li>3 signals per day</li>
-        <li>Everything in Monthly</li>
-        <li>NFT radar</li>
-        <li>Presale insights</li>
-        <li>Token unlock calendar</li>
-        <li><strong>+ 3 days free trial</strong></li>
-        <li><strong>+ Bonus features</strong></li>
-      </ul>
-      <button class="subscribe-btn trial">Start Free Trial</button>
-    </div>
-  </div>
-</div>
+  <script>
+    // Temel karanlık/aydınlık tema geçişi
+    const modeToggle = document.getElementById("mode-toggle");
+    modeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+    });
 
-    
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <h2>Confirm Plan</h2>
-    <p id="modal-text">Do you want to activate this plan?</p>
-    <button id="confirm-btn">Confirm</button>
-  </div>
-</div>
+    // Tema yükleme
+    window.addEventListener("DOMContentLoaded", () => {
+      const theme = localStorage.getItem("theme");
+      if (theme === "light") {
+        document.body.classList.add("light-mode");
+      }
+    });
 
-<script src="panel.js"></script>
+    // Logout
+    const logoutBtn = document.getElementById("logout-btn");
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("walletAddress");
+      window.location.href = "intro.html";
+    });
+
+    // Örnek sinyal kutuları yükleyici (JS dosyasına aktarılabilir)
+    const signals = [
+      {
+        pair: "BTCUSDT",
+        type: "LONG",
+        entry: "28,500",
+        target: "31,000",
+        stop: "27,800",
+        comment: "Breakout from triangle"
+      },
+      {
+        pair: "ETHUSDT",
+        type: "SHORT",
+        entry: "2,950",
+        target: "2,750",
+        stop: "3,050",
+        comment: "Rejected at resistance"
+      }
+    ];
+
+    const container = document.getElementById("signals-container");
+    signals.forEach(signal => {
+      const box = document.createElement("div");
+      box.className = `signal-box ${signal.type.toLowerCase()}`;
+      box.innerHTML = `
+        <h3>${signal.pair} — ${signal.type}</h3>
+        <p>Entry: $${signal.entry}</p>
+        <p>Target: $${signal.target}</p>
+        <p>Stop Loss: $${signal.stop}</p>
+        <div class="signal-comment">Reason: ${signal.comment}</div>
+      `;
+      container.appendChild(box);
+    });
+  </script>
+
 </body>
 </html>
-
