@@ -14,5 +14,21 @@
     "target": "2,750",
     "stop": "3,050",
     "comment": "Rejected at resistance"
+  },
+  {
+    "symbol": "KASUSDT",
+    "direction": "LONG",
+    "entry": "0.145",
+    "target": "0.165",
+    "stop": "0.135",
+    "comment": "Strong support bounce"
+  },
+  {
+    "symbol": "ARBUSDT",
+    "direction": "SHORT",
+    "entry": "0.95",
+    "target": "0.85",
+    "stop": "1.00",
+    "comment": "Bearish divergence"
   }
 ]
