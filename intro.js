@@ -1,17 +1,16 @@
-// Tema geçişi
-document.getElementById("mode-toggle").addEventListener("click", () => {
+// 🌙 Tema yönetimi
+const modeToggle = document.getElementById("mode-toggle");
+modeToggle.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
   localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
 });
 
-// Sayfa yüklendiğinde tema ve cüzdan kontrolü
+// 🌐 Sayfa yüklendiğinde tema + cüzdan kontrolü
 window.addEventListener("DOMContentLoaded", () => {
-  // Tema kontrolü
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light-mode");
   }
 
-  // Cüzdan durumu kontrolü
   const walletAddress = localStorage.getItem("walletAddress");
   const walletBtn = document.getElementById("wallet-connect");
   const addressSpan = document.getElementById("wallet-address");
@@ -30,42 +29,87 @@ window.addEventListener("DOMContentLoaded", () => {
     logoutBtn.style.display = "none";
   });
 
-  loadSuccessWall(); // Başarılı sinyalleri getir
-  fetchPrices(); // Coin fiyatlarını getir
+  // Otomatik yönlendirme
+  if (walletAddress && localStorage.getItem("selectedPlan")) {
+    window.location.href = "panel.html";
+  }
 });
 
-// Modal sistemi
+// 💰 Coin fiyatlarını çek (CoinGecko)
+async function fetchPrices() {
+  const coinIds = [
+    'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
+    'polkadot', 'monero', 'dogecoin', 'tron', 'cardano', 'hyperliquid', 'sui',
+    'bittensor', 'ethena', 'ondo', 'pepe', 'kaspa', 'arbitrum', 'render',
+    'celestia', 'hacash', 'hacash-diamond'
+  ];
+
+  const map = {
+    bitcoin: 'btc-price', ethereum: 'eth-price', solana: 'sol-price', binancecoin: 'bnb-price',
+    ripple: 'xrp-price', 'avalanche-2': 'avax-price', chainlink: 'link-price', polkadot: 'dot-price',
+    monero: 'xmr-price', dogecoin: 'doge-price', tron: 'trx-price', cardano: 'ada-price',
+    hyperliquid: 'hype-price', sui: 'sui-price', bittensor: 'tao-price', ethena: 'ena-price',
+    ondo: 'ondo-price', pepe: 'pepe-price', kaspa: 'kaspa-price', arbitrum: 'arbitrum-price',
+    render: 'render-price', celestia: 'celestia-price',
+    hacash: 'hacash-price', 'hacash-diamond': 'hacash-diamond-price'
+  };
+
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
+    const data = await res.json();
+    for (const [key, id] of Object.entries(map)) {
+      const price = data[key]?.usd?.toLocaleString() || 'Error';
+      document.getElementById(id).innerText = `${key.toUpperCase().replace(/-/g, ' ')}: $${price}`;
+    }
+
+    const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
+    const global = await globalRes.json();
+    document.getElementById("btc-dominance").innerText = `BTC Dominance: ${global.data.market_cap_percentage.btc.toFixed(2)}%`;
+    document.getElementById("total-market-cap").innerText = `Total Market Cap: $${global.data.total_market_cap.usd.toLocaleString()}`;
+  } catch (err) {
+    console.error("Price fetch error:", err);
+  }
+}
+fetchPrices();
+setInterval(fetchPrices, 60000);
+
+// 📢 Modal kontrol ve plan onaylama
+const modal = document.getElementById("modal");
+const modalText = document.getElementById("modal-text");
+const confirmBtn = document.getElementById("confirm-btn");
+const closeModal = document.getElementById("closeModal");
+
 document.querySelectorAll(".subscribe-btn").forEach(button => {
   button.addEventListener("click", () => {
     const plan = button.getAttribute("data-plan");
-    document.getElementById("modal-text").innerText = `Do you want to activate the "${plan}" plan?`;
-    document.getElementById("modal").style.display = "block";
-    document.getElementById("confirm-btn").setAttribute("data-plan", plan);
+    modalText.innerText = `Do you want to activate the "${plan}" plan?`;
+    modal.style.display = "block";
+    confirmBtn.setAttribute("data-plan", plan);
   });
 });
 
-document.getElementById("confirm-btn").onclick = () => {
-  const selectedPlan = document.getElementById("confirm-btn").getAttribute("data-plan");
-  const wallet = localStorage.getItem("walletAddress");
-  if (!wallet) return alert("Please connect your wallet before proceeding.");
+confirmBtn.onclick = () => {
+  const selectedPlan = confirmBtn.getAttribute("data-plan");
   localStorage.setItem("selectedPlan", selectedPlan);
-  window.location.href = "panel.html";
-};
+  modal.style.display = "none";
 
-document.getElementById("closeModal").onclick = () => {
-  document.getElementById("modal").style.display = "none";
-};
-
-window.onclick = (e) => {
-  if (e.target.classList.contains("modal")) {
-    document.getElementById("modal").style.display = "none";
+  const wallet = localStorage.getItem("walletAddress");
+  if (wallet) {
+    window.location.href = "panel.html";
+  } else {
+    alert("Please connect your wallet before proceeding.");
   }
 };
 
-// Başarılı sinyalleri çek
+closeModal.onclick = () => modal.style.display = "none";
+window.onclick = (e) => {
+  if (e.target.classList.contains("modal")) modal.style.display = "none";
+};
+
+// ✅ Başarılı Sinyalleri Yükle
 async function loadSuccessWall() {
   try {
-    const res = await fetch('https://proculus-backend-url.com/success-signals.json'); // doğru backend yolunu yaz
+    const res = await fetch('https://proculus-backend.onrender.com/success-signals.json');
     const signals = await res.json();
     const container = document.getElementById('success-container');
     container.innerHTML = "";
@@ -90,37 +134,22 @@ async function loadSuccessWall() {
     console.error("Failed to load success wall:", err);
   }
 }
+loadSuccessWall();
 
-// Coin fiyatlarını çek
-async function fetchPrices() {
-  const coinIds = [
-    'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
-    'polkadot', 'monero', 'dogecoin', 'tron', 'cardano', 'hyperliquid', 'sui', 'bittensor',
-    'ethena', 'ondo', 'pepe', 'kaspa', 'arbitrum', 'render', 'celestia', 'hacash', 'hacash-diamond'
-  ];
-  const map = {
-    bitcoin: 'btc-price', ethereum: 'eth-price', solana: 'sol-price', binancecoin: 'bnb-price',
-    ripple: 'xrp-price', 'avalanche-2': 'avax-price', chainlink: 'link-price', polkadot: 'dot-price',
-    monero: 'xmr-price', dogecoin: 'doge-price', tron: 'trx-price', cardano: 'ada-price',
-    hyperliquid: 'hype-price', sui: 'sui-price', bittensor: 'tao-price', ethena: 'ena-price',
-    ondo: 'ondo-price', pepe: 'pepe-price', kaspa: 'kaspa-price', arbitrum: 'arbitrum-price',
-    render: 'render-price', celestia: 'celestia-price',
-    hacash: 'hacash-price', 'hacash-diamond': 'hacash-diamond-price'
-  };
-
+// 🧑 Aktif Kullanıcı Sayısı (dummy örnek, backend bağlanınca değiştirilebilir)
+async function loadActiveUsers() {
   try {
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
+    const res = await fetch('https://proculus-backend.onrender.com/active-users');
     const data = await res.json();
-    for (const [key, id] of Object.entries(map)) {
-      const price = data[key]?.usd?.toLocaleString() || 'Error';
-      document.getElementById(id).innerText = `${key.toUpperCase()}: $${price}`;
-    }
-
-    const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
-    const global = await globalRes.json();
-    document.getElementById("btc-dominance").innerText = `BTC Dominance: ${global.data.market_cap_percentage.btc.toFixed(2)}%`;
-    document.getElementById("total-market-cap").innerText = `Total Market Cap: $${global.data.total_market_cap.usd.toLocaleString()}`;
+    const userPanel = document.querySelector(".active-users");
+    userPanel.innerHTML = `
+      <h3>Active Users</h3>
+      <p>${data.count}</p>
+    `;
   } catch (err) {
-    console.error("Price fetch error:", err);
+    console.error("Active user fetch error:", err);
+    document.querySelector(".active-users").innerHTML = `<h3>Active Users</h3><p>Loading failed</p>`;
   }
 }
+loadActiveUsers();
+setInterval(loadActiveUsers, 60000);
