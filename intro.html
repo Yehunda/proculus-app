@@ -112,6 +112,13 @@
       <li id="ena-price">ENA: Loading...</li>
       <li id="ondo-price">ONDO: Loading...</li>
       <li id="pepe-price">PEPE: Loading...</li>
+      <li id="kaspa-price">KASPA: Loading...</li>
+      <li id="arbitrum-price">ARBITRUM: Loading...</li>
+      <li id="render-price">RENDER: Loading...</li>
+      <li id="celestia-price">CELESTIA: Loading...</li>
+      <li id="hyperliquid-price">HYPER: Loading...</li>
+      <li id="hacash-price">HACASH: Loading...</li>
+      <li id="hacash-diamond-price">HACD: Loading...</li>
       <li id="btc-dominance">BTC Dominance: Loading...</li>
       <li id="total-market-cap">Total Market Cap: Loading...</li>
     </ul>
@@ -166,6 +173,7 @@
           'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
           'polkadot', 'monero', 'dogecoin', 'tron', 'cardano',
           'hype', 'sui', 'bittensor', 'ethena', 'ondoland', 'pepe', 'kaspa', 'arbitrum', 'render', 'celestia', 'hyperliquid'
+          'hacash', 'hacash-diamond'
         ];
 
         const coinRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
@@ -190,6 +198,14 @@
           ethena: 'ena-price',
           ondoland: 'ondo-price',
           pepe: 'pepe-price'
+          kaspa: 'kaspa-price',
+          arbitrum: 'arbitrum-price',
+          render: 'render-price',
+          celestia: 'celestia-price',
+          hyperliquid: 'hyperliquid-price',
+          hacash: 'hacash-price',            
+          hacash-diamond: 'hacash-diamond-price' 
+          
         };
 
         for (const [key, id] of Object.entries(map)) {
