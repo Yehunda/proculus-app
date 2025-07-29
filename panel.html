@@ -1,97 +1,88 @@
-<!DOCTYPE html>
+ss="fas fa-bullhorn"></i> Presale Alerts</h4>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proculus Panel</title>
-  <link rel="stylesheet" href="panel.css" />
-  <script src="https://kit.fontawesome.com/a2e0e6ad2b.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="panel.css">
+  <script defer src="panel.js"></script>
 </head>
 <body>
   <header>
     <div class="logo-section">
-      <img src="proculus-logo.png" alt="Proculus Logo" />
+      <img src="proculus-logo.png" alt="Proculus Logo">
       <div class="text-group">
-        <div class="title">PROCULUS</div>
-        <div class="slogan">AI-Powered Signals & Market Intelligence</div>
+        <span class="title">PROCULUS</span>
+        <span class="slogan">AI-Powered Signals & Market Intelligence</span>
       </div>
     </div>
     <div class="right-controls">
-      <button class="top-btn" onclick="toggleTheme()">Toggle Theme</button>
-      <span class="wallet-status" id="wallet-address">Not Connected</span>
-      <button class="top-btn" id="logout-btn" onclick="logout()">Logout</button>
+      <button id="theme-toggle" class="top-btn">Toggle Theme</button>
+      <span id="wallet-status" class="wallet-status"></span>
+      <button id="logout-button" class="top-btn">Logout</button>
     </div>
   </header>
 
   <main>
+    <!-- Sinyal Paneli -->
     <section class="section" id="signals-section">
-      <h2>Market Signals</h2>
-      <div class="signals-wrapper" id="signals-container">
-        <!-- Signals injected here -->
-      </div>
+      <h2>Trading Signals</h2>
+      <div class="signals-wrapper" id="signals-container"></div>
     </section>
 
-    <section class="section">
-      <h2>Notifications</h2>
+    <!-- Bildirim Seçenekleri -->
+    <section class="section" id="notifications-section">
+      <h2>Notification Preferences</h2>
       <div class="notification-options">
-        <label><input type="checkbox" /> Email</label>
-        <label><input type="checkbox" /> SMS</label>
-        <label><input type="checkbox" /> Telegram</label>
-        <label><input type="checkbox" /> Discord</label>
+        <label><input type="checkbox" name="notif" value="email"> Email</label>
+        <label><input type="checkbox" name="notif" value="sms"> SMS</label>
+        <label><input type="checkbox" name="notif" value="telegram"> Telegram</label>
+        <label><input type="checkbox" name="notif" value="discord"> Discord</label>
       </div>
     </section>
 
-    <section class="section">
-      <h2>API Integrations</h2>
+    <!-- API Erişimi -->
+    <section class="section" id="api-access-section">
+      <h2>Exchange APIs</h2>
       <div class="features-grid">
-        <div class="feature-box api">
-          <h4><i class="fab fa-binance"></i> Binance</h4>
-          <p>Access via API</p>
-        </div>
-        <div class="feature-box api">
-          <h4><i class="fab fa-ethereum"></i> Coinbase</h4>
-          <p>Access via API</p>
-        </div>
-        <div class="feature-box api">
-          <h4><i class="fas fa-plug"></i> Gate.io</h4>
-          <p>Access via API</p>
-        </div>
-        <div class="feature-box api">
-          <h4><i class="fas fa-signal"></i> KuCoin</h4>
-          <p>Access via API</p>
-        </div>
-        <div class="feature-box api">
-          <h4><i class="fas fa-chart-line"></i> Bybit</h4>
-          <p>Access via API</p>
-        </div>
+        <div class="feature-box"><h4>Binance</h4></div>
+        <div class="feature-box"><h4>Coinbase</h4></div>
+        <div class="feature-box"><h4>Gate.io</h4></div>
+        <div class="feature-box"><h4>KuCoin</h4></div>
+        <div class="feature-box"><h4>HTX</h4></div>
+        <div class="feature-box"><h4>OKX</h4></div>
+        <div class="feature-box"><h4>Bybit</h4></div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>Stock & NFT Panels</h2>
-      <div class="features-grid">
-        <div class="feature-box">
-          <h4><i class="fas fa-chart-bar"></i> Stocks Overview</h4>
-          <p>Market insights</p>
-        </div>
-        <div class="feature-box">
-          <h4><i class="fas fa-image"></i> NFT Radar</h4>
-          <p>Track hot NFTs</p>
-        </div>
-        <div class="feature-box">
-          <h4><i class="fas fa-bullhorn"></i> Presale Alerts</h4>
-          <p>Never miss presales</p>
-        </div>
-        <div class="feature-box">
-          <h4><i class="fas fa-calendar-alt"></i> Token Unlocks</h4>
-          <p>Track unlock events</p>
-        </div>
-      </div>
+    <!-- Hisse Senetleri -->
+    <section class="section" id="stocks-section">
+      <h2>Stocks Overview</h2>
+      <p>[Borsa verileri burada olacak]</p>
+    </section>
+
+    <!-- NFT Radar -->
+    <section class="section" id="nft-radar-section">
+      <h2>NFT Radar</h2>
+      <p>[OpenSea, MagicEden entegrasyonu burada olacak]</p>
+    </section>
+
+    <!-- Ön Satış Bilgi Paneli -->
+    <section class="section" id="presale-section">
+      <h2>Presale Watch</h2>
+      <p>[Yaklaşan ön satış token listesi burada olacak]</p>
+    </section>
+
+    <!-- Token Unlock Takvimi -->
+    <section class="section" id="token-unlock-section">
+      <h2>Token Unlock Calendar</h2>
+      <p>[Token kilit açılımları burada listelenecek]</p>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Proculus Alpha Intelligence — All rights reserved.
+    &copy; 2025 Proculus. All rights reserved.
   </footer>
 
   <script src="panel.js"></script>
