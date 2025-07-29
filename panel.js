@@ -1,46 +1,79 @@
-// === PANEL.JS ===
+console.log("JS loaded");
 
-console.log("Panel JS loaded");
-
-// === BTC & ETH LIVE PRICE ===
-async function fetchPrice(symbol, elementId) {
+// === BTC PRICE FETCH ===
+async function fetchBTCPrice() {
   try {
-    const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${symbol}&vs_currencies=usd`);
-    const data = await response.json();
-    const price = data[symbol].usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    document.getElementById(elementId).textContent = price;
+    const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+    const data = await res.json();
+    document.getElementById("btc-price").textContent = `$${data.bitcoin.usd}`;
   } catch (err) {
-    console.error("Price fetch error:", err);
+    console.error("BTC price error:", err);
   }
 }
 
-function loadPrices() {
-  fetchPrice("bitcoin", "btc-price");
-  fetchPrice("ethereum", "eth-price");
-}
-
-// === LOAD SIGNALS ===
+// === LOAD SIGNALS BASED ON PLAN ===
 async function loadSignals() {
   try {
-    const response = await fetch('signals.json');
-    const signals = await response.json();
-    const container = document.getElementById("signals-container");
-    container.innerHTML = '';
+    const res = await fetch("signals.json");
+    const signals = await res.json();
 
-    signals.forEach(signal => {
+    const plan = localStorage.getItem("selectedPlan") || "daily";
+    const maxSignals = plan === "yearly" ? 3 : plan === "monthly" ? 2 : 1;
+
+    const container = document.getElementById("signals-container");
+    container.innerHTML = ""; // clear before refill
+
+    signals.slice(0, maxSignals).forEach(signal => {
       const box = document.createElement("div");
       box.className = `signal-box ${signal.direction.toLowerCase()}`;
       box.innerHTML = `
         <h3>${signal.symbol} — ${signal.direction}</h3>
-        <p><strong>Entry:</strong> $${signal.entry}</p>
-        <p><strong>Target:</strong> $${signal.target}</p>
-        <p><strong>Stop:</strong> $${signal.stop}</p>
-        <p class="signal-comment">${signal.comment}</p>
+        <p>Entry: $${signal.entry}</p>
+        <p>Target: $${signal.target}</p>
+        <p>Stop Loss: $${signal.stop}</p>
+        <div class="signal-comment">${signal.comment}</div>
       `;
       container.appendChild(box);
     });
-  } catch (error) {
-    console.error("Failed to load signals:", error);
+  } catch (err) {
+    console.error("Signal fetch error:", err);
+  }
+}
+
+// === PLAN-BASED SECTION DISPLAY ===
+function controlSectionsByPlan() {
+  const plan = localStorage.getItem("selectedPlan") || "daily";
+
+  const showIf = selector => {
+    document.querySelectorAll(selector).forEach(el => el.style.display = "block");
+  };
+  const hideIf = selector => {
+    document.querySelectorAll(selector).forEach(el => el.style.display = "none");
+  };
+
+  // Base for all plans
+  showIf(".signals-section");
+  showIf(".notifications-section");
+  showIf(".risk-warning");
+
+  // Monthly and above
+  if (plan === "monthly" || plan === "yearly") {
+    showIf(".api-access");
+    showIf(".stocks-section");
+  } else {
+    hideIf(".api-access");
+    hideIf(".stocks-section");
+  }
+
+  // Yearly only
+  if (plan === "yearly") {
+    showIf(".nft-radar");
+    showIf(".presales-section");
+    showIf(".token-unlock");
+  } else {
+    hideIf(".nft-radar");
+    hideIf(".presales-section");
+    hideIf(".token-unlock");
   }
 }
 
@@ -52,21 +85,29 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
 // === LOGOUT ===
 document.getElementById("logout-btn").addEventListener("click", () => {
   localStorage.removeItem("walletAddress");
+  localStorage.removeItem("selectedPlan");
   window.location.href = "intro.html";
+});
+
+// === MOBILE MENU TOGGLE ===
+const hamburger = document.getElementById("hamburger-menu");
+const mobileMenu = document.getElementById("mobile-menu");
+
+hamburger.addEventListener("click", () => {
+  mobileMenu.classList.toggle("show");
+});
+
+window.addEventListener("click", function (event) {
+  if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+    mobileMenu.classList.remove("show");
+  }
 });
 
 // === INIT ===
 document.addEventListener("DOMContentLoaded", () => {
-  loadPrices();
-  loadSignals();
-  setInterval(loadPrices, 60000);
+  fetchBTCPrice();
+  setInterval(fetchBTCPrice, 60000);
 
-  // Hide premium sections if not yearly
-  const plan = localStorage.getItem("selectedPlan");
-  if (plan !== "yearly") {
-    document.querySelectorAll(".yearly-only").forEach(el => el.style.display = "none");
-  }
-  if (plan !== "monthly" && plan !== "yearly") {
-    document.querySelectorAll(".monthly-only").forEach(el => el.style.display = "none");
-  }
+  controlSectionsByPlan();
+  loadSignals();
 });
