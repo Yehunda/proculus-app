@@ -1,36 +1,24 @@
-/* Genel ayarlar */
+/* Global styles */
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0d1117;
-  color: #e6edf3;
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
 }
 
-/* Tema için light mode */
-body.light-mode {
-  background-color: #f0f0f0;
-  color: #1a1a1a;
+.light-mode {
+  background-color: #ffffff;
+  color: #000000;
 }
 
 /* Topbar */
 .topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 64px;
-  background-color: #161b22;
-  color: #fff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  align-items: center;
+  background-color: #111;
+  padding: 10px 20px;
+  border-bottom: 1px solid #333;
 }
 
 .top-left {
@@ -39,24 +27,24 @@ body.light-mode {
 }
 
 .top-logo {
-  height: 42px;
-  margin-right: 12px;
+  height: 50px;
+  margin-right: 10px;
 }
 
 .title-slogan {
   display: flex;
   flex-direction: column;
-  line-height: 1;
 }
 
 .title {
+  font-size: 1.6em;
   font-weight: bold;
-  font-size: 20px;
+  color: #00ffcc;
 }
 
 .slogan {
-  font-size: 13px;
-  color: #8b949e;
+  font-size: 0.9em;
+  color: #999;
 }
 
 .top-right {
@@ -65,149 +53,153 @@ body.light-mode {
   gap: 10px;
 }
 
-.top-btn, .top-link {
-  background: none;
-  border: 1px solid #30363d;
-  color: #e6edf3;
+.top-link {
+  color: #00ffcc;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.top-btn {
   padding: 6px 12px;
-  border-radius: 6px;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.top-btn:hover, .top-link:hover {
-  background-color: #21262d;
-}
-
-/* Sol panel */
-.market-panel {
-  width: 220px;
-  background-color: #0d1117;
-  padding: 80px 16px 24px;
-  border-right: 1px solid #30363d;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow-y: auto;
-}
-
-.market-panel h3 {
-  margin-bottom: 10px;
-  font-size: 16px;
-  border-bottom: 1px solid #30363d;
-  padding-bottom: 5px;
-}
-
-.market-list {
-  list-style: none;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-/* Ana içerik */
+/* Main panel */
 .panel-content {
-  flex: 1;
-  margin-left: 240px;
-  margin-top: 80px;
-  padding: 20px 40px 80px;
+  margin-left: 250px;
+  margin-right: 250px;
+  padding: 20px;
+  text-align: center;
 }
 
 .panel-content h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 2em;
+  margin-bottom: 0.3em;
 }
 
 .panel-content p {
-  font-size: 16px;
-  color: #a1a1a1;
-  margin-bottom: 30px;
+  font-size: 1.1em;
+  margin-bottom: 1.5em;
+  color: #ccc;
 }
 
-/* Abonelik kartları */
+/* Subscription Cards */
+.subscription-section {
+  margin-bottom: 40px;
+}
+
 .subscription-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 20px;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
 .card {
-  background-color: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 12px;
+  background-color: #181818;
+  border: 1px solid #333;
+  border-radius: 10px;
   padding: 20px;
-  width: 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease-in-out;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0,255,204,0.1);
 }
 
 .card h3 {
-  margin: 0 0 10px;
-  font-size: 20px;
+  margin-top: 0;
+  color: #00ffcc;
 }
 
 .card .price {
-  font-size: 24px;
-  color: #58a6ff;
-  margin: 8px 0;
+  font-size: 1.5em;
+  margin: 10px 0;
+  font-weight: bold;
 }
 
 .card ul {
   list-style: none;
   padding: 0;
-  font-size: 14px;
-  margin-bottom: 16px;
+  margin: 15px 0;
+  text-align: left;
+  color: #ccc;
 }
 
-.card li {
-  margin-bottom: 6px;
-}
-
-.card .highlight {
-  color: #f0883e;
-  font-weight: bold;
+.card ul li.highlight {
+  color: #00ffcc;
 }
 
 .subscribe-btn {
-  padding: 10px 16px;
+  background-color: #00ffcc;
+  color: #000;
   border: none;
   border-radius: 6px;
-  background-color: #238636;
-  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s ease;
+  transition: background-color 0.2s;
 }
 
 .subscribe-btn:hover {
-  background-color: #2ea043;
+  background-color: #00ddb3;
+}
+
+/* Market Overview */
+.market-panel {
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  width: 220px;
+  padding: 10px;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+.market-panel h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #00ffcc;
+}
+
+.market-list {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+.market-list li {
+  margin-bottom: 5px;
+  color: #ccc;
 }
 
 /* Modal */
 .modal {
-  display: none;
   position: fixed;
-  z-index: 2000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 999;
 }
 
 .modal-content {
-  background-color: #161b22;
-  padding: 30px;
-  margin: 10% auto;
-  width: 360px;
+  background: #222;
   border-radius: 10px;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #00ffcc;
   color: #fff;
-  text-align: center;
 }
 
 .modal-content h2 {
@@ -215,70 +207,101 @@ body.light-mode {
 }
 
 .modal-content button {
-  margin-top: 16px;
+  background-color: #00ffcc;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.close {
+  float: right;
+  font-size: 1.4em;
+  cursor: pointer;
 }
 
 /* Success Wall */
 .success-wall {
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .success-wall h2 {
-  font-size: 22px;
+  font-size: 1.5em;
+  color: #00ffcc;
   margin-bottom: 20px;
 }
 
 .success-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
 .success-card {
-  background-color: #1c2128;
-  padding: 16px;
-  border: 1px solid #30363d;
+  width: 250px;
+  background: #181818;
+  padding: 15px;
   border-radius: 10px;
-  transition: transform 0.2s ease;
-}
-
-.success-card:hover {
-  transform: scale(1.02);
+  border: 1px solid #333;
 }
 
 .success-card img {
   width: 24px;
-  vertical-align: middle;
+  height: 24px;
   margin-right: 6px;
 }
 
 .success-card .pair {
-  font-size: 16px;
+  display: flex;
+  align-items: center;
   font-weight: bold;
-  margin-bottom: 6px;
+  font-size: 1.1em;
+  color: #00ffcc;
 }
 
 .success-card .type {
-  font-weight: bold;
-  color: #3fb950;
-  margin-bottom: 8px;
+  font-size: 0.95em;
+  margin-bottom: 5px;
+  color: #ccc;
 }
 
 .success-card .comment {
-  font-style: italic;
-  color: #8b949e;
   margin-top: 10px;
+  font-style: italic;
+  color: #aaa;
 }
 
-/* Sağ panel (kullanıcı sayısı için) */
-.user-count {
+/* Right panel placeholder */
+.right-panel {
   position: absolute;
-  right: 24px;
-  top: 160px;
-  background-color: #21262d;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #c9d1d9;
-  border: 1px solid #30363d;
+  top: 100px;
+  right: 10px;
+  width: 200px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  color: #00ffcc;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .panel-content {
+    margin: 20px;
+  }
+
+  .market-panel,
+  .right-panel {
+    position: static;
+    margin: 10px auto;
+    width: auto;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
