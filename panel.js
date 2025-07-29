@@ -1,76 +1,113 @@
-console.log("🔧 Panel JS loaded");
+console.log("JS file loaded");
 
-// === BTC Live Price ===
+// === LOAD BTC PRICE ===
 async function fetchBTCPrice() {
   try {
-    const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
-    const data = await res.json();
-    const price = data.bitcoin.usd.toLocaleString("en-US", { style: "currency", currency: "USD" });
+    const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+    const data = await response.json();
+    const price = data.bitcoin.usd.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
     document.getElementById("btc-price").textContent = price;
-  } catch (err) {
-    console.error("❌ BTC price error:", err);
-    document.getElementById("btc-price").textContent = "Load error";
+  } catch (error) {
+    console.error("Error fetching BTC price:", error);
+    document.getElementById("btc-price").textContent = "Unable to load";
   }
 }
 
-// === Load Signals ===
+// === LOAD SIGNALS ===
 async function loadSignals() {
-  console.log("📡 Fetching signals...");
   try {
-    const res = await fetch("signals.json");
-    const signals = await res.json();
-    const container = document.getElementById("signals-container");
-    container.innerHTML = "";
+    const response = await fetch("signals.json");
+    const signals = await response.json();
 
-    signals.forEach(signal => {
+    const container = document.getElementById("signals-container");
+    container.innerHTML = ""; // Clear existing
+
+    const selectedPlan = localStorage.getItem("selectedPlan") || "daily";
+    const signalCount = selectedPlan === "yearly" ? 3 : selectedPlan === "monthly" ? 2 : 1;
+
+    signals.slice(0, signalCount).forEach((signal) => {
       const box = document.createElement("div");
-      box.className = `signal-box ${signal.direction.toLowerCase()}`;
+      box.className = "signal-box";
+
+      const directionClass = signal.direction.toLowerCase() === "long" ? "signal-long" : "signal-short";
+
       box.innerHTML = `
-        <h3>${signal.symbol} — ${signal.direction}</h3>
-        <p><strong>Entry:</strong> $${signal.entry}</p>
-        <p><strong>Target:</strong> $${signal.target}</p>
-        <p><strong>Stop Loss:</strong> $${signal.stop}</p>
-        <div class="signal-comment">${signal.comment}</div>
+        <div class="signal-header">
+          <span>${signal.symbol} — <span class="${directionClass}">${signal.direction}</span></span>
+        </div>
+        <div>Entry: $${signal.entry}</div>
+        <div>Target: $${signal.target}</div>
+        <div>Stop: $${signal.stop}</div>
+        <div class="signal-comment">Reason: ${signal.comment}</div>
       `;
       container.appendChild(box);
     });
-  } catch (err) {
-    console.error("❌ Failed to load signals:", err);
+  } catch (error) {
+    console.error("Failed to load signals:", error);
   }
 }
 
-// === Notification & API Save ===
-document.getElementById("save-options").addEventListener("click", () => {
-  const checkedAPIs = [...document.querySelectorAll(".api-option input:checked")].map(i => i.value);
-  const checkedNotifs = [...document.querySelectorAll(".notif-option input:checked")].map(i => i.value);
+// === FILTER SIGNALS (Optional, can be used with UI filter buttons) ===
+function filterSignals(type) {
+  const boxes = document.querySelectorAll(".signal-box");
+  boxes.forEach((box) => {
+    box.style.display = type === "all" || box.classList.contains(type) ? "block" : "none";
+  });
+}
 
-  localStorage.setItem("apiSelection", JSON.stringify(checkedAPIs));
-  localStorage.setItem("notifSelection", JSON.stringify(checkedNotifs));
+// === DISPLAY SECTIONS BASED ON PLAN ===
+function setupPanelByPlan() {
+  const plan = localStorage.getItem("selectedPlan") || "daily";
 
-  alert("✅ Preferences saved!");
-});
+  // Show relevant sections
+  const apiBox = document.getElementById("api-box");
+  const stockBox = document.getElementById("stock-box");
+  const nftBox = document.getElementById("nft-box");
+  const presaleBox = document.getElementById("presale-box");
+  const unlockBox = document.getElementById("unlock-box");
 
-// === Theme Support ===
-document.getElementById("mode-toggle").addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-  localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
-});
-
-// === Theme Load on Init ===
-window.addEventListener("DOMContentLoaded", () => {
-  // Theme
-  if (localStorage.getItem("theme") === "light") {
-    document.body.classList.add("light-mode");
+  if (plan === "daily") {
+    apiBox?.remove();
+    stockBox?.remove();
+    nftBox?.remove();
+    presaleBox?.remove();
+    unlockBox?.remove();
   }
 
-  // Wallet control
-  const wallet = localStorage.getItem("walletAddress");
-  if (!wallet) {
-    window.location.href = "intro.html";
+  if (plan === "monthly") {
+    nftBox?.remove();
+    presaleBox?.remove();
+    unlockBox?.remove();
   }
 
-  // Price + Signals
+  // Yearly sees all
+}
+
+// === NOTIFICATION SELECTION ===
+document.getElementById("notification-form")?.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const selected = [];
+  document.querySelectorAll("input[name='notification']:checked").forEach((el) => {
+    selected.push(el.value);
+  });
+  alert("Notifications selected: " + selected.join(", "));
+});
+
+// === LOGOUT ===
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn?.addEventListener("click", () => {
+  localStorage.removeItem("walletAddress");
+  localStorage.removeItem("selectedPlan");
+  window.location.href = "intro.html";
+});
+
+// === INIT ===
+document.addEventListener("DOMContentLoaded", () => {
   fetchBTCPrice();
   loadSignals();
+  setupPanelByPlan();
   setInterval(fetchBTCPrice, 60000);
 });
