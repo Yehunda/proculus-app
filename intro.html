@@ -225,6 +225,38 @@
     });
   </script>
 
+  <script>
+  async function loadSuccessWall() {
+    try {
+      const res = await fetch('success-signals.json');
+      const signals = await res.json();
+      const container = document.getElementById('success-container');
+      container.innerHTML = "";
+
+      signals.forEach(signal => {
+        const typeClass = signal.type.toLowerCase();
+        const logo = `https://cryptoicon-api.pages.dev/api/icon/${signal.pair.slice(0, 3).toLowerCase()}`;
+
+        const card = document.createElement("div");
+        card.className = `success-card ${typeClass}`;
+        card.innerHTML = `
+          <div class="pair"><img src="${logo}" alt=""> ${signal.pair}</div>
+          <div class="type">${signal.type}</div>
+          <div>🎯 <strong>Entry:</strong> ${signal.entry}</div>
+          <div>🚀 <strong>Target:</strong> ${signal.target}</div>
+          <div>🛑 <strong>Stop:</strong> ${signal.stop}</div>
+          <div class="comment">💬 ${signal.comment}</div>
+        `;
+        container.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Failed to load success wall:", err);
+    }
+  }
+
+  loadSuccessWall();
+</script>
+
   <!-- walletconnect.js -->
   <script type="module" src="walletconnect.js"></script>
 
