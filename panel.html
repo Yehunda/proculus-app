@@ -8,54 +8,84 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="top-left">
-      <img src="proculus-logo.png" class="top-logo" alt="Proculus Logo" />
-      <div class="title-slogan">
-        <span class="title">PROCULUS</span>
-        <span class="slogan">Eyes Beyond The Chain</span>
-      </div>
-    </div>
-    <div class="top-right">
-      <button id="mode-toggle" class="top-btn">🌙</button>
-      <button id="logout-btn" class="top-btn">Logout</button>
+    <div class="logo">👁 PROCULUS</div>
+    <div class="slogan">Eyes Beyond the Chain</div>
+    <div class="logout-btn">
+      <button id="logout">Logout</button>
     </div>
   </header>
 
-  <main class="main-panel">
-    <section class="notification-section">
-      <h2>Notification Preferences</h2>
-      <label><input type="checkbox" id="notify-email" /> Email</label>
-      <label><input type="checkbox" id="notify-sms" /> SMS</label>
-      <label><input type="checkbox" id="notify-telegram" /> Telegram</label>
-      <label><input type="checkbox" id="notify-discord" /> Discord</label>
-      <button id="save-notifications">Save Preferences</button>
-    </section>
+  <aside class="sidebar">
+    <ul class="menu">
+      <li class="menu-item">Dashboard</li>
+      <li class="menu-item" id="menu-signals">Signals</li>
+      <li class="menu-item" id="menu-notifications">Notification Settings</li>
+      <li class="menu-item" id="menu-risk">Risk Alerts</li>
+      <li class="menu-item" id="menu-api" style="display: none;">Exchange APIs</li>
+      <li class="menu-item" id="menu-stocks" style="display: none;">Stock Overview</li>
+      <li class="menu-item" id="menu-nft" style="display: none;">NFT Radar</li>
+      <li class="menu-item" id="menu-presales" style="display: none;">Presale Insights</li>
+      <li class="menu-item" id="menu-unlock" style="display: none;">Token Unlock Calendar</li>
+    </ul>
+  </aside>
 
-    <section class="api-access">
-      <h2>Exchange API Integrations</h2>
-      <div class="api-cards">
-        <div class="api-card">Binance</div>
-        <div class="api-card">Coinbase</div>
-        <div class="api-card">Gate.io</div>
-        <div class="api-card">MEXC</div>
-        <div class="api-card">OKX</div>
-        <div class="api-card">KuCoin</div>
-        <div class="api-card">HTX</div>
-        <div class="api-card">Bybit</div>
-      </div>
-    </section>
-
-    <section class="signals">
+  <main class="content">
+    <section id="signals-section">
       <h2>Private Signals</h2>
       <div id="signals-container"></div>
     </section>
 
-    <section class="btc-price-section">
-      <h2>Live BTC Price</h2>
-      <div id="btc-price">Loading...</div>
+    <section id="notifications-section">
+      <h2>Notification Preferences</h2>
+      <form id="notification-form">
+        <label><input type="checkbox" name="email" /> Email</label>
+        <label><input type="checkbox" name="sms" /> SMS</label>
+        <label><input type="checkbox" name="telegram" /> Telegram</label>
+        <label><input type="checkbox" name="discord" /> Discord</label>
+        <button type="submit">Save Preferences</button>
+      </form>
+    </section>
+
+    <section id="risk-section">
+      <h2>Risk Alerts</h2>
+      <div class="risk-box">🔔 No current alerts</div>
+    </section>
+
+    <section id="api-section" style="display: none;">
+      <h2>Exchange API Integrations</h2>
+      <ul>
+        <li>Binance</li>
+        <li>Coinbase</li>
+        <li>Gate.io</li>
+        <li>MEXC</li>
+        <li>OKX</li>
+        <li>KuCoin</li>
+        <li>HTX</li>
+        <li>Bybit</li>
+      </ul>
+    </section>
+
+    <section id="stocks-section" style="display: none;">
+      <h2>Stock Market Overview</h2>
+      <div class="stock-box">📈 Coming soon</div>
+    </section>
+
+    <section id="nft-section" style="display: none;">
+      <h2>NFT Radar</h2>
+      <div class="nft-box">🖼️ NFT insights will be shown here</div>
+    </section>
+
+    <section id="presales-section" style="display: none;">
+      <h2>Presale Token Information</h2>
+      <div class="presale-box">📢 No presales active now</div>
+    </section>
+
+    <section id="unlock-section" style="display: none;">
+      <h2>Token Unlock Calendar</h2>
+      <div class="unlock-box">🗓️ Token release schedule will appear here</div>
     </section>
   </main>
 
-  <script type="module" src="panel.js"></script>
+  <script src="panel.js"></script>
 </body>
 </html>
