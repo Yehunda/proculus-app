@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proculus Panel</title>
   <link rel="stylesheet" href="panel.css" />
 </head>
 <body>
-
   <header class="topbar">
     <div class="top-left">
       <img src="proculus-logo.png" class="top-logo" alt="Proculus Logo" />
@@ -22,108 +21,41 @@
     </div>
   </header>
 
-  <aside class="sidebar">
-    <nav class="menu">
-      <ul>
-        <li><a href="#" class="active">Dashboard</a></li>
-        <li><a href="#">Signals</a></li>
-        <li><a href="#">Notifications</a></li>
-        <li><a href="#">API Access</a></li>
-        <li><a href="#">Settings</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <main class="main-panel">
+    <section class="notification-section">
+      <h2>Notification Preferences</h2>
+      <label><input type="checkbox" id="notify-email" /> Email</label>
+      <label><input type="checkbox" id="notify-sms" /> SMS</label>
+      <label><input type="checkbox" id="notify-telegram" /> Telegram</label>
+      <label><input type="checkbox" id="notify-discord" /> Discord</label>
+      <button id="save-notifications">Save Preferences</button>
+    </section>
 
-  <main class="content">
-    <section class="signal-section">
-      <h2>Live Signals</h2>
-      <div id="signals-container" class="signals-grid">
-        <!-- Signal boxes will be inserted here via JS -->
+    <section class="api-access">
+      <h2>Exchange API Integrations</h2>
+      <div class="api-cards">
+        <div class="api-card">Binance</div>
+        <div class="api-card">Coinbase</div>
+        <div class="api-card">Gate.io</div>
+        <div class="api-card">MEXC</div>
+        <div class="api-card">OKX</div>
+        <div class="api-card">KuCoin</div>
+        <div class="api-card">HTX</div>
+        <div class="api-card">Bybit</div>
       </div>
     </section>
 
-    <section class="notifications-section">
-      <h2>Notification Options</h2>
-      <ul class="notify-list">
-        <li><input type="checkbox" id="email" /> <label for="email">Email Alerts</label></li>
-        <li><input type="checkbox" id="sms" /> <label for="sms">SMS Alerts</label></li>
-        <li><input type="checkbox" id="telegram" /> <label for="telegram">Telegram Alerts</label></li>
-        <li><input type="checkbox" id="discord" /> <label for="discord">Discord Alerts</label></li>
-      </ul>
+    <section class="signals">
+      <h2>Private Signals</h2>
+      <div id="signals-container"></div>
     </section>
 
-    <section class="api-section">
-      <h2>Exchange API Access</h2>
-      <ul class="api-list">
-        <li><button class="api-btn">Connect Binance</button></li>
-        <li><button class="api-btn">Connect Coinbase</button></li>
-        <li><button class="api-btn">Connect Gate.io</button></li>
-        <li><button class="api-btn">Connect MEXC</button></li>
-        <li><button class="api-btn">Connect OKX</button></li>
-        <li><button class="api-btn">Connect KuCoin</button></li>
-        <li><button class="api-btn">Connect HTX</button></li>
-        <li><button class="api-btn">Connect Bybit</button></li>
-      </ul>
+    <section class="btc-price-section">
+      <h2>Live BTC Price</h2>
+      <div id="btc-price">Loading...</div>
     </section>
   </main>
 
-  <script>
-    // Temel karanlık/aydınlık tema geçişi
-    const modeToggle = document.getElementById("mode-toggle");
-    modeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
-    });
-
-    // Tema yükleme
-    window.addEventListener("DOMContentLoaded", () => {
-      const theme = localStorage.getItem("theme");
-      if (theme === "light") {
-        document.body.classList.add("light-mode");
-      }
-    });
-
-    // Logout
-    const logoutBtn = document.getElementById("logout-btn");
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("walletAddress");
-      window.location.href = "intro.html";
-    });
-
-    // Örnek sinyal kutuları yükleyici (JS dosyasına aktarılabilir)
-    const signals = [
-      {
-        pair: "BTCUSDT",
-        type: "LONG",
-        entry: "28,500",
-        target: "31,000",
-        stop: "27,800",
-        comment: "Breakout from triangle"
-      },
-      {
-        pair: "ETHUSDT",
-        type: "SHORT",
-        entry: "2,950",
-        target: "2,750",
-        stop: "3,050",
-        comment: "Rejected at resistance"
-      }
-    ];
-
-    const container = document.getElementById("signals-container");
-    signals.forEach(signal => {
-      const box = document.createElement("div");
-      box.className = `signal-box ${signal.type.toLowerCase()}`;
-      box.innerHTML = `
-        <h3>${signal.pair} — ${signal.type}</h3>
-        <p>Entry: $${signal.entry}</p>
-        <p>Target: $${signal.target}</p>
-        <p>Stop Loss: $${signal.stop}</p>
-        <div class="signal-comment">Reason: ${signal.comment}</div>
-      `;
-      container.appendChild(box);
-    });
-  </script>
-
+  <script type="module" src="panel.js"></script>
 </body>
 </html>
