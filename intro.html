@@ -32,6 +32,7 @@
 
     <section class="subscription-section">
       <div class="subscription-cards">
+        <!-- Abonelik kartları (değişmeden bırakıldı) -->
         <div class="card">
           <h3>Daily Plan</h3>
           <div class="price">$5.99</div>
@@ -94,6 +95,7 @@
   <aside class="market-panel">
     <h3>Market Overview</h3>
     <ul class="market-list">
+      <!-- ID'ler korunarak fiyat kutuları eklendi -->
       <li id="btc-price">BTC: Loading...</li>
       <li id="eth-price">ETH: Loading...</li>
       <li id="sol-price">SOL: Loading...</li>
@@ -116,7 +118,6 @@
       <li id="arbitrum-price">ARBITRUM: Loading...</li>
       <li id="render-price">RENDER: Loading...</li>
       <li id="celestia-price">CELESTIA: Loading...</li>
-      <li id="hyperliquid-price">HYPER: Loading...</li>
       <li id="hacash-price">HACASH: Loading...</li>
       <li id="hacash-diamond-price">HACD: Loading...</li>
       <li id="btc-dominance">BTC Dominance: Loading...</li>
@@ -124,6 +125,7 @@
     </ul>
   </aside>
 
+  <!-- Modal sistemi -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" id="closeModal">&times;</span>
@@ -133,6 +135,7 @@
     </div>
   </div>
 
+  <!-- Modal kontrol ve yönlendirme -->
   <script>
     const modal = document.getElementById("modal");
     const modalText = document.getElementById("modal-text");
@@ -152,192 +155,88 @@
       const selectedPlan = confirmBtn.getAttribute("data-plan");
       localStorage.setItem("selectedPlan", selectedPlan);
       modal.style.display = "none";
-      window.location.href = "panel.html";
+      const wallet = localStorage.getItem("walletAddress");
+      if (wallet) window.location.href = "panel.html";
+      else alert("Please connect your wallet before proceeding.");
     };
 
-    closeModal.onclick = () => {
-      modal.style.display = "none";
-    };
-
-    window.onclick = (event) => {
-      if (event.target.classList.contains("modal")) {
-        modal.style.display = "none";
-      }
+    closeModal.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => {
+      if (e.target.classList.contains("modal")) modal.style.display = "none";
     };
   </script>
 
+  <!-- Coin fiyatlarını çek -->
   <script>
     async function fetchPrices() {
+      const coinIds = [
+        'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
+        'polkadot', 'monero', 'dogecoin', 'tron', 'cardano', 'hyperliquid'', 'sui', 'bittensor', 'ethena',
+        'ondo', 'pepe', 'kaspa', 'arbitrum', 'render', 'celestia', 'hacash', 'hacash-diamond'
+      ];
+      const map = {
+        bitcoin: 'btc-price', ethereum: 'eth-price', solana: 'sol-price', binancecoin: 'bnb-price',
+        ripple: 'xrp-price', 'avalanche-2': 'avax-price', chainlink: 'link-price', polkadot: 'dot-price',
+        monero: 'xmr-price', dogecoin: 'doge-price', tron: 'trx-price', cardano: 'ada-price',
+        hyperliquid: 'hype-price', sui: 'sui-price', bittensor: 'tao-price', ethena: 'ena-price',
+        ondo: 'ondo-price', pepe: 'pepe-price', kaspa: 'kaspa-price', arbitrum: 'arbitrum-price',
+        render: 'render-price', celestia: 'celestia-price',
+        hacash: 'hacash-price', 'hacash-diamond': 'hacash-diamond-price'
+      };
+
       try {
-        const coinIds = [
-          'bitcoin', 'ethereum', 'solana', 'binancecoin', 'ripple', 'avalanche-2', 'chainlink',
-          'polkadot', 'monero', 'dogecoin', 'tron', 'cardano',
-          'hype', 'sui', 'bittensor', 'ethena', 'ondo', 'pepe', 'kaspa', 'arbitrum', 'render', 'celestia', 'hyperliquid',
-          'hacash', 'hacash-diamond'
-        ];
-
-        const coinRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
-        const coinData = await coinRes.json();
-
-        const map = {
-          bitcoin: 'btc-price',
-          ethereum: 'eth-price',
-          solana: 'sol-price',
-          binancecoin: 'bnb-price',
-          ripple: 'xrp-price',
-          'avalanche-2': 'avax-price',
-          chainlink: 'link-price',
-          polkadot: 'dot-price',
-          monero: 'xmr-price',
-          dogecoin: 'doge-price',
-          tron: 'trx-price',
-          cardano: 'ada-price',
-          hype: 'hype-price',
-          sui: 'sui-price',
-          bittensor: 'tao-price',
-          ethena: 'ena-price',
-          ondo: 'ondo-price',
-          pepe: 'pepe-price',
-          kaspa: 'kaspa-price',
-          arbitrum: 'arbitrum-price',
-          render: 'render-price',
-          celestia: 'celestia-price',
-          hyperliquid: 'hyperliquid-price',
-          hacash: 'hacash-price',            
-          'hacash-diamond': 'hacash-diamond-price' 
-          
-       };
-
-      for (const [key, id] of Object.entries(map)) {
-        const price = coinData[key]?.usd;
-        const formattedPrice = price?.toLocaleString() || 'Error';
-        const label = id.split('-')[0].toUpperCase();
-        document.getElementById(id).innerText = `${label}: $${formattedPrice}`;
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinIds.join(',')}&vs_currencies=usd`);
+        const data = await res.json();
+        for (const [key, id] of Object.entries(map)) {
+          const price = data[key]?.usd?.toLocaleString() || 'Error';
+          document.getElementById(id).innerText = `${key.toUpperCase()}: $${price}`;
         }
 
         const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
-        const globalData = await globalRes.json();
-
-        const dominance = globalData.data.market_cap_percentage?.btc;
-        const marketCap = globalData.data.total_market_cap?.usd;
-
-        document.getElementById("btc-dominance").innerText = `BTC Dominance: ${dominance?.toFixed(2) || 'Error'}%`;
-        document.getElementById("total-market-cap").innerText = `Total Market Cap: $${marketCap?.toLocaleString() || 'Error'}`;
-      } catch (error) {
-        console.error("Price fetch error:", error);
+        const global = await globalRes.json();
+        document.getElementById("btc-dominance").innerText = `BTC Dominance: ${global.data.market_cap_percentage.btc.toFixed(2)}%`;
+        document.getElementById("total-market-cap").innerText = `Total Market Cap: $${global.data.total_market_cap.usd.toLocaleString()}`;
+      } catch (err) {
+        console.error("Price fetch error:", err);
       }
     }
-
     fetchPrices();
     setInterval(fetchPrices, 60000);
   </script>
 
+  <!-- Tema ve cüzdan işlemleri -->
   <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "light") {
-        document.body.classList.add("light-mode");
-      }
-    });
-
     const modeToggle = document.getElementById("mode-toggle");
     modeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
-      const currentMode = document.body.classList.contains("light-mode") ? "light" : "dark";
-      localStorage.setItem("theme", currentMode);
+      localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("theme") === "light") document.body.classList.add("light-mode");
+
+      const walletAddress = localStorage.getItem("walletAddress");
+      const walletBtn = document.getElementById("wallet-connect");
+      const addressSpan = document.getElementById("wallet-address");
+      const logoutBtn = document.getElementById("logout-btn");
+
+      if (walletAddress) {
+        walletBtn.textContent = `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
+        addressSpan.textContent = `Connected: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
+        logoutBtn.style.display = "inline-block";
+      }
+
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("walletAddress");
+        walletBtn.textContent = "Login / Signup";
+        addressSpan.textContent = "";
+        logoutBtn.style.display = "none";
+      });
     });
   </script>
 
-  <script>
-  // 🔌 Logout işlemi
-  const logoutBtn = document.getElementById('logout-btn');
+  <!-- walletconnect.js -->
+  <script type="module" src="walletconnect.js"></script>
 
-  logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('walletAddress');
-
-    const walletButton = document.getElementById('wallet-connect');
-    const walletSpan = document.getElementById('wallet-address');
-
-    if (walletButton) walletButton.textContent = 'Login / Signup';
-    if (walletSpan) walletSpan.textContent = '';
-    logoutBtn.style.display = 'none';
-  });
-
-  // Eğer adres varsa Logout butonunu göster
-  function toggleLogoutVisibility(show) {
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-      logoutBtn.style.display = show ? 'inline-block' : 'none';
-    }
- }  
-</script>
-
-  <script>
-  window.addEventListener("DOMContentLoaded", async () => {
-  const address = localStorage.getItem("walletAddress");
-
-  if (address && window.ethereum) {
-    try {
-      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-      if (accounts[0] && accounts[0].toLowerCase() === address.toLowerCase()) {
-        // window.location.href = "panel.html"; // ✅ Yönlendirme devre dışı
-      }
-    } catch (err) {
-      console.error("Wallet check failed:", err);
-    }
-  }
-});
-</script>
-  
-   <!-- Yerel Web3 bağlantısı -->
-  <script type="module" src="./walletconnect.js"></script>
-
-  <!-- Cüzdan bağlantısı sonrası adres kontrolü ve güncelleme -->
-  <script type="module">
-    async function updateWalletButton() {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-          const address = accounts[0];
-          if (address) {
-            localStorage.setItem('walletAddress', address);
-            const walletButton = document.getElementById('wallet-connect');
-            const walletSpan = document.getElementById('wallet-address');
-            if (walletButton) {
-              walletButton.textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
-            }
-            if (walletSpan) {
-              walletSpan.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
-            }
-          }
-        } catch (err) {
-          console.error("Failed to update wallet button:", err);
-        }
-      }
-    }
-
-    window.addEventListener('load', () => {
-      const saved = localStorage.getItem('walletAddress');
-      const walletButton = document.getElementById('wallet-connect');
-      const walletSpan = document.getElementById('wallet-address');
-
-      if (saved && walletButton) {
-        walletButton.textContent = `${saved.slice(0, 6)}...${saved.slice(-4)}`;
-      }
-
-      if (saved && walletSpan) {
-        walletSpan.textContent = `Connected: ${saved.slice(0, 6)}...${saved.slice(-4)}`;
-      }
-
-      if (window.ethereum) {
-        window.ethereum.on('accountsChanged', () => {
-          updateWalletButton();
-        });
-      }
-
-      updateWalletButton();
-    });
-  </script>
 </body>
 </html>
- 
