@@ -1,253 +1,274 @@
-/* === intro.css === */
-
+/* === RESET === */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* === BODY === */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #000;
-  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0d1117;
+  color: #f0f6fc;
+  transition: background 0.3s, color 0.3s;
+  line-height: 1.6;
 }
-.topbar {
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+/* === HEADER === */
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2d2d2d;
-  color: white;
-  padding: 10px 20px;
+  padding: 15px 25px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.top-left {
+
+.logo {
   display: flex;
   align-items: center;
 }
-.top-logo {
-  width: 50px;
-  height: auto;
+
+.logo img {
+  height: 40px;
   margin-right: 10px;
 }
-.title-slogan {
+
+.logo-text {
   display: flex;
   flex-direction: column;
 }
-.title-slogan .title {
+
+.logo-text .title {
   font-size: 20px;
   font-weight: bold;
 }
-.title-slogan .slogan {
+
+.logo-text .slogan {
   font-size: 12px;
-  color: #bbb;
-}
-.panel-content {
-  max-width: 800px;
-  margin: 40px auto;
-  background-color: #111;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-}
-.subscription-section {
-  margin-top: 30px;
-}
-.subscription-cards {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: stretch;
-}
-.card {
-  background-color: #1c1c1c;
-  border-radius: 8px;
-  padding: 20px;
-  width: 250px;
-  box-shadow: 0 2px 6px rgba(255,255,255,0.05);
-}
-.card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #fff;
-}
-.card .price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #4caf50;
-  margin-bottom: 10px;
-}
-.card ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 15px;
-}
-.card ul li {
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #ccc;
-}
-.subscribe-btn {
-  background-color: #2d89ef;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-}
-.subscribe-btn:hover {
-  opacity: 0.9;
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-}
-.modal-content {
-  background-color: #1a1a1a;
-  color: #fff;
-  margin: 10% auto;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-.close {
-  color: #bbb;
-  float: right;
-  font-size: 22px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.close:hover {
-  color: #fff;
-}
-.signal-history {
-  margin-top: 40px;
-  background: linear-gradient(to right, #1e1e1e, #111);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-}
-.highlighted-signal {
-  background-color: #1a1a1a;
-  border-left: 4px solid #00c853;
-  padding: 20px;
-  margin-bottom: 25px;
-  border-radius: 10px;
-  transition: transform 0.2s ease;
-}
-.highlighted-signal:hover {
-  transform: scale(1.02);
-}
-.highlighted-signal h4 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffffff;
-  margin-bottom: 8px;
-}
-.highlighted-signal p {
-  font-size: 14px;
-  color: #ccc;
-  margin: 4px 0;
-}
-.highlight-comment {
-  font-style: italic;
-  color: #999;
-  margin-top: 10px;
-}
-/* === Market Panel === */
-.market-panel {
-  position: fixed;
-  top: 100px;
-  left: 20px;
-  background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 8px;
-  width: 220px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  z-index: 500;
+  color: #8b949e;
 }
 
-.market-panel h3 {
-  color: #4caf50;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.market-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.market-list li {
-  font-size: 14px;
-  color: #ddd;
-  margin-bottom: 6px;
-}
-/* TOPBAR ALIGNMENT */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.top-right {
+/* === TOP RIGHT BUTTONS === */
+.top-controls {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.top-link {
-  color: #4caf50;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-  transition: color 0.3s ease;
-}
-.top-link:hover {
-  color: #fff;
-}
-
-.top-btn {
-  background-color: #2d2d2d;
-  color: #fff;
-  border: 1px solid #555;
+button.top-btn {
+  background: transparent;
+  border: 1px solid #30363d;
   padding: 6px 12px;
+  color: inherit;
   border-radius: 6px;
-  font-size: 13px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.top-btn:hover {
-  background-color: #444;
+  font-size: 14px;
+  transition: background 0.3s;
 }
 
-/* LIGHT MODE SUPPORT */
-body.light-mode {
-  background-color: #f4f4f4;
-  color: #111;
+button.top-btn:hover {
+  background: #21262d;
 }
-body.light-mode .panel-content,
-body.light-mode .card,
-body.light-mode .signal-history,
-body.light-mode .highlighted-signal,
-body.light-mode .modal-content {
-  background-color: #fff;
-  color: #111;
+
+.wallet-status {
+  font-size: 13px;
+  color: #58a6ff;
 }
-body.light-mode .subscribe-btn,
-body.light-mode .top-btn {
-  background-color: #444;
+
+/* === MAIN LAYOUT === */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px 5%;
+}
+
+/* === LEFT: MARKET OVERVIEW === */
+.market-panel {
+  flex: 1 1 250px;
+  max-width: 300px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 20px;
+  height: fit-content;
+}
+
+.market-panel h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #58a6ff;
+}
+
+.market-panel ul {
+  list-style: none;
+}
+
+.market-panel li {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* === RIGHT: SUBSCRIPTION PLANS === */
+.plans-panel {
+  flex: 2 1 500px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.plan-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+  border-color: #58a6ff;
+}
+
+.plan-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #58a6ff;
+}
+
+.plan-card ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.plan-card button {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #238636;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.plan-card button:hover {
+  background: #2ea043;
+}
+
+/* === MODAL === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #161b22;
+  margin: 15% auto;
+  padding: 30px;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #f0f6fc;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#confirm-btn {
+  background: #238636;
   color: white;
+}
+
+#closeModal {
+  background: #c62828;
+  color: white;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #8b949e;
+  border-top: 1px solid #30363d;
+  margin-top: 50px;
+}
+
+/* === LIGHT MODE === */
+body.light-mode header,
+body.light-mode .market-panel,
+body.light-mode .plan-card,
+body.light-mode .modal-content {
+  background: #f5f5f5;
+  color: #1a1a1a;
+  border-color: #ccc;
+}
+
+body.light-mode .plan-card button {
+  background: #2ea043;
+  color: #fff;
+}
+
+body.light-mode footer {
+  background: #f0f0f0;
+  color: #555;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .market-panel, .plans-panel {
+    max-width: 100%;
+  }
+
+  .plan-card {
+    width: 100%;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .top-controls {
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
 }
