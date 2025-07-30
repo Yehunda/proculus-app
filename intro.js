@@ -109,7 +109,7 @@ window.onclick = (e) => {
 // ✅ Başarılı Sinyalleri Yükle
 async function loadSuccessWall() {
   try {
-    const res = await fetch('http://138.199.155.77:3021/success-signals');
+    const res = await fetch('https://138.199.155.77:3021/success-signals.json');
     const signals = await res.json();
     const container = document.getElementById('success-container');
     container.innerHTML = "";
@@ -145,7 +145,7 @@ loadSuccessWall();
 // 🧑 Aktif Kullanıcı Sayısı (dummy örnek, backend bağlanınca değiştirilebilir)
 async function loadActiveUsers() {
   try {
-    const res = await fetch('http://138.199.155.77:3021/active-users');
+    const res = await fetch('https://138.199.155.77:3021/active-users');
     const data = await res.json();
     const userPanel = document.querySelector(".active-users");
     userPanel.innerHTML = `
