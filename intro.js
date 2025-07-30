@@ -109,7 +109,7 @@ window.onclick = (e) => {
 // ✅ Başarılı Sinyalleri Yükle
 async function loadSuccessWall() {
   try {
-    const res = await fetch('http://138.199.155.77:3021/success-signals.json');
+    const res = await fetch('http://138.199.155.77:3021/success-signals');
     const signals = await res.json();
     const container = document.getElementById('success-container');
     container.innerHTML = "";
@@ -122,11 +122,12 @@ async function loadSuccessWall() {
     signals.forEach(signal => {
       const typeClass = signal.type.toLowerCase();
       const logo = `https://cryptoicon-api.pages.dev/api/icon/${signal.pair.slice(0, 3).toLowerCase()}`;
+      const imgTag = `<img src="${logo}" alt="" onerror="this.style.display='none'">`;
 
       const card = document.createElement("div");
       card.className = `success-card ${typeClass}`;
       card.innerHTML = `
-        <div class="pair"><img src="${logo}" alt=""> ${signal.pair}</div>
+        <div class="pair">${imgTag} ${signal.pair}</div>
         <div class="type">${signal.type}</div>
         <div>🎯 <strong>Entry:</strong> ${signal.entry}</div>
         <div>🚀 <strong>Target:</strong> ${signal.target}</div>
@@ -144,7 +145,7 @@ loadSuccessWall();
 // 🧑 Aktif Kullanıcı Sayısı (dummy örnek, backend bağlanınca değiştirilebilir)
 async function loadActiveUsers() {
   try {
-    const res = await fetch('https://proculus-backend.onrender.com/active-users');
+    const res = await fetch('http://138.199.155.77:3021/active-users');
     const data = await res.json();
     const userPanel = document.querySelector(".active-users");
     userPanel.innerHTML = `
