@@ -190,9 +190,11 @@ a {
 }
 
 .success-meta {
+  text-align: center;
   font-size: 13px;
-  color: #999;
-  margin-bottom: 25px;
+  color: #aaa;
+  margin-bottom: 10px;
+  font-style: italic;
 }
 
 .success-container {
