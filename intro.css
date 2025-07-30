@@ -206,51 +206,37 @@ a {
 }
 
 .success-card {
-  background: linear-gradient(to bottom right, #1b1b1b, #202020);
+  background-color: #1c1c1c;
   border: 1px solid #333;
   border-radius: 10px;
-  padding: 15px 20px;
-  width: 100%;
-  max-width: 240px;
-  color: #eee;
-  font-size: 14px;
-  box-shadow: 0 0 8px rgba(0, 230, 118, 0.2);
-  transition: transform 0.2s ease;
+  padding: 12px 16px;
+  width: 240px;
+  color: #e0e0e0;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.3s ease;
 }
 
 .success-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.02);
+  border-color: #00e676;
 }
 
 .success-card .pair {
+  font-weight: bold;
+  font-size: 14px;
+  color: #00e676;
   display: flex;
   align-items: center;
-  font-weight: bold;
-  font-size: 15px;
-  margin-bottom: 8px;
-  color: #00e676;
+  gap: 6px;
 }
 
-.success-card .pair img {
-  width: 22px;
-  height: 22px;
-  margin-right: 8px;
-  border-radius: 50%;
-  background-color: #fff;
-}
-
-.success-card .type {
-  font-size: 13px;
-  color: #ffd700;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-.success-card .comment {
-  font-style: italic;
-  font-size: 13px;
-  margin-top: 8px;
-  color: #ccc;
+.success-card img {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
 }
 
 /* === USER PANEL === */
