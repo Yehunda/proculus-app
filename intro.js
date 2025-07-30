@@ -114,6 +114,11 @@ async function loadSuccessWall() {
     const container = document.getElementById('success-container');
     container.innerHTML = "";
 
+    document.querySelector(".success-wall").insertAdjacentHTML(
+  "afterbegin",
+  `<p class="success-meta">Last updated: ${new Date().toLocaleDateString()} – Total: ${signals.length} Successes</p>`
+);
+
     signals.forEach(signal => {
       const typeClass = signal.type.toLowerCase();
       const logo = `https://cryptoicon-api.pages.dev/api/icon/${signal.pair.slice(0, 3).toLowerCase()}`;
