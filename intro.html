@@ -177,31 +177,36 @@
     fetchPrices(); setInterval(fetchPrices, 60000);
   </script>
 
-  <script>
-    // Load success signals from backend
-    async function loadSuccessWall() {
-      try {
-        const res = await fetch("http://138.199.155.77:3021/api/success-signals");
-        const signals = await res.json();
-        const container = document.getElementById("success-container");
-        container.innerHTML = "";
-        signals.slice(0,3).forEach(signal => {
-          const card = document.createElement("div");
-          card.className = `success-card ${signal.type.toLowerCase()}`;
-          card.innerHTML = `
-            <h4>${signal.pair} – ${signal.type}</h4>
-            <p><strong>Entry:</strong> ${signal.entry} | <strong>Target:</strong> ${signal.target} | <strong>Stop:</strong> ${signal.stop}</p>
-            <p>${signal.comment}</p>
-          `;
-          container.appendChild(card);
-        });
-      } catch (err) {
-        console.error("Failed to load success wall:", err);
-      }
-    }
-    loadSuccessWall();
-  </script>
+  <!-- ✅ Başarı Sinyalleri Paneli -->
+<div class="success-wall">
+  <h3>🎯 Successful Signals</h3>
+  <div id="success-container"></div>
+</div>
 
+<script>
+  // Load success signals from backend
+  async function loadSuccessWall() {
+    try {
+      const res = await fetch("http://138.199.155.77:3021/api/success-signals");
+      const signals = await res.json();
+      const container = document.getElementById("success-container");
+      container.innerHTML = "";
+      signals.slice(0,3).forEach(signal => {
+        const card = document.createElement("div");
+        card.className = `success-card ${signal.type.toLowerCase()}`;
+        card.innerHTML = `
+          <h4>${signal.pair} – ${signal.type}</h4>
+          <p><strong>Entry:</strong> ${signal.entry} | <strong>Target:</strong> ${signal.target} | <strong>Stop:</strong> ${signal.stop}</p>
+          <p>${signal.comment}</p>
+        `;
+        container.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Failed to load success wall:", err);
+    }
+  }
+  loadSuccessWall();
+</script>
   <script type="module" src="intro.js"></script>
 </body>
 </html>
