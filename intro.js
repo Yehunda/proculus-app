@@ -109,37 +109,28 @@ window.onclick = (e) => {
 // ✅ Başarılı Sinyalleri Yükle
 async function loadSuccessWall() {
   try {
-    const res = await fetch('https://138.199.155.77:3021/success-signals.json');
+    const res = await fetch('http://138.199.155.77:3021/api/success-signals');
     const signals = await res.json();
     const container = document.getElementById('success-container');
     container.innerHTML = "";
 
     document.querySelector(".success-wall").insertAdjacentHTML(
-  "afterbegin",
-  `<p class="success-meta">Last updated: ${new Date().toLocaleDateString()} – Total: ${signals.length} Successes</p>`
-);
+      "afterbegin",
+      `<p class="success-meta">Last updated: ${new Date().toLocaleDateString()} – Total: ${signals.length} Successes</p>`
+    );
 
     signals.forEach(signal => {
-      const typeClass = signal.type.toLowerCase();
-      const logo = `https://cryptoicon-api.pages.dev/api/icon/${signal.pair.slice(0, 3).toLowerCase()}`;
-      const imgTag = `<img src="${logo}" alt="" onerror="this.style.display='none'">`;
-
-      const card = document.createElement("div");
-      card.className = `success-card ${typeClass}`;
-      card.innerHTML = `
-        <div class="pair">${imgTag} ${signal.pair}</div>
-        <div class="type">${signal.type}</div>
-        <div>🎯 <strong>Entry:</strong> ${signal.entry}</div>
-        <div>🚀 <strong>Target:</strong> ${signal.target}</div>
-        <div>🛑 <strong>Stop:</strong> ${signal.stop}</div>
-        <div class="comment">💬 ${signal.comment}</div>
-      `;
-      container.appendChild(card);
+      const div = document.createElement("div");
+      div.className = "success-item";
+      div.textContent = `${signal.coin} — ${signal.type} — ${signal.result}`;
+      container.appendChild(div);
     });
+
   } catch (err) {
-    console.error("Failed to load success wall:", err);
+    console.error("Veri alınamadı:", err);
   }
 }
+
 loadSuccessWall();
 
 // 🧑 Aktif Kullanıcı Sayısı (dummy örnek, backend bağlanınca değiştirilebilir)
