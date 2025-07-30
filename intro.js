@@ -109,7 +109,7 @@ window.onclick = (e) => {
 // ✅ Başarılı Sinyalleri Yükle
 async function loadSuccessWall() {
   try {
-    const res = await fetch('https://proculus-backend.onrender.com/success-signals.json');
+    const res = await fetch('http://138.199.155.77:3021/success-signals.json');
     const signals = await res.json();
     const container = document.getElementById('success-container');
     container.innerHTML = "";
