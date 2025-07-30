@@ -6,8 +6,8 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif; /* Modern font */
-  background: linear-gradient(135deg, #0d0d0d, #1a1a1a); /* Hafif gradient arka plan */
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
   color: #f0f0f0;
   overflow-x: hidden;
 }
@@ -23,7 +23,7 @@ a {
   justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
-  background: linear-gradient(90deg, #1c2526, #112a2e); /* Modern gradient */
+  background: linear-gradient(90deg, rgba(28, 37, 38, 0.9), rgba(17, 42, 46, 0.9));
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   width: 100%;
   z-index: 100;
@@ -31,23 +31,28 @@ a {
 
 .top-left {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .top-logo {
-  width: 60px; /* Zarif logo boyutu */
+  width: 60px;
   margin-right: 20px;
   transition: transform 0.3s ease;
 }
 
 .top-logo:hover {
-  transform: scale(1.1); /* Hover animasyonu */
+  transform: scale(1.1);
+}
+
+.title-slogan {
+  display: flex;
+  flex-direction: column;
 }
 
 .title-slogan .title {
   font-size: 28px;
   font-weight: 700;
-  color: #00d1b2; /* Yumuşak neon ton */
+  color: #00d1b2;
   letter-spacing: 1px;
 }
 
@@ -55,6 +60,7 @@ a {
   font-size: 13px;
   color: #a0a0a0;
   font-style: italic;
+  margin-top: 5px;
 }
 
 .top-right {
@@ -80,7 +86,6 @@ a {
   box-shadow: 0 4px 10px rgba(0, 209, 178, 0.4);
 }
 
-/* Tema değiştirici için özel stil */
 .top-btn.theme-toggle {
   background: #333;
   color: #00d1b2;
@@ -91,21 +96,44 @@ a {
   color: #000;
 }
 
-/* === LAYOUT === */
+/* === WELCOME MESSAGE === */
+.welcome-message {
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 80px; /* Topbar yüksekliği */
+}
+
+.welcome-message h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 5px rgba(0, 209, 178, 0.3);
+}
+
+.welcome-message p {
+  font-size: 16px;
+  color: #a0a0a0;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* === MAIN LAYOUT === */
 .main-layout {
   display: flex;
-  flex-direction: column; /* Paneller artık sabit değil, sütun düzeni */
   padding: 20px 40px;
-  margin-top: 80px; /* Topbar yüksekliği */
+  gap: 20px;
 }
 
 /* === MARKET PANEL === */
 .market-panel {
-  width: 100%;
+  flex: 0 0 20%; /* %20 genişlik */
   background: #1c2526;
   padding: 20px;
   border-radius: 12px;
-  margin-bottom: 30px; /* Paneller arası boşluk */
+  margin-bottom: 20px;
 }
 
 .market-panel h3 {
@@ -132,36 +160,32 @@ a {
   background: #2a3439;
 }
 
-/* === CONTENT CENTER === */
+/* === CONTENT CENTER (SUBSCRIPTION CARDS) === */
 .content-center {
-  width: 100%;
+  flex: 0 0 65%; /* %65 genişlik */
   padding: 20px;
   text-align: center;
 }
 
-.content-center h1 {
-  font-size: 36px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 15px;
-  text-shadow: 0 2px 5px rgba(0, 209, 178, 0.3);
-}
-
-.content-center p {
-  font-size: 16px;
-  color: #a0a0a0;
-  line-height: 1.8;
-  max-width: 700px;
-  margin: 0 auto 40px;
-}
-
-/* === SUBSCRIPTION CARDS === */
 .subscription-cards {
   display: flex;
   justify-content: center;
   gap: 30px;
   flex-wrap: wrap;
-  animation: fadeInUp 1s ease-out; /* Giriş animasyonu */
+}
+
+.card {
+  background: linear-gradient(135deg, #2a3439, #1c2526);
+  padding: 25px;
+  border-radius: 16px;
+  width: 30%;
+  min-width: 280px;
+  border: 1px solid #00d1b2;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1s ease-out;
 }
 
 @keyframes fadeInUp {
@@ -173,19 +197,6 @@ a {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.card {
-  background: linear-gradient(135deg, #2a3439, #1c2526); /* Modern gradient */
-  padding: 25px;
-  border-radius: 16px;
-  width: 30%;
-  min-width: 280px;
-  border: 1px solid #00d1b2;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 .card::before {
@@ -200,11 +211,11 @@ a {
 }
 
 .card:hover::before {
-  left: 100%; /* Parlama efekti */
+  left: 100%;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.05); /* Hover’da yükselme ve büyüme */
+  transform: translateY(-10px) scale(1.05);
   box-shadow: 0 12px 25px rgba(0, 209, 178, 0.4);
 }
 
@@ -255,6 +266,27 @@ a {
   background: linear-gradient(45deg, #00a68f, #00d1b2);
 }
 
+/* === USER PANEL === */
+.user-panel {
+  flex: 0 0 15%; /* %15 genişlik */
+  background: #1c2526;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.user-panel h3 {
+  font-size: 18px;
+  color: #00d1b2;
+  margin-bottom: 15px;
+}
+
+.user-panel p {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 /* === SUCCESS WALL === */
 .success-wall {
   width: 100%;
@@ -293,7 +325,7 @@ a {
 }
 
 .success-card:hover {
-  transform: translateY(-5px);
+  transform: rotate(2deg) scale(1.02); /* Hafif dönme efekti */
   box-shadow: 0 8px 15px rgba(0, 209, 178, 0.3);
 }
 
@@ -306,27 +338,6 @@ a {
 .success-card img {
   width: 20px;
   height: 20px;
-}
-
-/* === USER PANEL === */
-.user-panel {
-  width: 100%;
-  background: #1c2526;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 30px;
-}
-
-.user-panel h3 {
-  font-size: 18px;
-  color: #00d1b2;
-  margin-bottom: 15px;
-}
-
-.user-panel p {
-  color: #ccc;
-  font-size: 14px;
-  line-height: 1.6;
 }
 
 /* === MODAL === */
@@ -392,7 +403,7 @@ body.light-mode .success-card .pair,
 body.light-mode .market-panel h3,
 body.light-mode .user-panel h3,
 body.light-mode .success-wall h2 {
-  color: #0077b6; /* Light mod için koyu mavi */
+  color: #0077b6;
 }
 
 body.light-mode .subscribe-btn {
@@ -400,12 +411,20 @@ body.light-mode .subscribe-btn {
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 1024px) {
-  .card {
-    width: 45%;
+@media (max-width: 1200px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  .market-panel,
+  .user-panel {
+    flex: 0 0 100%;
+    max-width: 300px; /* Mobil için sınırlı genişlik */
   }
   .content-center {
-    padding: 20px;
+    flex: 0 0 100%;
+  }
+  .card {
+    width: 45%;
   }
 }
 
@@ -422,15 +441,12 @@ body.light-mode .subscribe-btn {
   }
   .card {
     width: 100%;
-    min-width: 100%;
   }
-  .main-layout {
-    padding: 20px;
+  .welcome-message h1 {
+    font-size: 28px;
   }
-  .market-panel,
-  .user-panel,
-  .success-wall {
-    margin-bottom: 20px;
+  .welcome-message p {
+    font-size: 14px;
   }
 }
 
@@ -444,10 +460,7 @@ body.light-mode .subscribe-btn {
   .title-slogan .slogan {
     font-size: 12px;
   }
-  .content-center h1 {
-    font-size: 28px;
-  }
-  .content-center p {
-    font-size: 14px;
+  .main-layout {
+    padding: 20px;
   }
 }
