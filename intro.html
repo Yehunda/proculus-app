@@ -113,7 +113,7 @@
     <aside class="user-panel">
       <h3>Active Users</h3>
       <div class="active-users" id="active-users-panel"></div>
-      <p id="user-count">Loading...</p>
+      <p id="user-count"><span class="online-dot"></span> Loading...</p>
     </aside>
   </main>
 
@@ -208,5 +208,15 @@
   loadSuccessWall();
 </script>
   <script type="module" src="intro.js"></script>
+
+  <!-- ✅ Success Modal -->
+<div id="success-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h3>All Successful Signals</h3>
+    <div id="all-success-container"></div>
+  </div>
+</div>
+  
 </body>
 </html>
