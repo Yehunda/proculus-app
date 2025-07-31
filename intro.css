@@ -130,7 +130,7 @@ a {
 /* === MARKET PANEL === */
 .market-panel {
   flex: 0 0 20%; /* %20 genişlik */
-  background: #1c2526;
+  background: transparent !important; /* Şeffaf arka plan */
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 20px;
@@ -271,7 +271,7 @@ a {
   flex: 0 0 15%; /* %15 genişlik */
   max-height: 300px;
   overflow-y: auto;
-  background: #1c2526;
+  background: transparent !important; /* Şeffaf arka plan */
   padding: 17px;
   border-radius: 12px;
   margin-bottom: 10px;
@@ -439,6 +439,12 @@ body.light-mode .subscribe-btn {
     flex: 0 0 100%;
     max-width: 300px; /* Mobil için sınırlı genişlik */
   }
+  .market-panel {
+    background: transparent !important; /* Şeffaf arka plan */
+  }
+  .welcome-message {
+  order: -1;
+}
   .content-center {
     flex: 0 0 100%;
   }
