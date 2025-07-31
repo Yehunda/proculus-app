@@ -147,6 +147,13 @@ async function loadSuccessWall() {
       `;
       container.appendChild(card);
     });
+     if (signals.length > 3) {
+  const moreBtn = document.createElement("button");
+  moreBtn.textContent = "See All";
+  moreBtn.className = "see-more-btn";
+  moreBtn.onclick = () => location.href = "/panel.html"; // yönlendirme
+  container.appendChild(moreBtn);
+}
   } catch (err) {
     console.error("Failed to load success wall:", err);
   }
