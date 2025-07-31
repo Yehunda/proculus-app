@@ -434,6 +434,9 @@ body.light-mode .subscribe-btn {
   .main-layout {
     flex-direction: column;
   }
+   .welcome-message {
+  order: -1;
+}
   .market-panel,
   .user-panel {
     flex: 0 0 100%;
@@ -442,9 +445,7 @@ body.light-mode .subscribe-btn {
   .market-panel {
     background: transparent !important; /* Şeffaf arka plan */
   }
-  .welcome-message {
-  order: -1;
-}
+ 
   .content-center {
     flex: 0 0 100%;
   }
