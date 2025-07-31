@@ -325,8 +325,8 @@ a {
 }
 
 .success-card:hover {
-  transform: rotate(2deg) scale(1.02); /* Hafif dönme efekti */
-  box-shadow: 0 8px 15px rgba(0, 209, 178, 0.3);
+  transform: rotate(1deg) scale(1.02); /* Hafif dönme efekti */
+  box-shadow: 0 6px 20px rgba(0, 209, 178, 0.25);
 }
 
 .success-card .pair {
@@ -338,6 +338,16 @@ a {
 .success-card img {
   width: 20px;
   height: 20px;
+}
+.success-card .type {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.success-card .comment {
+  color: #999;
+  font-style: italic;
+  margin-top: 10px;
 }
 .success-card.long {
   border-left: 5px solid limegreen;
