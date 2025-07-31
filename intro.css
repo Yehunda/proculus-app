@@ -35,7 +35,7 @@ a {
 }
 
 .top-logo {
-  width: 70px;
+  width: 90px;
   margin-right: 20px;
   transition: transform 0.3s ease;
 }
@@ -475,7 +475,7 @@ body.light-mode .subscribe-btn {
 
 @media (max-width: 480px) {
   .top-logo {
-    width: 50px;
+    width: 70px;
   }
   .title-slogan .title {
     font-size: 24px;
