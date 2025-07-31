@@ -339,6 +339,13 @@ a {
   width: 20px;
   height: 20px;
 }
+.success-card.long {
+  border-left: 5px solid limegreen;
+}
+
+.success-card.short {
+  border-left: 5px solid crimson;
+}
 
 /* === MODAL === */
 .modal {
