@@ -113,17 +113,24 @@ async function loadSuccessWall() {
     const signals = await res.json();
     const container = document.getElementById("success-container");
     container.innerHTML = "";
-    
+
+    // Kullanıcının tarayıcı diline göre tarih formatla
+    const userLang = navigator.language || "en-US";
+    const formattedDate = new Date().toLocaleString(userLang, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    // Güncellenme bilgisini başarı duvarına ekle
     document.querySelector(".success-wall").insertAdjacentHTML(
       "afterbegin",
-     const userLang = navigator.language || "en-US";
-const formattedDate = new Date().toLocaleString(userLang, {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit'
-});
+      `<p class="success-meta">Last updated: ${formattedDate} – Total: ${signals.length} Successes</p>`
+    );
+
+    // İlk 3 başarılı sinyali göster
     signals.slice(0, 3).forEach(signal => {
       const logo = `https://cryptoicon-api.pages.dev/api/icon/${signal.pair.slice(0, 3).toLowerCase()}`;
       const imgTag = `<img src="${logo}" alt="" onerror="this.style.display='none'">`;
@@ -144,6 +151,7 @@ const formattedDate = new Date().toLocaleString(userLang, {
     console.error("Failed to load success wall:", err);
   }
 }
+
 loadSuccessWall();
 
 // 🧑 Aktif Kullanıcı Sayısı (dummy örnek, backend bağlanınca değiştirilebilir)
