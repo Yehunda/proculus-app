@@ -503,4 +503,63 @@ body.light-mode .subscribe-btn {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+  /* === Success Modal === */
+.modal {
+  display: none; /* Başlangıçta gizli */
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: #1e2a2d;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.modal-content h3 {
+  color: #00d1b2;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-bottom: 1px solid #00d1b2;
+  padding-bottom: 10px;
+}
+
+.modal-content .success-card {
+  background: #2a3439;
+  border: 1px solid #00d1b2;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.modal-content .success-card .pair {
+  color: #00d1b2;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #aaa;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: #fff;
+}
 }
