@@ -463,4 +463,21 @@ body.light-mode .subscribe-btn {
   .main-layout {
     padding: 20px;
   }
+  .see-more-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(to right, #3f87a6, #ebf8e1, #f69d3c);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.see-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 }
