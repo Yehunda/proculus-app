@@ -114,6 +114,48 @@ async function loadSuccessWall() {
     const container = document.getElementById("success-container");
     container.innerHTML = "";
 
+    // === Success Modal ===
+const modal = document.getElementById("successModal");
+const modalBody = document.getElementById("modal-body");
+const closeModal = document.querySelector(".close");
+
+// Modalı açan fonksiyon
+async function openSuccessModal() {
+  try {
+    const res = await fetch("http://138.199.155.77:3021/api/success-signals");
+    const signals = await res.json();
+    modalBody.innerHTML = ""; // Önceki içerikleri temizle
+
+    signals.forEach(signal => {
+      const card = document.createElement("div");
+      card.className = `success-card ${signal.type.toLowerCase()}`;
+      card.innerHTML = `
+        <div class="pair">${signal.pair} – ${signal.type}</div>
+        <div>🎯 Entry: ${signal.entry}</div>
+        <div>🚀 Target: ${signal.target}</div>
+        <div>🛑 Stop: ${signal.stop}</div>
+        <div class="comment">💬 ${signal.comment}</div>
+      `;
+      modalBody.appendChild(card);
+    });
+
+    modal.style.display = "block"; // Modalı göster
+  } catch (err) {
+    console.error("Failed to load full success list:", err);
+  }
+}
+
+// Modalı kapatma
+closeModal.onclick = () => {
+  modal.style.display = "none";
+};
+
+// Dışarı tıklanırsa modalı kapat
+window.onclick = (e) => {
+  if (e.target == modal) {
+    modal.style.display = "none";
+  }
+};
     // Kullanıcının tarayıcı diline göre tarih formatla
     const userLang = navigator.language || "en-US";
     const formattedDate = new Date().toLocaleString(userLang, {
