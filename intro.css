@@ -269,10 +269,12 @@ a {
 /* === USER PANEL === */
 .user-panel {
   flex: 0 0 15%; /* %15 genişlik */
+  max-height: 300px;
+  overflow-y: auto;
   background: #1c2526;
-  padding: 20px;
+  padding: 17px;
   border-radius: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .user-panel h3 {
