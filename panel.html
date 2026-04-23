@@ -3,101 +3,564 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Proculus Panel</title>
-  <link rel="stylesheet" href="panel.css" />
+  <title>Proculus Terminal</title>
+  <meta name="theme-color" content="#030507" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Proculus" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/proculus-logo.png" type="image/png" sizes="1024x1024" />
+  <link rel="apple-touch-icon" href="/proculus-logo.png" />
+  <link rel="stylesheet" href="/panel.css" />
 </head>
 <body>
-  <header>
-    <div class="logo-section">
-      <img src="proculus-logo.png" alt="Proculus Logo" />
-      <div class="text-group">
-        <div class="title">PROCULUS</div>
-        <div class="slogan">AI-Powered Signals & Market Intelligence</div>
+  <div class="terminal-shell">
+    <header class="terminal-header">
+      <a href="/intro.html?fromPanel=1" style="text-decoration:none;color:inherit;">
+        <div class="brand-cluster">
+          <img src="proculus-logo.png" alt="Proculus Logo" class="terminal-logo" />
+          <div class="brand-text">
+            <div class="terminal-title">PROCULUS</div>
+            <div class="terminal-subtitle">AI Decision Terminal</div>
+          </div>
+        </div>
+      </a>
+
+      <div class="header-controls">
+        <button id="theme-toggle" class="terminal-btn ghost-btn">Theme</button>
+        <span class="wallet-badge" id="wallet-address"></span>
+        <button id="logout-btn" class="terminal-btn accent-btn">Logout</button>
+      </div>
+    </header>
+
+    <main class="terminal-main">
+      <section class="ticker-strip panel-card">
+        <div class="ticker-title-wrap">
+          <span class="card-label">Live Market Tape</span>
+          <strong class="ticker-title">Tracked Macro Pairs</strong>
+        </div>
+        <div class="ticker-viewport" id="crypto-ticker-viewport">
+          <div id="crypto-ticker" class="ticker-track">Loading live market ticker...</div>
+        </div>
+      </section>
+
+      <section class="hero-band">
+        <div class="hero-status-card panel-card">
+          <span class="card-label">Engine Status</span>
+          <h1>Consensus Engine Online</h1>
+          <p>Multi-agent decision flow is active across market structure, momentum, sentiment, on-chain behavior, and risk.</p>
+          <div class="hero-status-grid">
+            <div>
+              <span>State</span>
+              <strong>Monitoring</strong>
+            </div>
+            <div>
+              <span>Signals Today</span>
+              <strong>Live</strong>
+            </div>
+            <div>
+              <span>Owner Mode</span>
+              <strong>Auto-detected</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-market-card panel-card">
+          <span class="card-label">Market Overview</span>
+          <div class="market-strip">
+            <div class="market-pill">
+              <span>BTC</span>
+              <strong id="btc-price">...</strong>
+            </div>
+            <div class="market-pill">
+              <span>ETH</span>
+              <strong id="eth-price">...</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="signals-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Primary Workspace</span>
+            <h2>Live Signals</h2>
+          </div>
+        </div>
+        <div class="signals-filters panel-card" id="signals-filters">
+          <label class="signals-filter-field signals-search-field">
+            <span>Search</span>
+            <input id="signals-search" type="search" placeholder="Search by asset" />
+          </label>
+          <label class="signals-filter-field">
+            <span>Signal</span>
+            <select id="signals-signal-filter">
+              <option value="all">All</option>
+              <option value="LONG">LONG</option>
+              <option value="SHORT">SHORT</option>
+              <option value="WAIT">WAIT</option>
+            </select>
+          </label>
+          <label class="signals-filter-field">
+            <span>Strength</span>
+            <select id="signals-strength-filter">
+              <option value="all">All</option>
+              <option value="Strong">Strong</option>
+              <option value="Medium">Medium</option>
+              <option value="Weak">Weak</option>
+            </select>
+          </label>
+        </div>
+        <div class="top-signal-card panel-card" id="top-signal-container">
+          <span class="card-label">Top Signal</span>
+          <h3>Loading top signal...</h3>
+          <p>Highest-confidence live signal is loading.</p>
+        </div>
+        <div class="signals-wrapper" id="signals-container"></div>
+        <div class="section-inline-actions" id="signals-inline-actions" style="display:none;">
+          <button type="button" class="terminal-btn muted-btn" id="signals-view-more">View More</button>
+        </div>
+      </section>
+
+      <div id="hunter-container" class="panel-box">
+        <h2>🔥 Hunter Opportunities</h2>
+        <div id="hunter-list"></div>
+      </div>
+
+      <div id="explosion-container" class="panel-box">
+        <h2>💣 Explosion Watch</h2>
+        <div id="explosion-list"></div>
+      </div>
+
+      <section class="section-block" id="market-intelligence-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Research Feed</span>
+            <h2>Market Intelligence</h2>
+          </div>
+        </div>
+        <div class="market-intelligence-filters panel-card">
+          <label class="market-intelligence-filter-field market-intelligence-search-field">
+            <span>Search</span>
+            <input id="market-intelligence-search" type="search" placeholder="Search title, source, category, or analysis" />
+          </label>
+          <label class="market-intelligence-filter-field">
+            <span>Category</span>
+            <select id="market-intelligence-category-filter">
+              <option value="all">All</option>
+              <option value="Security">Security</option>
+              <option value="Regulation">Regulation</option>
+              <option value="Macro">Macro</option>
+              <option value="ETF">ETF</option>
+              <option value="Mining">Mining</option>
+              <option value="On-Chain">On-Chain</option>
+              <option value="Market Structure">Market Structure</option>
+              <option value="General">General</option>
+            </select>
+          </label>
+          <label class="market-intelligence-filter-field">
+            <span>Risk</span>
+            <select id="market-intelligence-risk-filter">
+              <option value="all">All</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </label>
+        </div>
+        <div class="market-intelligence-grid" id="market-intelligence-container">
+          <article class="market-intelligence-card panel-card">
+            <span class="card-label">Loading</span>
+            <h3>Fetching market intelligence...</h3>
+            <p>Latest crypto news analysis is loading.</p>
+          </article>
+        </div>
+        <div class="section-inline-actions">
+          <button type="button" class="terminal-btn ghost-btn" id="market-intelligence-view-more" style="display:none;">View More</button>
+        </div>
+      </section>
+
+      <section class="section-block" id="notifications-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Delivery</span>
+            <h2>Notification Options</h2>
+          </div>
+        </div>
+        <div class="settings-card panel-card">
+          <div class="notification-options">
+            <label><input type="checkbox" /> Email</label>
+            <label><input type="checkbox" /> SMS</label>
+            <label><input type="checkbox" /> Telegram</label>
+            <label><input type="checkbox" /> Discord</label>
+          </div>
+        </div>
+        <div class="telegram-alerts-card panel-card" id="telegram-alerts-card" style="display:none;">
+          <div class="telegram-alerts-head">
+            <div>
+              <span class="card-label">Telegram Alerts</span>
+              <h3>Connect your Telegram</h3>
+            </div>
+            <span class="telegram-link-status-pill" id="telegram-link-status-pill">Checking</span>
+          </div>
+          <p id="telegram-alerts-summary">Checking Telegram alert availability...</p>
+          <div class="telegram-alerts-meta" id="telegram-alerts-meta"></div>
+          <div class="telegram-alerts-action" id="telegram-alerts-action"></div>
+          <div class="telegram-link-result" id="telegram-link-result" style="display:none;"></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="api-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Integrations</span>
+            <h2>API Access</h2>
+          </div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-box"><h4>Binance</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>Coinbase</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>Gate.io</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>MEXC</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>OKX</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>KuCoin</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>Bybit</h4><p>Secure API Connection</p></div>
+          <div class="feature-box"><h4>HTX</h4><p>Secure API Connection</p></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="stocks-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Extended Coverage</span>
+            <h2>Stocks Overview</h2>
+          </div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-box"><h4>NASDAQ</h4><p>Tech Index</p></div>
+          <div class="feature-box"><h4>S&amp;P 500</h4><p>US Large Cap Index</p></div>
+          <div class="feature-box"><h4>Gold</h4><p>Live Market Price</p></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="nft-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Specialized Radar</span>
+            <h2>NFT Radar</h2>
+          </div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-box"><h4>Magic Eden</h4><p>Solana NFT Stats</p></div>
+          <div class="feature-box"><h4>OpenSea</h4><p>Ethereum NFT Stats</p></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="presale-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Launch Intelligence</span>
+            <h2>Presale &amp; Launches</h2>
+          </div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-box"><h4>Upcoming Presales</h4><p>Hype Radar Projects</p></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="unlock-section">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Supply Events</span>
+            <h2>Token Unlock Calendar</h2>
+          </div>
+        </div>
+        <div class="unlock-calendar-list" id="unlock-calendar-container">
+          <article class="unlock-calendar-card feature-box">
+            <span class="card-label">Loading</span>
+            <h4>Fetching unlock calendar...</h4>
+            <p>Upcoming token unlocks are loading.</p>
+          </article>
+        </div>
+        <div class="section-inline-actions">
+          <button type="button" class="terminal-btn ghost-btn" id="unlock-calendar-view-more" style="display:none;">View More</button>
+        </div>
+      </section>
+
+      <section class="section-block" id="admin-section" style="display:none;">
+        <div class="section-head admin-head">
+          <div>
+            <span class="section-kicker">Owner Controls</span>
+            <h2>Admin Console</h2>
+          </div>
+          <div class="admin-head-copy">Owner-only analytics, access control, feed monitoring, and rapid user triage.</div>
+        </div>
+
+        <div class="admin-stats-grid admin-stats-grid-expanded">
+          <article class="feature-box admin-stat-card">
+            <span class="admin-stat-label">Users</span>
+            <div class="admin-stat-main">
+              <strong id="admin-stat-users">0</strong>
+              <span id="admin-stat-users-change" class="admin-stat-change neutral">0.0%</span>
+            </div>
+            <svg id="admin-spark-users" class="admin-sparkline" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+            <small id="admin-stat-free">0 free access</small>
+          </article>
+          <article class="feature-box admin-stat-card">
+            <span class="admin-stat-label">Subscriptions</span>
+            <div class="admin-stat-main">
+              <strong id="admin-stat-subscriptions">0</strong>
+              <span id="admin-stat-subscriptions-change" class="admin-stat-change neutral">0.0%</span>
+            </div>
+            <svg id="admin-spark-subscriptions" class="admin-sparkline" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+            <small id="admin-stat-active">0 active</small>
+          </article>
+          <article class="feature-box admin-stat-card">
+            <span class="admin-stat-label">Premium Mix</span>
+            <div class="admin-stat-main">
+              <strong id="admin-stat-yearly">0</strong>
+              <span id="admin-stat-yearly-change" class="admin-stat-change neutral">0.0%</span>
+            </div>
+            <svg id="admin-spark-yearly" class="admin-sparkline" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+            <small id="admin-stat-monthly">0 monthly / 0 daily</small>
+          </article>
+          <article class="feature-box admin-stat-card">
+            <span class="admin-stat-label">Event Feed</span>
+            <div class="admin-stat-main">
+              <strong id="admin-stat-events">0</strong>
+              <span id="admin-stat-events-change" class="admin-stat-change neutral">0.0%</span>
+            </div>
+            <svg id="admin-spark-events" class="admin-sparkline" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+            <small id="admin-stat-last-event">No recent events</small>
+          </article>
+          <article class="feature-box admin-stat-card">
+            <span class="admin-stat-label">Visible Users</span>
+            <div class="admin-stat-main">
+              <strong id="admin-stat-visible-users">0</strong>
+              <span id="admin-stat-visible-users-change" class="admin-stat-change neutral">0.0%</span>
+            </div>
+            <svg id="admin-spark-visible-users" class="admin-sparkline" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+            <small id="admin-stat-user-pages">0 pages</small>
+          </article>
+          <article class="feature-box admin-stat-card">
+            <span class="admin-stat-label">Refresh State</span>
+            <div class="admin-stat-main">
+              <strong id="admin-stat-refresh">Idle</strong>
+              <span id="admin-stat-refresh-change" class="admin-stat-change neutral">LIVE</span>
+            </div>
+            <svg id="admin-spark-refresh" class="admin-sparkline" viewBox="0 0 120 32" preserveAspectRatio="none"></svg>
+            <small id="admin-stat-refresh-note">Manual and timed refresh active</small>
+          </article>
+        </div>
+
+        <div class="admin-management-grid">
+          <article class="feature-box admin-card admin-table-card">
+            <div class="admin-card-head">
+              <div>
+                <h4>Users</h4>
+                <p>Search wallets, apply quick access filters, and page through records.</p>
+              </div>
+              <div class="admin-filter-row">
+                <input id="admin-user-search" type="search" placeholder="Search wallet, source, plan" />
+                <select id="admin-user-plan-filter">
+                  <option value="all">All plans</option>
+                  <option value="daily">Daily</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                  <option value="none">No plan</option>
+                </select>
+                <select id="admin-user-access-filter">
+                  <option value="all">All access</option>
+                  <option value="free">Free access</option>
+                  <option value="paid">Paid/subscriber</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="admin-quick-filters" id="admin-user-quick-filters">
+              <button class="admin-quick-filter active" type="button" data-plan="all" data-access="all">All</button>
+              <button class="admin-quick-filter" type="button" data-access="free">Free Access</button>
+              <button class="admin-quick-filter" type="button" data-access="paid">Subscribers</button>
+              <button class="admin-quick-filter" type="button" data-plan="yearly">Yearly</button>
+              <button class="admin-quick-filter" type="button" data-plan="monthly">Monthly</button>
+              <button class="admin-quick-filter" type="button" data-plan="daily">Daily</button>
+            </div>
+
+            <div id="admin-users-list" class="admin-table-shell">Loading...</div>
+
+            <div class="admin-pagination">
+              <button id="admin-users-prev" class="terminal-btn ghost-btn" type="button">Previous</button>
+              <span id="admin-users-page-info" class="admin-pagination-info">Page 1 of 1</span>
+              <button id="admin-users-next" class="terminal-btn ghost-btn" type="button">Next</button>
+            </div>
+          </article>
+
+          <article class="feature-box admin-card admin-table-card">
+            <div class="admin-card-head">
+              <div>
+                <h4>Subscriptions</h4>
+                <p>Search payment and subscription records.</p>
+              </div>
+              <div class="admin-filter-row">
+                <input id="admin-subscription-search" type="search" placeholder="Search wallet, source, status" />
+                <select id="admin-subscription-plan-filter">
+                  <option value="all">All plans</option>
+                  <option value="daily">Daily</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+                <select id="admin-subscription-status-filter">
+                  <option value="all">All status</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="canceled">Canceled</option>
+                </select>
+              </div>
+            </div>
+            <div id="admin-subscriptions-list" class="admin-table-shell">Loading...</div>
+          </article>
+
+          <article class="feature-box admin-card admin-table-card">
+            <div class="admin-card-head">
+              <div>
+                <h4>Pending Crypto Payments</h4>
+                <p>Owner review queue for submitted crypto transfer confirmations.</p>
+              </div>
+              <div class="admin-filter-row">
+                <input id="admin-pending-search" type="search" placeholder="Search email, network, address" />
+                <select id="admin-pending-status-filter">
+                  <option value="all">All status</option>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+            <div id="admin-pending-payments-list" class="admin-table-shell">Loading...</div>
+          </article>
+        </div>
+
+        <div class="admin-actions-grid">
+          <article class="feature-box admin-card">
+            <h4>Grant Free Access</h4>
+            <p class="admin-card-copy">Create or upgrade a wallet to free yearly access.</p>
+            <form id="grant-access-form">
+              <input id="grant-wallet" type="text" placeholder="Wallet address" />
+              <input id="grant-reason" type="text" placeholder="Reason" />
+              <button type="submit" class="terminal-btn accent-btn">Grant</button>
+            </form>
+            <div id="grant-access-result" class="admin-result"></div>
+          </article>
+
+          <article class="feature-box admin-card">
+            <h4>Override Plan</h4>
+            <p class="admin-card-copy">Force a plan change without touching normal user flow.</p>
+            <form id="override-plan-form">
+              <input id="override-wallet" type="text" placeholder="Wallet address" />
+              <select id="override-plan">
+                <option value="daily">Daily</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+              <input id="override-reason" type="text" placeholder="Reason" />
+              <button type="submit" class="terminal-btn accent-btn">Override</button>
+            </form>
+            <div id="override-plan-result" class="admin-result"></div>
+          </article>
+        </div>
+
+        <article class="feature-box admin-card admin-events-card">
+          <div class="admin-card-head admin-live-head">
+            <div>
+              <h4>System Events</h4>
+              <p>Live-style owner feed for auth, grants, overrides, and backend activity.</p>
+            </div>
+            <div class="admin-filter-row admin-filter-row-compact">
+              <span class="admin-live-pill"><span class="admin-live-dot"></span>LIVE</span>
+              <input id="admin-event-search" type="search" placeholder="Search event, wallet, detail" />
+            </div>
+          </div>
+          <div id="admin-events-list" class="admin-events-shell">Loading...</div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="terminal-footer">
+      <span>&copy; 2026 Proculus. All rights reserved.</span>
+      <span class="terminal-footer-links">
+        <a href="https://x.com/ProculusAI" target="_blank" rel="noreferrer">X</a>
+        <a href="mailto:proculus.signals@gmail.com">Contact Support</a>
+      </span>
+    </footer>
+  </div>
+
+  <div class="admin-xpost-modal" id="admin-xpost-modal" style="display:none;">
+    <div class="admin-xpost-dialog panel-card">
+      <div class="admin-xpost-head">
+        <div>
+          <span class="section-kicker">Owner Tool</span>
+          <h3>Generate X Post</h3>
+        </div>
+        <button type="button" class="terminal-btn ghost-btn" id="admin-xpost-close">Close</button>
+      </div>
+      <div class="admin-xpost-preview" id="admin-xpost-preview">No post generated yet.</div>
+      <div class="admin-xpost-actions">
+        <button type="button" class="terminal-btn accent-btn" id="admin-xpost-copy">Copy Post</button>
       </div>
     </div>
-    <div class="right-controls">
-      <button id="theme-toggle" class="top-btn">🌓</button>
-      <span class="wallet-status" id="wallet-address"></span>
-      <button id="logout-btn" class="top-btn">Logout</button>
+  </div>
+
+  <div id="upgrade-modal" class="modal" aria-hidden="true">
+    <div class="modal-card glass-card upgrade-modal-card" role="dialog" aria-modal="true" aria-labelledby="upgrade-modal-title">
+      <button id="upgrade-modal-close" class="modal-close" type="button" aria-label="Close modal">×</button>
+      <span class="section-kicker">Upgrade Access</span>
+      <h3 id="upgrade-modal-title">Choose your plan</h3>
+      <p>Unlock premium Proculus modules with any paid plan.</p>
+
+      <div class="upgrade-plan-grid" id="upgrade-plan-grid">
+        <article class="upgrade-plan-card" data-plan="daily" tabindex="0" role="button" aria-pressed="false">
+          <span class="tier-label">Observer</span>
+          <h4>Daily</h4>
+          <strong>$5.99</strong>
+          <p>USDT / USDC • Multi-chain</p>
+          <p>Card payment available</p>
+        </article>
+
+        <article class="upgrade-plan-card featured is-selected" data-plan="monthly" tabindex="0" role="button" aria-pressed="true">
+          <span class="tier-label">Operator</span>
+          <h4>Monthly</h4>
+          <strong>$39.99</strong>
+          <p>USDT / USDC • Multi-chain</p>
+          <p>Card payment available</p>
+        </article>
+
+        <article class="upgrade-plan-card" data-plan="yearly" tabindex="0" role="button" aria-pressed="false">
+          <span class="tier-label">Strategist</span>
+          <h4>Yearly</h4>
+          <strong>$399.99</strong>
+          <p>USDT / USDC • Multi-chain</p>
+          <p>Card payment available</p>
+        </article>
+      </div>
+
+      <div class="modal-actions">
+        <a id="upgrade-modal-checkout" href="/checkout.html" class="terminal-btn accent-btn">Go To Checkout</a>
+        <button id="upgrade-modal-cancel" class="terminal-btn ghost-btn" type="button">Close</button>
+      </div>
     </div>
-  </header>
-
-  <main>
-    <section class="section">
-      <h2>Market Overview</h2>
-      <div class="market-row">
-        <span>BTC: <span id="btc-price">...</span></span>
-        <span>ETH: <span id="eth-price">...</span></span>
-      </div>
-    </section>
-
-    <section class="section" id="signals-section">
-      <h2>Signals</h2>
-      <div class="signals-wrapper" id="signals-container">
-        <!-- Signal cards will be inserted here -->
-      </div>
-    </section>
-
-    <section class="section" id="notifications-section">
-      <h2>Notification Options</h2>
-      <div class="notification-options">
-        <label><input type="checkbox" /> Email</label>
-        <label><input type="checkbox" /> SMS</label>
-        <label><input type="checkbox" /> Telegram</label>
-        <label><input type="checkbox" /> Discord</label>
-      </div>
-    </section>
-
-    <section class="section" id="api-section">
-      <h2>API Access</h2>
-      <div class="features-grid">
-        <div class="feature-box"><h4>Binance</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>Coinbase</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>Gate.io</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>MEXC</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>OKX</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>KuCoin</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>Bybit</h4><p>Secure API Connection</p></div>
-        <div class="feature-box"><h4>HTX</h4><p>Secure API Connection</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="stocks-section">
-      <h2>Stocks Overview</h2>
-      <div class="features-grid">
-        <div class="feature-box"><h4>NASDAQ</h4><p>Tech Index</p></div>
-        <div class="feature-box"><h4>S&P 500</h4><p>US Large Cap Index</p></div>
-        <div class="feature-box"><h4>Gold</h4><p>Live Market Price</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="nft-section">
-      <h2>NFT Radar</h2>
-      <div class="features-grid">
-        <div class="feature-box"><h4>Magic Eden</h4><p>Solana NFT Stats</p></div>
-        <div class="feature-box"><h4>OpenSea</h4><p>Ethereum NFT Stats</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="presale-section">
-      <h2>Presale & Launches</h2>
-      <div class="features-grid">
-        <div class="feature-box"><h4>Upcoming Presales</h4><p>Hype Radar Projects</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="unlock-section">
-      <h2>Token Unlock Calendar</h2>
-      <div class="features-grid">
-        <div class="feature-box"><h4>Unlock Tracker</h4><p>Monitor Large Token Releases</p></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 Proculus. All rights reserved.
-  </footer>
+  </div>
 
   <script src="panel.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.error('Service worker registration failed:', error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>

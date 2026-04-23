@@ -3,93 +3,160 @@ import { EthereumClient, w3mConnectors, w3mProvider } from './web3modal/ethereum
 import { configureChains, createConfig } from './web3modal/core.js';
 import { mainnet, polygon, avalanche, arbitrum, optimism, base, bsc } from './web3modal/chains.js';
 
-// ✅ Project ID – Replace this with your real one later
-const projectId = 'demo';
+function getWalletConnectProjectId() {
+  const runtimeId = window.PROCULUS_CONFIG?.walletConnectProjectId;
+  const metaId = document
+    .querySelector('meta[name="proculus-walletconnect-project-id"]')
+    ?.getAttribute('content');
 
-const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+  const resolvedId = runtimeId || metaId;
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors: w3mConnectors({ projectId, chains }),
-  publicClient
-});
+  if (!resolvedId || resolvedId === 'demo') {
+    console.error('WalletConnect projectId is missing or invalid.');
+    return null;
+  }
 
-const ethereumClient = new EthereumClient(wagmiConfig, chains);
+  return resolvedId;
+}
 
-const modal = new Web3Modal(
-  {
-    projectId,
-    themeMode: 'dark',
-    accentColor: 'default',
-    walletConnectVersion: 2
-  },
-  ethereumClient
-);
+function formatWallet(address) {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
 
-// ✅ Save wallet address & UI update
-async function saveWalletAddress(redirect = false) {
-  if (window.ethereum) {
-    try {
-      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-      const address = accounts[0];
-      if (address) {
-        localStorage.setItem('walletAddress', address);
+function updateWalletUI(address) {
+  const walletButton = document.getElementById('wallet-connect');
+  const walletSpan = document.getElementById('wallet-address');
+  const walletStatusCopy = document.getElementById('wallet-status-copy');
 
-        const walletButton = document.getElementById('wallet-connect');
-        const walletSpan = document.getElementById('wallet-address');
+  if (walletButton) {
+    walletButton.textContent = address ? formatWallet(address) : 'Login / Signup';
+  }
 
-        if (walletButton) {
-          walletButton.textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
-        }
+  if (walletSpan) {
+    walletSpan.textContent = address ? `Connected: ${formatWallet(address)}` : '';
+  }
 
-        if (walletSpan) {
-          walletSpan.textContent = `Connected: ${address.slice(0, 6)}...${address.slice(-4)}`;
-        }
+  if (walletStatusCopy) {
+    walletStatusCopy.textContent = address
+      ? `Connected wallet ${formatWallet(address)}. Select and confirm an engine tier to continue.`
+      : 'No wallet connected. Select a tier to continue into the terminal.';
+  }
 
-        if (typeof toggleLogoutVisibility === 'function') {
-          toggleLogoutVisibility(true);
-        }
+  if (typeof window.onWalletConnectionChange === 'function') {
+    window.onWalletConnectionChange(address);
+  }
 
-        if (redirect) {
-          window.location.href = 'panel.html';
-        }
-      }
-    } catch (err) {
-      console.error('Wallet address fetch failed:', err);
-    }
+  if (typeof toggleLogoutVisibility === 'function') {
+    toggleLogoutVisibility(Boolean(address));
   }
 }
 
-// ✅ On load
-window.addEventListener('DOMContentLoaded', () => {
+const projectId = getWalletConnectProjectId();
+const chains = [mainnet, polygon, avalanche, arbitrum, optimism, base, bsc];
+
+let modal = null;
+
+if (projectId) {
+  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient
+  });
+
+  const ethereumClient = new EthereumClient(wagmiConfig, chains);
+
+  modal = new Web3Modal(
+    {
+      projectId,
+      themeMode: 'dark',
+      accentColor: 'default',
+      walletConnectVersion: 2
+    },
+    ethereumClient
+  );
+}
+
+async function saveWalletAddress() {
+  if (!window.ethereum) {
+    return null;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const address = accounts[0] || null;
+
+    if (address) {
+      localStorage.setItem('walletAddress', address);
+      updateWalletUI(address);
+      return address;
+    }
+
+    localStorage.removeItem('walletAddress');
+    updateWalletUI(null);
+    return null;
+  } catch (err) {
+    console.error('Wallet address fetch failed:', err);
+    return null;
+  }
+}
+
+async function connectWallet() {
+  if (!modal) {
+    alert('Wallet connection is not configured.');
+    return null;
+  }
+
+  try {
+    await modal.openModal();
+    return await saveWalletAddress();
+  } catch (err) {
+    console.error('Wallet connection failed:', err);
+    return null;
+  }
+}
+
+window.proculusWallet = {
+  connect: connectWallet,
+  refresh: saveWalletAddress,
+  clear() {
+    localStorage.removeItem('walletAddress');
+    updateWalletUI(null);
+  }
+};
+
+window.addEventListener('DOMContentLoaded', async () => {
   const walletButton = document.getElementById('wallet-connect');
   const saved = localStorage.getItem('walletAddress');
 
-  if (saved && walletButton) {
-    walletButton.textContent = `${saved.slice(0, 6)}...${saved.slice(-4)}`;
-    const walletSpan = document.getElementById('wallet-address');
-    if (walletSpan) {
-      walletSpan.textContent = `Connected: ${saved.slice(0, 6)}...${saved.slice(-4)}`;
-    }
-    if (typeof toggleLogoutVisibility === 'function') {
-      toggleLogoutVisibility(true);
-    }
+  if (saved) {
+    updateWalletUI(saved);
+  } else {
+    updateWalletUI(null);
   }
 
-  // 🔌 Wallet connect click
+  await saveWalletAddress();
+
   if (walletButton) {
     walletButton.addEventListener('click', async () => {
       if (!localStorage.getItem('walletAddress')) {
-        await modal.openModal();
-        await saveWalletAddress(true); // redirect to panel.html
+        await connectWallet();
       }
     });
   }
 
   if (window.ethereum) {
-    window.ethereum.on('accountsChanged', () => {
-      saveWalletAddress();
+    window.ethereum.on('accountsChanged', async (accounts) => {
+      const address = accounts[0] || null;
+
+      if (address) {
+        localStorage.setItem('walletAddress', address);
+        updateWalletUI(address);
+      } else {
+        localStorage.removeItem('walletAddress');
+        updateWalletUI(null);
+      }
     });
   }
 });

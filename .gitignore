@@ -1,0 +1,49 @@
+# Secrets and environment
+.env
+*.env
+*.key
+*.pem
+*.secret
+*.token
+*password*
+*secret*
+*token*
+
+# Runtime data and user/session state
+data/
+alerts-live.json
+decision-repository.json
+signals-live.json
+signal-feedback.json
+market-intelligence.json
+unlock-calendar.json
+ta-signals.json
+social-intelligence.json
+onchain-signals.json
+orderflow-signals.json
+orderflow-validation.json
+hunter-ranking.json
+hunter-state.json
+explosion-feed.json
+explosion-history.json
+social-motion-state.json
+onchain-motion-state.json
+orderflow-state.json
+
+# Logs, temp, caches
+*.log
+*.tmp
+*.swp
+node_modules/
+
+# Backups and server-only variants
+*.bak_*
+*.admin_bak_codex
+*.owner_bak_codex
+*.secure_admin_bak_codex
+
+# Browser/session artifacts
+*storage_state*.json
+x_login_*
+proculus_x_vnc_password.txt
+telegram_link_bot_state.json

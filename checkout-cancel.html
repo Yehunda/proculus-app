@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proculus Checkout Canceled</title>
+  <style>
+    body { margin:0; min-height:100vh; font-family:"Inter","Segoe UI",sans-serif; color:#edf7f4; background:linear-gradient(180deg,#0c1820,#071015); }
+    .shell { width:min(calc(100% - 32px),760px); margin:0 auto; padding:48px 0; }
+    .card { border:1px solid rgba(124,249,210,.16); background:rgba(10,19,27,.82); border-radius:24px; padding:24px; box-shadow:0 28px 60px rgba(0,0,0,.28); }
+    .kicker { color:#88a29b; font-size:.78rem; text-transform:uppercase; letter-spacing:.16em; }
+    h1 { margin:12px 0; font-size:2.2rem; }
+    p { color:#88a29b; line-height:1.75; }
+    .row { display:flex; justify-content:space-between; gap:12px; padding:12px 14px; border-radius:14px; border:1px solid rgba(124,249,210,.12); background:rgba(255,255,255,.02); margin-top:14px; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:10px 14px; border-radius:999px; border:1px solid rgba(124,249,210,.14); text-decoration:none; color:#edf7f4; }
+    .primary { background:linear-gradient(135deg,#7cf9d2,#45d9b0); color:#04120f; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+      <span class="kicker">Checkout Cancelled</span>
+      <h1>Payment was not completed</h1>
+      <p>This cancel page is ready for the Stripe redirect flow. If a card checkout is canceled, Stripe can return the customer here with the selected plan preserved.</p>
+      <div class="row"><span>Plan</span><strong id="cancel-plan">Monthly</strong></div>
+      <div class="row"><span>Status</span><strong>Cancelled</strong></div>
+      <div class="actions">
+        <a class="btn primary" href="/checkout.html">Try Again</a>
+        <a class="btn" href="/panel.html">Back to Panel</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const plan = (params.get('plan') || localStorage.getItem('selectedPlan') || 'monthly').toLowerCase();
+      const label = { daily:'Daily', monthly:'Monthly', yearly:'Yearly' }[plan] || 'Monthly';
+      document.getElementById('cancel-plan').textContent = label;
+    })();
+  </script>
+</body>
+</html>

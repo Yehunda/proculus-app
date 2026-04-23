@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proculus Checkout</title>
+  <meta name="theme-color" content="#030507" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Proculus" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/proculus-logo.png" type="image/png" sizes="1024x1024" />
+  <link rel="apple-touch-icon" href="/proculus-logo.png" />
+  <style>
+    :root {
+      --bg: #030507;
+      --bg-alt: #090b0f;
+      --panel: rgba(11, 13, 17, 0.84);
+      --panel-soft: rgba(255, 255, 255, 0.025);
+      --line: rgba(124, 249, 210, 0.14);
+      --line-strong: rgba(124, 249, 210, 0.28);
+      --accent: #7cf9d2;
+      --accent-strong: #45d9b0;
+      --text: #edf7f4;
+      --muted: #88a29b;
+      --orange: #ffb15c;
+      --shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(124, 249, 210, 0.05), transparent 24%),
+        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.03), transparent 18%),
+        linear-gradient(180deg, #0a0b0d, var(--bg));
+    }
+    a { color: inherit; text-decoration: none; }
+    button, select { font: inherit; }
+    .page-shell {
+      width: min(calc(100% - 28px), 1040px);
+      margin: 0 auto;
+      padding: 16px 0 22px;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+    .brand-title {
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      font-size: 1rem;
+    }
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+    }
+    .shell-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+    .checkout-shell {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 10px;
+      padding: 12px;
+    }
+    .section-kicker {
+      display: block;
+      color: var(--muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+    h1 {
+      margin: 6px 0 8px;
+      font-size: clamp(1.58rem, 3.8vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+    p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .summary-card,
+    .payment-card,
+    .crypto-panel,
+    .card-panel {
+      padding: 11px;
+      border-radius: 15px;
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+    .summary-card { margin-top: 8px; }
+    .summary-plan {
+      margin-top: 8px;
+      display: grid;
+      gap: 7px;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+    }
+    .summary-line span { color: var(--muted); }
+    .summary-line strong { font-size: 0.96rem; }
+    .payment-grid {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+    .payment-card {
+      cursor: pointer;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+    }
+    .payment-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+    }
+    .payment-card.is-selected {
+      border-color: var(--line-strong);
+      box-shadow: 0 0 0 1px rgba(124, 249, 210, 0.18), 0 14px 28px rgba(0, 0, 0, 0.14);
+      background: linear-gradient(180deg, rgba(124, 249, 210, 0.08), rgba(255, 255, 255, 0.03));
+    }
+    .payment-card h3,
+    .card-panel h3 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+    }
+    .payment-card p,
+    .card-panel p {
+      font-size: 0.92rem;
+    }
+    .payment-badge,
+    .crypto-badge,
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .shell-actions,
+    .card-actions,
+    .preview-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      background: transparent;
+      color: var(--text);
+      min-height: 36px;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--line-strong);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #04120f;
+      font-weight: 700;
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .checkout-message,
+    .card-status,
+    .crypto-status {
+      min-height: 22px;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+    .checkout-message,
+    .card-status { color: var(--orange); }
+    .crypto-status { color: var(--accent); }
+    .card-panel,
+    .crypto-panel {
+      margin-top: 9px;
+      display: none;
+      gap: 9px;
+      scroll-margin-top: 20px;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .card-panel.is-visible,
+    .crypto-panel.is-visible {
+      display: grid;
+    }
+    .crypto-panel.flash-highlight,
+    .card-panel.flash-highlight {
+      border-color: var(--line-strong);
+      box-shadow: 0 0 0 1px rgba(124, 249, 210, 0.18), 0 18px 32px rgba(69, 217, 176, 0.14);
+      background: linear-gradient(180deg, rgba(124, 249, 210, 0.09), rgba(255,255,255,0.03));
+    }
+    .card-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+    }
+    .card-line span { color: var(--muted); }
+    .crypto-row {
+      display: grid;
+      gap: 7px;
+    }
+    .crypto-label {
+      color: var(--muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .crypto-select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+    .crypto-address-wrap {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px;
+      align-items: center;
+    }
+    .crypto-address {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      font-size: 0.9rem;
+      line-height: 1.45;
+      word-break: break-all;
+    }
+    .crypto-amount {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .crypto-grid {
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 10px;
+      align-items: start;
+    }
+    .crypto-qr-shell {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+    }
+    .crypto-qr {
+      width: 108px;
+      height: 108px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: white;
+      padding: 6px;
+    }
+    @media (max-width: 860px) {
+      .checkout-shell {
+        grid-template-columns: 1fr;
+      }
+      .crypto-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+      .summary-card,
+    .payment-card,
+    .card-panel,
+    .crypto-panel {
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.015);
+    }
+    .payment-card p,
+    .card-panel p,
+    .crypto-status,
+    .card-status {
+      line-height: 1.55;
+    }
+    @media (max-width: 860px) {
+      .page-shell {
+        width: min(calc(100% - 20px), 1040px);
+      }
+      .topbar {
+        align-items: flex-start;
+      }
+      .summary-card,
+      .payment-card,
+      .crypto-panel,
+      .card-panel {
+        padding: 12px;
+      }
+      .shell-actions,
+      .card-actions,
+      .preview-actions {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/intro.html">
+        <img src="proculus-logo.png" alt="Proculus Logo" />
+        <div>
+          <div class="brand-title">PROCULUS</div>
+          <div class="brand-subtitle">Checkout Shell</div>
+        </div>
+      </a>
+      <a class="btn btn-secondary" href="/intro.html#pricing">Back to Pricing</a>
+    </header>
+
+    <main class="shell-card checkout-shell">
+      <section>
+        <span class="section-kicker">Checkout</span>
+        <h1>Complete your access upgrade</h1>
+        <p>This is a payment shell only for now. Your selected plan is shown below, along with the available payment methods that will be connected in the next phase.</p>
+
+        <div class="summary-card">
+          <span class="section-kicker">Selected Plan</span>
+          <div class="summary-plan">
+            <div class="summary-line">
+              <span>Plan</span>
+              <strong id="checkout-plan-name">Monthly</strong>
+            </div>
+            <div class="summary-line">
+              <span>Price</span>
+              <strong id="checkout-plan-price">$39.99</strong>
+            </div>
+            <div class="summary-line">
+              <span>Payment</span>
+              <strong id="checkout-payment-method">Card</strong>
+            </div>
+          </div>
+        </div>
+
+        <div id="card-panel" class="card-panel is-visible">
+          <span class="card-badge">Card Checkout</span>
+          <h3>Stripe-ready card flow</h3>
+          <p>Continue with Card is the active checkout path. When Stripe is configured, this button will create a Checkout Session and redirect securely.</p>
+          <div class="card-line">
+            <span>Selected Plan</span>
+            <strong id="card-plan-label">Monthly</strong>
+          </div>
+          <div class="card-line">
+            <span>Success URL</span>
+            <strong>/checkout-success.html</strong>
+          </div>
+          <div class="card-line">
+            <span>Cancel URL</span>
+            <strong>/checkout-cancel.html</strong>
+          </div>
+          <div class="card-actions">
+            <button id="card-checkout-btn" class="btn btn-primary" type="button">Continue with Card</button>
+          </div>
+          <div id="card-status" class="card-status"></div>
+          <div class="preview-actions">
+            <a id="card-success-link" class="btn btn-secondary" href="/checkout-success.html">Preview Success Page</a>
+            <a id="card-cancel-link" class="btn btn-secondary" href="/checkout-cancel.html">Preview Cancel Page</a>
+          </div>
+        </div>
+
+        <div id="crypto-panel" class="crypto-panel">
+          <span class="crypto-badge">Crypto Checkout</span>
+          <div class="crypto-grid">
+            <div class="crypto-row">
+              <label class="crypto-label" for="crypto-network">Network</label>
+              <select id="crypto-network" class="crypto-select">
+                <option value="ethereum">Ethereum (ERC20)</option>
+                <option value="bsc">BSC (BEP20)</option>
+                <option value="arbitrum">Arbitrum</option>
+                <option value="optimism">Optimism</option>
+                <option value="polygon">Polygon</option>
+                <option value="avalanche">Avalanche (C-Chain)</option>
+                <option value="base">Base</option>
+                <option value="hyperevm">HyperEVM</option>
+                <option value="sei">SEI</option>
+                <option value="tron">TRON</option>
+                <option value="solana">Solana</option>
+              </select>
+
+              <label class="crypto-label">Send To Address</label>
+              <div class="crypto-address-wrap">
+                <div id="crypto-address" class="crypto-address">0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d</div>
+                <button id="copy-address-btn" class="btn btn-secondary" type="button">Copy Address</button>
+              </div>
+
+              <label class="crypto-label">Exact Amount</label>
+              <div id="crypto-amount" class="crypto-amount">39.99 USDT / USDC</div>
+
+              <button id="crypto-paid-btn" class="btn btn-primary" type="button">I Have Paid</button>
+              <div id="crypto-status" class="crypto-status"></div>
+            </div>
+            <div class="crypto-qr-shell">
+              <span class="crypto-label">QR Code</span>
+              <img id="crypto-qr" class="crypto-qr" alt="Crypto payment QR" />
+            </div>
+          </div>
+        </div>
+
+        <div class="shell-actions">
+          <button id="checkout-primary-action" class="btn btn-primary" type="button">Continue with Card</button>
+          <a class="btn btn-secondary" href="/panel.html">Back to Panel</a>
+        </div>
+        <p id="checkout-message" class="checkout-message"></p>
+      </section>
+
+      <section>
+        <div class="payment-grid">
+          <article class="payment-card is-selected" data-method="card" tabindex="0" role="button" aria-pressed="true">
+            <span class="payment-badge">Option 1</span>
+            <h3>Pay with Card</h3>
+            <p>Use a Stripe-ready card flow for the selected plan.</p>
+          </article>
+          <article class="payment-card" data-method="crypto" tabindex="0" role="button" aria-pressed="false">
+            <span class="payment-badge">Option 2</span>
+            <h3>Pay with USDT / USDC</h3>
+            <p>Crypto checkout supports USDT and USDC across multiple chains. Use the exact address and amount shown for your selected network.</p>
+          </article>
+        </div>
+        <p class="note">No real payment is processed on this page yet. Stripe session creation will connect into the card flow when keys are ready.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const selectedPlan = (localStorage.getItem('selectedPlan') || 'monthly').toLowerCase();
+      const planMap = {
+        daily: { name: 'Daily', price: '$5.99', amount: '5.99' },
+        monthly: { name: 'Monthly', price: '$39.99', amount: '39.99' },
+        yearly: { name: 'Yearly', price: '$399.99', amount: '399.99' }
+      };
+      const paymentCopy = {
+        card: {
+          label: 'Card',
+          action: 'Continue with Card',
+          message: 'Card checkout shell is ready. Stripe session creation will connect here next.'
+        },
+        crypto: {
+          label: 'USDT / USDC',
+          action: 'View Crypto Payment Details',
+          message: 'Crypto payment details are shown below. Use I Have Paid after sending the exact amount.'
+        }
+      };
+      const networkMap = {
+        ethereum: { label: 'Ethereum (ERC20)', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        bsc: { label: 'BSC (BEP20)', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        arbitrum: { label: 'Arbitrum', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        optimism: { label: 'Optimism', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        polygon: { label: 'Polygon', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        avalanche: { label: 'Avalanche (C-Chain)', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        base: { label: 'Base', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        hyperevm: { label: 'HyperEVM', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        sei: { label: 'SEI', address: '0x4C3CFF7Df41e85d4972c5406EcF105a9AEA34b4d' },
+        tron: { label: 'TRON', address: 'TWGUtc4T1fjs8yDRrmQNo2CCfyGDAYJMVz' },
+        solana: { label: 'Solana', address: '7Cp88rHeH36Vjo3FC9n7y4UZcRe8anxBqLhANPucnbMwr' }
+      };
+      const stripePublishableKey = window.PROCULUS_CONFIG?.stripePublishableKey || '';
+      const plan = planMap[selectedPlan] || planMap.monthly;
+      const emailUser = (() => {
+        try {
+          return JSON.parse(localStorage.getItem('proculusEmailUser') || 'null');
+        } catch (err) {
+          return null;
+        }
+      })();
+      const planNameNode = document.getElementById('checkout-plan-name');
+      const planPriceNode = document.getElementById('checkout-plan-price');
+      const paymentMethodNode = document.getElementById('checkout-payment-method');
+      const actionButton = document.getElementById('checkout-primary-action');
+      const messageNode = document.getElementById('checkout-message');
+      const cards = Array.from(document.querySelectorAll('.payment-card'));
+      const cardPanel = document.getElementById('card-panel');
+      const cardPlanLabel = document.getElementById('card-plan-label');
+      const cardStatus = document.getElementById('card-status');
+      const cardCheckoutButton = document.getElementById('card-checkout-btn');
+      const successLink = document.getElementById('card-success-link');
+      const cancelLink = document.getElementById('card-cancel-link');
+      const cryptoPanel = document.getElementById('crypto-panel');
+      const cryptoNetwork = document.getElementById('crypto-network');
+      const cryptoAddress = document.getElementById('crypto-address');
+      const cryptoAmount = document.getElementById('crypto-amount');
+      const cryptoQr = document.getElementById('crypto-qr');
+      const copyAddressBtn = document.getElementById('copy-address-btn');
+      const cryptoStatus = document.getElementById('crypto-status');
+      const cryptoPaidBtn = document.getElementById('crypto-paid-btn');
+      let selectedMethod = 'card';
+      let flashTimer = null;
+
+      planNameNode.textContent = plan.name;
+      planPriceNode.textContent = plan.price;
+      cardPlanLabel.textContent = `${plan.name} • ${plan.price}`;
+      cryptoAmount.textContent = `${plan.amount} USDT / USDC`;
+      successLink.href = `/checkout-success.html?plan=${encodeURIComponent(selectedPlan)}`;
+      cancelLink.href = `/checkout-cancel.html?plan=${encodeURIComponent(selectedPlan)}`;
+
+      function readPendingPayments() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem('proculusPendingPayments') || '[]');
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (err) {
+          return [];
+        }
+      }
+
+      function writePendingPayments(items) {
+        localStorage.setItem('proculusPendingPayments', JSON.stringify(items));
+      }
+
+      async function syncPendingPaymentToServer(record) {
+        const response = await fetch('/api/public/payments/crypto/pending', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(record)
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || 'Unable to submit payment right now.');
+        }
+
+        return data.payment || record;
+      }
+
+      function getPendingPaymentKey(network) {
+        return [emailUser?.email || '', selectedPlan, network || cryptoNetwork.value].join('::');
+      }
+
+      function findExistingPendingPayment(network) {
+        const key = getPendingPaymentKey(network);
+        return readPendingPayments().find((item) => item.key === key && item.status === 'pending') || null;
+      }
+
+      function applyPendingPaymentState(record) {
+        if (!record) {
+          cryptoPaidBtn.disabled = false;
+          cryptoStatus.textContent = '';
+          return;
+        }
+
+        cryptoPaidBtn.disabled = true;
+        cryptoStatus.textContent = 'Payment submitted. Awaiting verification.';
+      }
+
+      function updateQrForAddress(address) {
+        const encoded = encodeURIComponent(address);
+        cryptoQr.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encoded}`;
+      }
+
+      function syncNetwork() {
+        const network = networkMap[cryptoNetwork.value] || networkMap.ethereum;
+        cryptoAddress.textContent = network.address;
+        updateQrForAddress(network.address);
+      }
+
+      function flashPanel(panel) {
+        panel.classList.add('flash-highlight');
+        if (flashTimer) window.clearTimeout(flashTimer);
+        flashTimer = window.setTimeout(function () {
+          panel.classList.remove('flash-highlight');
+        }, 1400);
+      }
+
+      function syncSelectedMethod() {
+        cards.forEach((card) => {
+          const selected = card.dataset.method === selectedMethod;
+          card.classList.toggle('is-selected', selected);
+          card.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+        const method = paymentCopy[selectedMethod] || paymentCopy.card;
+        paymentMethodNode.textContent = method.label;
+        actionButton.textContent = method.action;
+        cardPanel.classList.toggle('is-visible', selectedMethod === 'card');
+        cryptoPanel.classList.toggle('is-visible', selectedMethod === 'crypto');
+      }
+
+      async function startCardCheckout() {
+        localStorage.setItem('selectedPlan', selectedPlan);
+        localStorage.setItem('paymentMethod', 'card');
+        localStorage.removeItem('paymentStatus');
+
+        if (!stripePublishableKey) {
+          cardStatus.textContent = 'Stripe is not configured yet. Card session creation will connect here next.';
+          messageNode.textContent = 'Card checkout shell is ready. Use the preview success/cancel pages until Stripe keys are connected.';
+          return;
+        }
+
+        cardStatus.textContent = 'Stripe checkout session creation will connect here.';
+      }
+
+      cards.forEach((card) => {
+        const selectCard = function () {
+          selectedMethod = card.dataset.method || 'card';
+          syncSelectedMethod();
+          messageNode.textContent = paymentCopy[selectedMethod].message;
+        };
+        card.addEventListener('click', selectCard);
+        card.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            selectCard();
+          }
+        });
+      });
+
+      cardCheckoutButton.addEventListener('click', startCardCheckout);
+
+      cryptoNetwork.addEventListener('change', function () {
+        syncNetwork();
+        cryptoStatus.textContent = `Address updated for ${networkMap[cryptoNetwork.value].label}.`;
+        applyPendingPaymentState(findExistingPendingPayment(cryptoNetwork.value));
+      });
+
+      copyAddressBtn.addEventListener('click', async function () {
+        try {
+          await navigator.clipboard.writeText(cryptoAddress.textContent);
+          cryptoStatus.textContent = 'Address copied.';
+        } catch (err) {
+          cryptoStatus.textContent = 'Copy failed. Please copy the address manually.';
+        }
+      });
+
+      cryptoPaidBtn.addEventListener('click', async function () {
+        const network = cryptoNetwork.value;
+        const address = cryptoAddress.textContent;
+        const timestamp = new Date().toISOString();
+        const pendingRecord = {
+          key: getPendingPaymentKey(network),
+          email: emailUser?.email || '',
+          selectedPlan,
+          selectedNetwork: network,
+          paymentMethod: 'crypto',
+          amount: plan.amount,
+          walletAddressShown: address,
+          address,
+          timestamp,
+          status: 'pending'
+        };
+
+        cryptoPaidBtn.disabled = true;
+        cryptoStatus.textContent = 'Submitting payment...';
+
+        try {
+          const savedRecord = await syncPendingPaymentToServer(pendingRecord);
+          const localRecord = { ...savedRecord, key: pendingRecord.key };
+          const payments = readPendingPayments().filter((item) => item.key !== pendingRecord.key);
+          payments.unshift(localRecord);
+          writePendingPayments(payments);
+
+          localStorage.setItem('selectedPlan', selectedPlan);
+          localStorage.setItem('paymentMethod', 'crypto');
+          localStorage.setItem('paymentStatus', 'pending');
+          localStorage.setItem('latestPendingPayment', JSON.stringify(localRecord));
+          cryptoStatus.textContent = 'Payment submitted. Awaiting verification.';
+        } catch (err) {
+          cryptoPaidBtn.disabled = false;
+          cryptoStatus.textContent = err.message || 'Unable to submit payment right now.';
+        }
+      });
+
+      actionButton.addEventListener('click', function () {
+        const method = paymentCopy[selectedMethod] || paymentCopy.card;
+        if (selectedMethod === 'crypto') {
+          messageNode.textContent = 'Use the crypto payment panel below, then click I Have Paid.';
+          cryptoPanel.classList.add('is-visible');
+          cryptoPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          flashPanel(cryptoPanel);
+          return;
+        }
+        cardPanel.classList.add('is-visible');
+        cardPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        flashPanel(cardPanel);
+        startCardCheckout();
+        messageNode.textContent = method.message;
+      });
+
+      syncNetwork();
+      syncSelectedMethod();
+      applyPendingPaymentState(findExistingPendingPayment(cryptoNetwork.value));
+    })();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.error('Service worker registration failed:', error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -2,221 +2,727 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Proculus – Entry Page</title>
-  <link rel="stylesheet" href="intro.css" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Proculus | AI Crypto Decision Engine</title>
+  <meta name="theme-color" content="#030507" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Proculus" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/proculus-logo.png" type="image/png" sizes="1024x1024" />
+  <link rel="apple-touch-icon" href="/proculus-logo.png" />
+  <meta
+    name="description"
+    content="Proculus is an AI-powered crypto decision engine delivering validated signal intelligence, market context, and premium access tiers."
+  />
+  <link rel="stylesheet" href="/intro.css" />
 </head>
 <body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="intro.html" aria-label="Proculus home">
+        <img src="proculus-logo.png" alt="Proculus Logo" class="brand-logo" />
+        <div class="brand-copy">
+          <span class="brand-title">PROCULUS</span>
+          <span class="brand-tagline">Eyes Beyond The Chain</span>
+        </div>
+      </a>
 
-  <header class="topbar">
-    <div class="top-left">
-      <img src="proculus-logo.png" class="top-logo" alt="Proculus Logo" />
-      <div class="title-slogan">
-        <span class="title">PROCULUS</span>
-        <span class="slogan">Eyes Beyond The Chain</span>
+      <div class="topbar-actions">
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="topbar-menu-panel">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav id="topbar-menu-panel" class="topbar-menu-panel" aria-label="Primary">
+          <div class="topbar-menu-backdrop" aria-hidden="true"></div>
+          <div class="topbar-menu-sheet">
+            <div class="topbar-menu-header">
+              <span class="section-kicker">Navigation</span>
+              <strong class="topbar-menu-title">Proculus Menu</strong>
+            </div>
+
+            <div class="topbar-menu-links">
+              <a href="#outcomes" class="nav-link menu-link">Outcomes</a>
+              <a href="#tiers" class="nav-link menu-link">Access</a>
+              <a href="#faq" class="nav-link menu-link">FAQ</a>
+              <a href="/whitepaper.html" target="_blank" rel="noreferrer" class="nav-link menu-link">Whitepaper</a>
+            </div>
+
+            <div class="topbar-menu-controls">
+              <button id="wallet-connect" class="primary-btn menu-control" type="button">Login / Signup</button>
+              <a id="dashboard-link" class="primary-btn menu-control" href="/panel.html" style="display:none;">Dashboard</a>
+              <button id="logout-btn" class="secondary-btn compact-btn menu-control" type="button" style="display:none;">Logout</button>
+              <button id="mode-toggle" class="icon-btn menu-control menu-theme-btn" type="button" aria-label="Toggle theme">
+                <span id="theme-toggle-label">Dark</span>
+              </button>
+            </div>
+
+            <span id="wallet-address" class="wallet-inline menu-wallet-inline"></span>
+          </div>
+        </nav>
       </div>
-    </div>
-    <div class="top-right">
-      <a href="whitepaper.pdf" target="_blank" class="top-link">Whitepaper</a>
-      <button id="mode-toggle" class="top-btn">🌙</button>
-      <button id="wallet-connect" class="top-btn">Login / Signup</button>
-      <span id="wallet-address" class="top-link"></span>
-      <button id="logout-btn" class="top-btn" style="display:none;">Logout</button>
-    </div>
-  </header>
+    </header>
 
-  <main class="main-layout">
-    <aside class="market-panel">
-      <h3>Market Overview</h3>
-      <ul class="market-list">
-        <li id="btc-price">BTC: Loading...</li>
-        <li id="eth-price">ETH: Loading...</li>
-        <li id="sol-price">SOL: Loading...</li>
-        <li id="bnb-price">BNB: Loading...</li>
-        <li id="xrp-price">XRP: Loading...</li>
-        <li id="avax-price">AVAX: Loading...</li>
-        <li id="link-price">LINK: Loading...</li>
-        <li id="dot-price">DOT: Loading...</li>
-        <li id="xmr-price">XMR: Loading...</li>
-        <li id="doge-price">DOGE: Loading...</li>
-        <li id="trx-price">TRX: Loading...</li>
-        <li id="ada-price">ADA: Loading...</li>
-        <li id="hype-price">HYPE: Loading...</li>
-        <li id="sui-price">SUI: Loading...</li>
-        <li id="tao-price">TAO: Loading...</li>
-        <li id="ena-price">ENA: Loading...</li>
-        <li id="ondo-price">ONDO: Loading...</li>
-        <li id="pepe-price">PEPE: Loading...</li>
-        <li id="kaspa-price">KASPA: Loading...</li>
-        <li id="arbitrum-price">ARBITRUM: Loading...</li>
-        <li id="render-price">RENDER: Loading...</li>
-        <li id="celestia-price">CELESTIA: Loading...</li>
-        <li id="hacash-price">HACASH: Loading...</li>
-        <li id="hacash-diamond-price">HACD: Loading...</li>
-        <li id="btc-dominance">BTC Dominance: Loading...</li>
-        <li id="total-market-cap">Total Market Cap: Loading...</li>
-      </ul>
-    </aside>
-
-    <section class="content-center">
-      <h1>Welcome</h1>
-      <p>Proculus is a smart analytics platform offering private crypto signals for investors.<br>
-         Choose one of the plans below to access your personalized signal panel.</p>
-
-      <div class="subscription-cards">
-        <div class="card">
-          <h3>Daily Plan</h3>
-          <div class="price">$5.99</div>
-          <ul>
-            <li>1 signal per day</li>
-            <li>Notification system</li>
-            <li>Risk alerts</li>
-          </ul>
-          <button class="subscribe-btn" data-plan="daily">Subscribe</button>
+    <main>
+      <section class="ticker-strip glass-card">
+        <div class="ticker-viewport" id="crypto-ticker-viewport">
+          <div id="crypto-ticker" class="ticker-track">Loading live market ticker...</div>
         </div>
-        <div class="card">
-          <h3>Monthly Plan</h3>
-          <div class="price">$39.99</div>
-          <ul>
-            <li>2 signals per day</li>
-            <li>Notification system</li>
-            <li>Risk alerts</li>
-            <li>API access</li>
-            <li>Stock market support</li>
-            <li>Bot integration</li>
-            <li>Mobile app access</li>
-            <li class="highlight">+ 3 days free trial</li>
-          </ul>
-          <button class="subscribe-btn" data-plan="monthly">Start Free Trial</button>
-        </div>
-        <div class="card">
-          <h3>Yearly Plan</h3>
-          <div class="price">$399.99</div>
-          <ul>
-            <li>3 signals per day</li>
-            <li>Everything in Monthly</li>
-            <li>NFT radar</li>
-            <li>Presale insights</li>
-            <li>Token unlock calendar</li>
-            <li class="highlight">+ 3 days free trial</li>
-          </ul>
-          <button class="subscribe-btn" data-plan="yearly">Start Free Trial</button>
-        </div>
-      </div>
-
-      <section class="success-wall">
-        <h2>🔥 Successful Signals</h2>
-        <div id="success-container" class="success-container"></div>
       </section>
-    </section>
 
-    <aside class="user-panel">
-      <h3>Active Users</h3>
-      <div class="active-users" id="active-users-panel"></div>
-      <p id="user-count"><span class="online-dot"></span> Loading...</p>
-    </aside>
-  </main>
+      <section class="hero-section">
+        <div class="hero-copy">
+          <div class="eyebrow-row">
+            <span class="eyebrow-pill">
+              <span class="status-dot live"></span>
+              Live AI Decision Engine
+            </span>
+            <span id="engine-timestamp" class="eyebrow-meta">Synced moments ago</span>
+          </div>
 
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
-      <h2>Confirm Plan</h2>
-      <p id="modal-text">Do you want to activate this plan?</p>
-      <button id="confirm-btn">Confirm</button>
+          <h1>
+            Precision crypto signals,
+            <span>validated by a live multi-agent engine.</span>
+          </h1>
+
+          <p class="hero-description">
+            Proculus continuously scans market structure, momentum, sentiment,
+            on-chain behavior, and risk to surface focused signal intelligence.
+            Built for traders and investors who want disciplined entries, not noise.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#tiers" class="primary-btn">Access The Engine</a>
+            <a href="#product-preview" class="secondary-btn">View Terminal</a>
+          </div>
+
+          <div class="trust-line">
+            <div class="trust-item">
+              <span class="trust-label">Engine State</span>
+              <strong id="hero-engine-state">Validating Setups</strong>
+            </div>
+            <div class="trust-item">
+              <span class="trust-label">Recent Hit Rate</span>
+              <strong>78.4%</strong>
+            </div>
+            <div class="trust-item">
+              <span class="trust-label">Monitored Pairs</span>
+              <strong>128</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="engine-console glass-card">
+            <div class="console-top">
+              <div class="console-heading">
+                <span class="console-label">Decision Engine</span>
+                <strong id="engine-mode-label">Consensus Locked</strong>
+              </div>
+              <span class="console-pill">Live</span>
+            </div>
+
+            <div class="engine-network" aria-hidden="true">
+              <div class="engine-core">
+                <span class="core-ring ring-one"></span>
+                <span class="core-ring ring-two"></span>
+                <div class="core-content">
+                  <span class="core-label">Core</span>
+                  <strong>PROCULUS</strong>
+                  <small id="engine-output-label">Signal Ready</small>
+                </div>
+              </div>
+
+              <div class="agent-node trend">
+                <span class="agent-title">Trend</span>
+                <strong id="trend-status">Bullish</strong>
+              </div>
+              <div class="agent-node momentum">
+                <span class="agent-title">Momentum</span>
+                <strong id="momentum-status">Expanding</strong>
+              </div>
+              <div class="agent-node sentiment">
+                <span class="agent-title">Sentiment</span>
+                <strong id="sentiment-status">Improving</strong>
+              </div>
+              <div class="agent-node onchain">
+                <span class="agent-title">On-Chain</span>
+                <strong id="onchain-status">Neutral+</strong>
+              </div>
+              <div class="agent-node risk">
+                <span class="agent-title">Risk</span>
+                <strong id="risk-status">Contained</strong>
+              </div>
+
+              <span class="connector connector-trend"></span>
+              <span class="connector connector-momentum"></span>
+              <span class="connector connector-sentiment"></span>
+              <span class="connector connector-onchain"></span>
+              <span class="connector connector-risk"></span>
+            </div>
+
+            <div class="console-feed">
+              <div class="feed-header">
+                <span>Live Activity</span>
+                <span id="feed-cycle-label">Engine cycle 0421</span>
+              </div>
+              <ul id="engine-feed" class="feed-list">
+                <li>BTC/USDT structure sweep complete</li>
+                <li>Momentum agent detected continuation pressure</li>
+                <li>Risk agent validated stop distance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="status-strip glass-strip" aria-label="Engine status">
+        <article class="status-item">
+          <span class="status-label">Markets Scanned</span>
+          <strong>2,184</strong>
+          <small>Last 24h</small>
+        </article>
+        <article class="status-item">
+          <span class="status-label">Engine Status</span>
+          <strong id="strip-engine-status">Monitoring</strong>
+          <small>Multi-agent sync active</small>
+        </article>
+        <article class="status-item">
+          <span class="status-label">Latest Signal</span>
+          <strong id="latest-signal-label">SOL/USDT Long</strong>
+          <small id="latest-signal-time">Issued 8m ago</small>
+        </article>
+        <article class="status-item">
+          <span class="status-label">Signal Quality</span>
+          <strong>High Confidence</strong>
+          <small>Consensus threshold passed</small>
+        </article>
+        <article class="status-item">
+          <span class="status-label">Active State</span>
+          <strong id="live-state-label">Validating</strong>
+          <small>Awaiting volatility check</small>
+        </article>
+      </section>
+
+      <section class="intelligence-section">
+        <div class="section-head">
+          <span class="section-kicker">Signal Intelligence Preview</span>
+          <h2>What the engine actually delivers</h2>
+          <p>
+            Every signal is surfaced as a structured decision package, combining
+            trade levels with machine-filtered context.
+          </p>
+        </div>
+
+        <div class="intelligence-grid">
+          <article class="signal-preview-card glass-card">
+            <div class="signal-preview-top">
+              <div>
+                <span class="mini-label">Live Candidate</span>
+                <h3 id="preview-pair">SOL/USDT</h3>
+              </div>
+              <span id="preview-direction" class="direction-pill long">Long</span>
+            </div>
+
+            <div class="signal-price-grid">
+              <div>
+                <span class="mini-label">Entry</span>
+                <strong id="preview-entry">148.20</strong>
+              </div>
+              <div>
+                <span class="mini-label">Target</span>
+                <strong id="preview-target">157.90</strong>
+              </div>
+              <div>
+                <span class="mini-label">Stop</span>
+                <strong id="preview-stop">143.60</strong>
+              </div>
+              <div>
+                <span class="mini-label">Confidence</span>
+                <strong id="preview-confidence">86%</strong>
+              </div>
+            </div>
+
+            <div class="confidence-meter" aria-hidden="true">
+              <span id="confidence-meter-bar"></span>
+            </div>
+
+            <div class="reasoning-list">
+              <div class="reasoning-item">
+                <span>Trend</span>
+                <strong>Higher highs confirmed</strong>
+              </div>
+              <div class="reasoning-item">
+                <span>Momentum</span>
+                <strong>Breakout pressure rising</strong>
+              </div>
+              <div class="reasoning-item">
+                <span>Sentiment</span>
+                <strong>Risk appetite improving</strong>
+              </div>
+              <div class="reasoning-item">
+                <span>Risk</span>
+                <strong>Controlled invalidation zone</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="consensus-card glass-card">
+            <div class="consensus-head">
+              <span class="section-kicker">Agent Consensus</span>
+              <h3>How the engine reaches a decision</h3>
+            </div>
+
+            <div class="consensus-list">
+              <div class="consensus-row">
+                <span>Trend Agent</span>
+                <div class="bar-shell"><span class="bar-fill" style="width: 88%"></span></div>
+                <strong>Bullish</strong>
+              </div>
+              <div class="consensus-row">
+                <span>Momentum Agent</span>
+                <div class="bar-shell"><span class="bar-fill" style="width: 82%"></span></div>
+                <strong>Aligned</strong>
+              </div>
+              <div class="consensus-row">
+                <span>Sentiment Agent</span>
+                <div class="bar-shell"><span class="bar-fill" style="width: 71%"></span></div>
+                <strong>Improving</strong>
+              </div>
+              <div class="consensus-row">
+                <span>On-Chain Agent</span>
+                <div class="bar-shell"><span class="bar-fill" style="width: 64%"></span></div>
+                <strong>Neutral+</strong>
+              </div>
+              <div class="consensus-row">
+                <span>Risk Agent</span>
+                <div class="bar-shell"><span class="bar-fill" style="width: 91%"></span></div>
+                <strong>Approved</strong>
+              </div>
+            </div>
+
+            <p class="consensus-footnote">
+              Signal issuance only occurs after cross-agent confirmation and
+              risk threshold approval.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <div id="pricing"></div>
+      <section class="early-access-note" aria-label="Early access">
+        <span class="early-access-kicker">Founding Access Now Open</span>
+        <p>Join early and unlock premium access before public rollout.</p>
+      </section>
+
+      <section class="market-preview-section">
+        <div class="section-head">
+          <span class="section-kicker">Research Feed</span>
+          <h2>Market Intelligence Preview</h2>
+          <p>Recent market developments distilled into short signal-adjacent intelligence notes.</p>
+        </div>
+        <div class="market-preview-grid" id="market-preview-container">
+          <article class="market-preview-card glass-card">
+            <span class="card-label">Loading</span>
+            <h3>Fetching market intelligence preview...</h3>
+            <p>Latest market context is loading.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="tiers" class="tiers-section">
+        <div class="section-head">
+          <span class="section-kicker">Engine Access</span>
+          <h2>Choose your access tier</h2>
+          <p>
+            Access is structured around how much of the decision engine you want
+            unlocked: signal frequency, depth, and intelligence surface area.
+          </p>
+        </div>
+
+        <div class="tier-grid">
+          <article class="tier-card glass-card">
+            <span class="tier-label">Observer</span>
+            <h3>Daily Access</h3>
+            <div class="tier-price">$5.99</div>
+            <p>USDT / USDC • Multi-chain</p>
+            <p>Core signal access for disciplined daily participation.</p>
+            <ul class="tier-list">
+              <li>1 validated signal per day</li>
+              <li>Live signal card with entry / target / stop</li>
+              <li>Basic notification delivery</li>
+              <li>Engine state visibility</li>
+            </ul>
+            <button class="primary-btn tier-btn subscribe-btn" type="button" data-plan="daily">
+              Activate Daily
+            </button>
+          </article>
+
+          <article class="tier-card glass-card featured-tier">
+            <div class="tier-badge">Most Chosen</div>
+            <span class="tier-label">Operator</span>
+            <h3>Monthly Access</h3>
+            <div class="tier-price">$39.99</div>
+            <p>USDT / USDC • Multi-chain</p>
+            <p>Deeper terminal access with broader signal coverage and context.</p>
+            <ul class="tier-list">
+              <li>2 validated signals per day</li>
+              <li>Consensus context and confidence layer</li>
+              <li>Priority notification routing</li>
+              <li>Stocks and API intelligence unlocked</li>
+              <li>3-day free trial</li>
+            </ul>
+            <button class="primary-btn tier-btn subscribe-btn" type="button" data-plan="monthly">
+              Start Monthly Trial
+            </button>
+          </article>
+
+          <article class="tier-card glass-card">
+            <span class="tier-label">Strategist</span>
+            <h3>Yearly Access</h3>
+            <div class="tier-price">$399.99</div>
+            <p>USDT / USDC • Multi-chain</p>
+            <p>Full intelligence terminal with premium research modules enabled.</p>
+            <ul class="tier-list">
+              <li>3 validated signals per day</li>
+              <li>All monthly features</li>
+              <li>Advanced market context</li>
+              <li>NFT radar and presale intelligence</li>
+              <li>Token unlock monitoring</li>
+              <li>3-day free trial</li>
+            </ul>
+            <button class="primary-btn tier-btn subscribe-btn" type="button" data-plan="yearly">
+              Start Yearly Trial
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section id="outcomes" class="outcomes-section">
+        <div class="section-head">
+          <span class="section-kicker">Verified Outcomes</span>
+          <h2>Recent closed signals</h2>
+          <p>
+            A compact record of completed engine calls, shown with status,
+            timing, and realized direction.
+          </p>
+        </div>
+
+        <div id="success-container" class="outcomes-grid">
+          <article class="outcome-card glass-card">
+            <div class="outcome-top">
+              <h3>BTC/USDT</h3>
+              <span class="outcome-badge positive">Closed In Profit</span>
+            </div>
+            <p>Entry 63,280 · Target 65,140 · Stop 62,480</p>
+            <small>Consensus aligned across trend, momentum, and risk layers.</small>
+          </article>
+        </div>
+      </section>
+
+      <section id="product-preview" class="preview-section">
+        <div class="section-head">
+          <span class="section-kicker">Terminal Preview</span>
+          <h2>See the interface behind the signals</h2>
+          <p>
+            The Proculus panel is designed as a focused intelligence terminal,
+            centered on active signals and decision context.
+          </p>
+        </div>
+
+        <div class="preview-terminal glass-card">
+          <div class="preview-header">
+            <div class="preview-brand">
+              <span class="preview-title">PROCULUS TERMINAL</span>
+              <small>Decision workspace</small>
+            </div>
+            <div class="preview-pills">
+              <span class="preview-pill">Live</span>
+              <span class="preview-pill">Operator Tier</span>
+            </div>
+          </div>
+
+          <div class="preview-layout">
+            <aside class="preview-sidebar">
+              <div class="preview-panel">
+                <span class="mini-label">Engine Status</span>
+                <strong>Consensus Locked</strong>
+                <small>5 agents in sync</small>
+              </div>
+              <div class="preview-panel">
+                <span class="mini-label">Market Regime</span>
+                <strong>Risk-On Rotation</strong>
+                <small>BTC stable, alts leading</small>
+              </div>
+              <div class="preview-panel">
+                <span class="mini-label">Signals Today</span>
+                <strong>2 / 2 Used</strong>
+                <small>Next reset in 06:14</small>
+              </div>
+            </aside>
+
+            <div class="preview-main">
+              <div class="preview-featured">
+                <div class="preview-featured-top">
+                  <div>
+                    <span class="mini-label">Featured Signal</span>
+                    <h3>SOL/USDT Long</h3>
+                  </div>
+                  <span class="direction-pill long">86% Confidence</span>
+                </div>
+
+                <div class="preview-metrics">
+                  <div><span>Entry</span><strong>148.20</strong></div>
+                  <div><span>Target</span><strong>157.90</strong></div>
+                  <div><span>Stop</span><strong>143.60</strong></div>
+                  <div><span>Status</span><strong>Monitoring</strong></div>
+                </div>
+
+                <div class="preview-agents">
+                  <span>Trend +</span>
+                  <span>Momentum +</span>
+                  <span>Sentiment +</span>
+                  <span>On-Chain =</span>
+                  <span>Risk Approved</span>
+                </div>
+              </div>
+
+              <div class="preview-feed">
+                <div class="preview-feed-item">
+                  <span>BTC/USDT</span>
+                  <strong>Closed +2.9%</strong>
+                </div>
+                <div class="preview-feed-item">
+                  <span>ETH/USDT</span>
+                  <strong>Monitoring</strong>
+                </div>
+                <div class="preview-feed-item">
+                  <span>LINK/USDT</span>
+                  <strong>Signal Forming</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="minimal-section faq-section">
+        <div class="section-head faq-head">
+          <span class="section-kicker">FAQ</span>
+          <h2>Questions, answered clearly</h2>
+          <p>
+            Everything important about access, delivery, upgrades, and account flow,
+            organized in one compact section.
+          </p>
+        </div>
+
+        <div class="faq-accordion glass-card" id="faq-accordion">
+          <div class="faq-item is-open">
+            <button class="faq-trigger" type="button" aria-expanded="true">
+              <span>How access works</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel" style="max-height:none;">
+              <div class="faq-panel-inner">
+                <p>
+                  Choose the plan that fits your workflow, then continue to checkout.
+                  Once your access is activated, the dashboard unlocks the features
+                  included in that tier.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>How are signals delivered?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  Signals are published inside the Proculus dashboard, where each
+                  setup is shown with its entry, target, stop, and supporting context.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Which exchange APIs are supported?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  Proculus is built to work with major exchange API connections,
+                  including Binance, Coinbase, OKX, Bybit, KuCoin, Gate.io, MEXC,
+                  HTX, and similar platforms already listed in the dashboard.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Can I cancel my membership anytime?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  Yes. Membership is designed to stay flexible, so you can stop
+                  renewing whenever you choose without being locked into a long-term
+                  commitment.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Is there a referral program?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  A structured referral program is planned, but it is not active in
+                  the current release. When it launches, it will be announced inside
+                  the product and community channels.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Are signals random or based on selected coins?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  Signals are not random. They are generated from the engine's market
+                  coverage and validation process, based on the assets and setups that
+                  meet Proculus quality thresholds.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>How can I receive notifications?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  Notification preferences are handled inside the dashboard, where you
+                  can choose the delivery methods available to your access tier.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Can I upgrade from one plan to another?</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p>
+                  Yes. You can move from a lower tier to a higher tier whenever you
+                  need broader access, and the checkout flow will carry the newly
+                  selected plan forward.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item faq-item-status">
+            <button class="faq-trigger" type="button" aria-expanded="false">
+              <span>Wallet state</span>
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-panel">
+              <div class="faq-panel-inner">
+                <p id="wallet-status-copy">
+                  No wallet connected. Select a tier to continue into the terminal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 Proculus</span>
+      <div class="footer-links">
+        <a href="/whitepaper.html" target="_blank" rel="noreferrer">Whitepaper</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://x.com/ProculusAI" target="_blank" rel="noreferrer">X</a>
+        <a href="mailto:proculus.signals@gmail.com">Contact Support</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-card glass-card auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="closeModal" class="modal-close" type="button" aria-label="Close modal">×</button>
+      <span class="section-kicker">Account Access</span>
+      <h3 id="modal-title">Choose how to continue</h3>
+      <p id="modal-text">Continue with wallet or sign up with email for free dashboard access.</p>
+
+      <div class="auth-modal-stack">
+        <button id="modal-wallet-btn" class="primary-btn auth-modal-wallet-btn" type="button">Continue with Wallet</button>
+
+        <div class="auth-modal-divider"><span>or</span></div>
+
+        <form id="modal-email-auth-form" class="email-auth-form auth-modal-form">
+          <input id="modal-email-auth-email" type="email" placeholder="Email address" autocomplete="email" required />
+          <input id="modal-email-auth-password" type="password" placeholder="Password" autocomplete="current-password" required />
+          <div class="email-auth-actions">
+            <button id="modal-email-login-btn" class="secondary-btn" type="submit">Log In</button>
+            <button id="modal-email-signup-btn" class="primary-btn" type="button">Sign Up Free</button>
+          </div>
+          <p id="modal-email-auth-message" class="email-auth-message"></p>
+        </form>
+      </div>
+
+      <div class="modal-actions">
+        <button id="cancel-modal" class="secondary-btn" type="button">Cancel</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // Modal
-    const modal = document.getElementById("modal");
-    const confirmBtn = document.getElementById("confirm-btn");
-    document.querySelectorAll(".subscribe-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const plan = btn.dataset.plan;
-        document.getElementById("modal-text").innerText = `Do you want to activate the "${plan}" plan?`;
-        modal.style.display = "block";
-        confirmBtn.dataset.plan = plan;
-      });
-    });
-    confirmBtn.onclick = () => {
-      if (!localStorage.getItem("walletAddress")) {
-        alert("Please connect your wallet before proceeding.");
-        return;
-      }
-      window.location.href = "panel.html";
+    window.PROCULUS_CONFIG = {
+      walletConnectProjectId: "4d924bfc1de529d840a6f7188edb2d9c",
+      apiBase: "/api/public"
     };
-    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
-    window.onclick = e => e.target == modal ? modal.style.display = "none" : null;
   </script>
-
-  <script>
-    // Fetch prices
-    async function fetchPrices() {
-      const ids = ['bitcoin','ethereum','solana','binancecoin','ripple','avalanche-2','chainlink',
-        'polkadot','monero','dogecoin','tron','cardano','hyperliquid','sui','bittensor','ethena',
-        'ondo','pepe','kaspa','arbitrum','render','celestia','hacash','hacash-diamond'];
-      const map = { bitcoin:'btc-price', ethereum:'eth-price', solana:'sol-price', binancecoin:'bnb-price',
-        ripple:'xrp-price','avalanche-2':'avax-price',chainlink:'link-price',polkadot:'dot-price',
-        monero:'xmr-price',dogecoin:'doge-price',tron:'trx-price',cardano:'ada-price',hyperliquid:'hype-price',
-        sui:'sui-price',bittensor:'tao-price',ethena:'ena-price',ondo:'ondo-price',pepe:'pepe-price',
-        kaspa:'kaspa-price',arbitrum:'arbitrum-price',render:'render-price',celestia:'celestia-price',
-        hacash:'hacash-price','hacash-diamond':'hacash-diamond-price'};
-      try {
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd`);
-        const data = await res.json();
-        for (const [key, el] of Object.entries(map)) {
-          document.getElementById(el).innerText = `${key.toUpperCase()}: $${data[key]?.usd ?? 'Error'}`;
-        }
-        const globalRes = await fetch("https://api.coingecko.com/api/v3/global");
-        const global = await globalRes.json();
-        document.getElementById("btc-dominance").innerText = `BTC Dominance: ${global.data.market_cap_percentage.btc.toFixed(2)}%`;
-        document.getElementById("total-market-cap").innerText = `Total Market Cap: $${global.data.total_market_cap.usd.toLocaleString()}`;
-      } catch(err){ console.error("Price fetch error:", err); }
-    }
-    fetchPrices(); setInterval(fetchPrices, 60000);
-  </script>
-
-  <!-- ✅ Başarı Sinyalleri Paneli -->
-<div class="success-wall">
-  <h3>🎯 Successful Signals</h3>
-  <div id="success-container"></div>
-</div>
-
-<script>
-  // Load success signals from backend
-  async function loadSuccessWall() {
-    try {
-      const res = await fetch("http://138.199.155.77:3021/api/success-signals");
-      const signals = await res.json();
-      const container = document.getElementById("success-container");
-      container.innerHTML = "";
-      signals.slice(0,3).forEach(signal => {
-        const card = document.createElement("div");
-        card.className = `success-card ${signal.type.toLowerCase()}`;
-        card.innerHTML = `
-          <h4>${signal.pair} – ${signal.type}</h4>
-          <p><strong>Entry:</strong> ${signal.entry} | <strong>Target:</strong> ${signal.target} | <strong>Stop:</strong> ${signal.stop}</p>
-          <p>${signal.comment}</p>
-        `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error("Failed to load success wall:", err);
-    }
-  }
-  loadSuccessWall();
-</script>
+  <script type="module" src="walletconnect.js"></script>
   <script type="module" src="intro.js"></script>
 
-  <!-- ✅ Success Modal -->
-<div id="success-modal" class="modal">
-  <div class="modal-content">
-    <span id="close-modal" class="close">&times;</span>
-    <h3>All Successful Signals</h3>
-    <div id="all-success-container"></div>
-  </div>
-</div>
-  
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.error('Service worker registration failed:', error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>

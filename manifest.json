@@ -1,0 +1,20 @@
+{
+  "name": "Proculus",
+  "short_name": "Proculus",
+  "description": "Proculus AI crypto decision engine and terminal.",
+  "id": "/intro.html",
+  "start_url": "/intro.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#030507",
+  "theme_color": "#030507",
+  "icons": [
+    {
+      "src": "/proculus-logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

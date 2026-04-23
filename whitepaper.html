@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proculus Whitepaper</title>
+  <meta name="theme-color" content="#030507" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Proculus" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/proculus-logo.png" type="image/png" sizes="1024x1024" />
+  <link rel="apple-touch-icon" href="/proculus-logo.png" />
+  <meta name="description" content="Proculus whitepaper covering product thesis, system direction, access model, roadmap, and risk framework." />
+  <style>
+    :root {
+      --bg: #030507;
+      --bg-alt: #090b0f;
+      --panel: rgba(11, 13, 17, 0.88);
+      --panel-soft: rgba(255, 255, 255, 0.03);
+      --line: rgba(124, 249, 210, 0.14);
+      --line-strong: rgba(124, 249, 210, 0.28);
+      --accent: #7cf9d2;
+      --accent-strong: #45d9b0;
+      --text: #edf7f4;
+      --muted: #8aa09a;
+      --shadow: 0 28px 60px rgba(0, 0, 0, 0.32);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(124, 249, 210, 0.05), transparent 24%),
+        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.03), transparent 18%),
+        linear-gradient(180deg, #0a0b0d, var(--bg));
+    }
+    a { color: inherit; text-decoration: none; }
+    .page-shell { width: min(calc(100% - 28px), 1180px); margin: 0 auto; padding: 22px 0 40px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px; }
+    .brand { display:inline-flex; align-items:center; gap:14px; }
+    .brand img { width:58px; height:58px; object-fit:contain; filter:drop-shadow(0 8px 18px rgba(124,249,210,.14)); }
+    .brand-title { display:block; font-size:1rem; font-weight:800; letter-spacing:.22em; }
+    .brand-subtitle { display:block; margin-top:4px; font-size:.84rem; color:var(--muted); letter-spacing:.08em; }
+    .topbar-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .ghost-btn,.primary-btn { min-height:42px; padding:11px 16px; border-radius:999px; border:1px solid var(--line); transition:transform .22s ease,border-color .22s ease,background .22s ease; }
+    .ghost-btn { background:rgba(255,255,255,.03); color:var(--text); }
+    .primary-btn { background:linear-gradient(135deg,var(--accent),var(--accent-strong)); color:#04120f; font-weight:700; box-shadow:0 10px 28px rgba(69,217,176,.18); }
+    .ghost-btn:hover,.primary-btn:hover { transform:translateY(-1px); border-color:var(--line-strong); }
+    .hero-card,.paper-nav,.paper-section { border:1px solid var(--line); background:var(--panel); border-radius:24px; box-shadow:var(--shadow); backdrop-filter:blur(20px); }
+    .hero-card { padding:30px; display:grid; gap:18px; margin-bottom:22px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; width:fit-content; padding:7px 12px; border:1px solid var(--line); border-radius:999px; color:var(--accent); background:rgba(255,255,255,.03); font-size:.78rem; letter-spacing:.05em; }
+    h1 { margin:0; font-size:clamp(2.5rem,5vw,4.4rem); line-height:.96; letter-spacing:-.05em; max-width:12ch; }
+    .hero-card p { margin:0; max-width:72ch; color:var(--muted); line-height:1.82; font-size:1rem; }
+    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .hero-meta { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .hero-meta-item { padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:var(--panel-soft); }
+    .hero-meta-item span { display:block; color:var(--muted); font-size:.76rem; text-transform:uppercase; letter-spacing:.14em; }
+    .hero-meta-item strong { display:block; margin-top:8px; font-size:1rem; }
+    .paper-layout { display:grid; grid-template-columns:270px 1fr; gap:22px; align-items:start; }
+    .paper-nav { position:sticky; top:22px; padding:20px; display:grid; gap:12px; }
+    .paper-nav h2 { margin:0; font-size:.86rem; color:var(--muted); text-transform:uppercase; letter-spacing:.14em; }
+    .paper-nav a { color:var(--text); font-size:.95rem; line-height:1.5; transition:color .2s ease; }
+    .paper-nav a:hover { color:var(--accent); }
+    .paper-content { display:grid; gap:18px; }
+    .paper-section { padding:24px; display:grid; gap:14px; }
+    .paper-section h2 { margin:0; font-size:1.58rem; letter-spacing:-.03em; }
+    .paper-section p,.paper-section li { color:var(--muted); line-height:1.82; margin:0; }
+    .paper-section ul { margin:0; padding-left:18px; display:grid; gap:10px; }
+    .footer { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:28px 0 8px; color:var(--muted); font-size:.92rem; }
+    @media (max-width:920px) { .paper-layout { grid-template-columns:1fr; } .paper-nav { position:static; } .hero-meta { grid-template-columns:1fr; } }
+    @media (max-width:680px) { .page-shell { width:min(calc(100% - 20px),1180px); padding-top:16px; } .topbar,.hero-actions,.footer { flex-direction:column; align-items:flex-start; } .hero-card,.paper-nav,.paper-section { padding:18px; border-radius:18px; } h1 { max-width:none; font-size:2.35rem; } }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/intro.html" aria-label="Proculus home">
+        <img src="/proculus-logo.png" alt="Proculus Logo" />
+        <div>
+          <span class="brand-title">PROCULUS</span>
+          <span class="brand-subtitle">Whitepaper</span>
+        </div>
+      </a>
+      <div class="topbar-actions">
+        <a class="ghost-btn" href="/intro.html">Back to Site</a>
+        <a class="primary-btn" href="/proculus-whitepaper.pdf" download>Download PDF</a>
+      </div>
+    </header>
+
+    <section class="hero-card">
+      <span class="eyebrow">Product Document</span>
+      <h1>Proculus: a disciplined intelligence layer for market decisions</h1>
+      <p>This document presents the product thesis behind Proculus, the operating problems it addresses, and the architectural direction of the platform as it evolves into a more disciplined market decision environment.</p>
+      <div class="hero-actions">
+        <a class="ghost-btn" href="#executive-summary">Start Reading</a>
+        <a class="primary-btn" href="/proculus-whitepaper.pdf" download>Download PDF</a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><span>Document Type</span><strong>Product Whitepaper</strong></div>
+        <div class="hero-meta-item"><span>Focus</span><strong>System Direction</strong></div>
+        <div class="hero-meta-item"><span>Status</span><strong>Active Product Overview</strong></div>
+      </div>
+    </section>
+
+    <div class="paper-layout">
+      <aside class="paper-nav">
+        <h2>Contents</h2>
+        <a href="#executive-summary">Executive Summary</a>
+        <a href="#the-problem">The Problem</a>
+        <a href="#the-solution">The Proculus Solution</a>
+        <a href="#multi-agent-architecture">Multi-Agent Architecture</a>
+        <a href="#signal-logic">Signal Logic</a>
+        <a href="#data-sources">Data Sources</a>
+        <a href="#access-tiers">Access Tiers</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#risk-disclaimer">Risk Disclaimer</a>
+      </aside>
+      <main class="paper-content">
+        <section id="executive-summary" class="paper-section">
+          <h2>Executive Summary</h2>
+          <p>Proculus is being built as a disciplined intelligence layer for market participants who want clearer decisions, not more noise. The product combines signal structure, context, access control, and delivery tooling inside one operating environment.</p>
+          <p>The core objective is practical: reduce fragmented workflows, improve signal clarity, and present trade intelligence in a form that is easier to evaluate, act on, and manage responsibly.</p>
+        </section>
+
+        <section id="the-problem" class="paper-section">
+          <h2>The Problem</h2>
+          <p>Modern market activity is heavily fragmented. Structure, sentiment, execution context, and risk information are often spread across separate dashboards, communities, and feeds. That fragmentation slows reaction time and weakens decision quality.</p>
+          <p>For many users, the actual challenge is not access to more information. It is deciding what matters, what is actionable, and what should be ignored.</p>
+          <ul>
+            <li>Noise often arrives faster than usable signal.</li>
+            <li>Execution decisions are made without a consistent process.</li>
+            <li>Important context is lost between analysis, delivery, and action.</li>
+          </ul>
+        </section>
+
+        <section id="the-solution" class="paper-section">
+          <h2>The Proculus Solution</h2>
+          <p>Proculus is designed to compress analysis into a tighter operating layer. Rather than maximizing alert volume, the platform aims to present fewer, more structured opportunities with clearer framing around entry, target, invalidation, and state.</p>
+          <p>The product direction is centered on operational clarity: a serious interface, tiered access, direct payment rails, and review tooling that support a repeatable user workflow.</p>
+        </section>
+
+        <section id="multi-agent-architecture" class="paper-section">
+          <h2>Multi-Agent Architecture</h2>
+          <p>The platform direction assumes a multi-agent model in which separate analytical responsibilities are handled by distinct evaluation layers. This structure makes reasoning cleaner, improves auditability, and reduces dependence on a single opaque output.</p>
+          <ul>
+            <li>Trend layer: evaluates directional structure and higher-timeframe conditions.</li>
+            <li>Momentum layer: checks acceleration, continuation quality, and timing alignment.</li>
+            <li>Sentiment layer: monitors broader risk appetite and narrative pressure.</li>
+            <li>Risk layer: filters weak setups and frames acceptable invalidation.</li>
+          </ul>
+        </section>
+
+        <section id="signal-logic" class="paper-section">
+          <h2>Signal Logic</h2>
+          <p>Signals in Proculus are intended to be selective. A setup should be surfaced only when the evidence is coherent enough to justify user attention.</p>
+          <p>This means the system is not optimized for constant output. It is optimized for structured decision support.</p>
+          <ul>
+            <li>Signals are context-based, not random.</li>
+            <li>Each surfaced setup should include a usable trade frame, not just a direction.</li>
+            <li>The product favors clarity and selectivity over frequency.</li>
+          </ul>
+        </section>
+
+        <section id="data-sources" class="paper-section">
+          <h2>Data Sources</h2>
+          <p>Proculus is designed to combine multiple categories of information rather than rely on a single feed. The exact mix can evolve, but the operating premise remains consistent: combine complementary data to improve interpretation quality.</p>
+          <ul>
+            <li>Market price and structure data</li>
+            <li>Exchange and execution context</li>
+            <li>Sentiment and social signal inputs</li>
+            <li>Relevant on-chain indicators where they improve decision quality</li>
+            <li>User delivery and notification preferences inside the product</li>
+          </ul>
+        </section>
+
+        <section id="access-tiers" class="paper-section">
+          <h2>Access Tiers</h2>
+          <p>Access is structured to match different levels of participation. The objective is to align the surface area of the product with the depth of intelligence the user actually needs.</p>
+          <ul>
+            <li>Daily: a focused entry tier for limited core signal access.</li>
+            <li>Monthly: a broader operating tier for users who need recurring dashboard access and more depth.</li>
+            <li>Yearly: the widest access tier for users who want the full product surface and longer-term use.</li>
+          </ul>
+        </section>
+
+        <section id="roadmap" class="paper-section">
+          <h2>Roadmap</h2>
+          <p>The Proculus roadmap is centered on reliability, delivery quality, and operational maturity rather than cosmetic feature expansion. Current direction includes continued dashboard refinement, payment review tooling, stronger notification controls, and broader system clarity for both users and operators.</p>
+          <p>Release timing and sequencing can change as infrastructure, feedback, and product priorities evolve.</p>
+        </section>
+
+        <section id="risk-disclaimer" class="paper-section">
+          <h2>Risk Disclaimer</h2>
+          <p>Proculus is an information and decision-support product. It does not guarantee outcomes and should not be treated as a substitute for independent judgment, risk management, or legal and regulatory compliance.</p>
+          <p>Market participation involves real financial risk, including the possibility of partial or total loss.</p>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <span>© 2026 Proculus</span>
+      <div class="topbar-actions">
+        <a href="/intro.html">Home</a>
+        <a href="#executive-summary">Top</a>
+        <a href="https://x.com/ProculusAI" target="_blank" rel="noreferrer">X</a>
+        <a href="mailto:proculus.signals@gmail.com">Contact Support</a>
+      </div>
+    </footer>
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.error('Service worker registration failed:', error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
