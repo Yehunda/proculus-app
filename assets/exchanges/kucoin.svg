@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="KuCoin">
+  <rect width="64" height="64" rx="16" fill="#071411"/>
+  <g fill="#24d6a3">
+    <circle cx="20" cy="20" r="6"/>
+    <circle cx="20" cy="44" r="6"/>
+    <circle cx="44" cy="20" r="6"/>
+    <path d="M28 32l10-10h8L34 34l12 12h-8L28 36v10h-8V18h8z"/>
+  </g>
+</svg>

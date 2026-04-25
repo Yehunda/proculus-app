@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proculus Reset</title>
+</head>
+<body>
+  <script>
+    (async () => {
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+
+        if ("serviceWorker" in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map((registration) => registration.unregister()));
+        }
+
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map((key) => caches.delete(key)));
+        }
+      } catch (err) {
+        console.error("Reset failed:", err);
+      } finally {
+        window.location.replace("/intro.html");
+      }
+    })();
+  </script>
+</body>
+</html>

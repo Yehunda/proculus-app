@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HTX">
+  <rect width="64" height="64" rx="16" fill="#0a0c14"/>
+  <defs>
+    <linearGradient id="htxg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2e68ff"/>
+      <stop offset="100%" stop-color="#6b45ff"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 12c7 10 10 18 10 25 0 8-4 15-10 15s-10-7-10-15c0-7 3-15 10-25z" fill="url(#htxg)"/>
+  <path d="M32 22c3 5 4 9 4 13 0 5-2 9-4 9s-4-4-4-9c0-4 1-8 4-13z" fill="#8db2ff"/>
+</svg>

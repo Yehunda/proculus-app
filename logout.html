@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proculus Logout</title>
+</head>
+<body>
+  <script>
+  [
+    "walletAddress",
+    "selectedPlan",
+      "ownerAccess",
+      "proculusEmailUser",
+      "proculusAccessLevel",
+      "proculusAuthType",
+      "proculusPaymentStatus",
+    "walletProvider"
+  ].forEach((key) => localStorage.removeItem(key));
+
+  sessionStorage.setItem("proculusSkipAutoRedirect", "1");
+  sessionStorage.setItem("proculusSkipAutoRedirect2", "1");
+  window.location.replace("/intro.html");
+  </script>
+</body>
+</html>
