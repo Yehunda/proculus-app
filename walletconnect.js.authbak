@@ -60,7 +60,7 @@ if (projectId) {
   const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 
   const wagmiConfig = createConfig({
-    autoConnect: false,
+    autoConnect: true,
     connectors: w3mConnectors({ projectId, chains }),
     publicClient
   });
@@ -128,7 +128,15 @@ window.proculusWallet = {
 
 window.addEventListener('DOMContentLoaded', async () => {
   const walletButton = document.getElementById('wallet-connect');
-  updateWalletUI(null);
+  const saved = localStorage.getItem('walletAddress');
+
+  if (saved) {
+    updateWalletUI(saved);
+  } else {
+    updateWalletUI(null);
+  }
+
+  await saveWalletAddress();
 
   if (walletButton) {
     walletButton.addEventListener('click', async () => {
